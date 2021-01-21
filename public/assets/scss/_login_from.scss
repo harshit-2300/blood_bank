@@ -1,0 +1,339 @@
+
+/*-------------   Color Variable  --------------*/
+
+
+
+//Theme color
+	$theme-color: #f15f22;
+	$theme-color2: #1f2b7b;
+	$theme-color3: #f27420;
+	$theme-color4: #ff3500;
+
+// btn and Section color
+	$btn_bg: #ff5f13;
+
+// font-color
+	$heading-color:#2c234d;
+	$heading_color2: #242b5e;
+
+// Body Font
+	$body-text-color: #717b9b;
+	$hr-border-color:#eceff8;
+
+
+// Section Bg
+	$section_bg1: #454545;
+
+//Colors
+	$white: #ffffff;
+	$black: #16161a;
+	$gray:#f7f7fd;
+
+// Radio btn
+$radio-color1: #f4f4f4;
+$radio-color2: #f15f22;
+
+
+.white-bg{
+	background: #ffffff;
+}
+.gray-bg{
+	background: #f5f5f5;
+}
+
+	$gray-color: #bebebe;
+	$gray-color-2: #bdbdbd;
+	$gray-color3:#5c5c5c;
+	$white_color:#fff;
+
+
+// font color
+	$font_color1: #10285d;
+
+	$border_color: #fdcb9e;
+	$footer_bg: #303030;
+	$sidebar_bg: #fbf9ff;
+
+
+
+
+// bg
+	$brand-bg: #f1f4fa;
+	$testimonial-bg:#f9fafc;
+
+
+// Soft color
+	$black-soft:#7e7e7e;
+
+// Section Bg color
+	$blue-bg1:#00163e;
+
+
+
+
+/*-------------Color include--------------*/
+
+
+/*-- Background color---*/
+
+.gray-bg {
+	background: $gray;
+}
+.white-bg {
+	background:$white;
+}
+.black-bg {
+	background: $black;
+}
+.theme-bg {
+	background:$theme-color;
+}
+.brand-bg{
+	background: $brand-bg;
+}
+.testimonial-bg{
+	background: $testimonial-bg;
+}
+
+
+/*--- color------*/
+.white-color {
+	color: $white;
+}
+.black-color {
+	color: $black;
+}
+.theme-color {
+	color: $theme-color;
+}
+// Font Family
+    $font_1 :'Teko', sans-serif;   //Heading Font
+    $font_2 :'Barlow', sans-serif;       //Body Font , Menu
+
+/*------------------- Responsive --------------------------*/
+
+    $laptop: 'only screen and (min-width: 1200px) and (max-width: 1600px)';
+    $lg :'only screen and (min-width: 992px) and (max-width: 1199px)';
+    $md:'only screen and (min-width: 768px) and (max-width: 991px)';
+    $sm: 'only screen and (min-width: 576px) and (max-width: 767px)';
+    $xs:'(max-width: 575px)';
+// Extra Responsive
+
+    $medium_device : 'only screen and (min-width: 992px) and (max-width: 1200px)';
+    $tab_device:'only screen and (min-width: 768px) and (max-width: 991px)';
+    $large_mobile: 'only screen and (min-width: 576px) and (max-width: 767px)';
+    $tab: '(max-width: 991px)';
+    $tab2: '(max-width: 1199px)';
+    $small_mobile:'(max-width: 576px)';
+    $xs_mobile:'(max-width: 420px)';
+    $sm_mobile:'only screen and (min-width: 421px) and (max-width: 575px)';
+    $big_screen:'only screen and (min-width: 1200px) and (max-width: 1440px)';
+    $big_screen2:'only screen and (min-width: 1200px) and (max-width: 1300px)';
+    $big_screen3:'only screen and (min-width: 1441px) and (max-width: 1500px)';
+    $big_screen4:'only screen and (min-width: 1501px) and (max-width: 1750px)';
+    $extra_big_screen: 'only screen and (min-width: 1200px) and (max-width: 3640px)';
+
+
+// More Extra Responsive
+    $large_device_2:'(min-width: 1501px) and (max-width: 1700px)';
+    $mid_device:'(min-width: 992px) and (max-width: 1200px)';
+    $tablet_device:'(min-width: 768px) and (max-width: 991px)';
+    $mobile_device:'(max-width: 767px)';
+    $large_mobile:'only screen and (min-width: 480px) and (max-width: 767px)';
+
+// Custom
+    $large1:'only screen and (min-width: 1200px) and (max-width: 1360px)';
+    $large2:'(min-width: 1200px) and (max-width: 1500px)';
+    $large3:'only screen and (min-width: 1601px) and (max-width: 1800px)';
+
+
+
+.login-form-area {
+    .login-form-wrapper{
+        background: #f5f5f5;
+        padding: 80px;
+        border-radius: 8px;
+        @media #{$xs}{
+            padding: 20px;;
+        }
+        @media #{$sm}{
+            padding: 30px;;
+        }
+     // Form Style Slider
+        form.login-form{
+            input{
+                height: 60px;
+                width: 100%;
+								color: black;
+                font-size: 18px;
+                font-weight: 400;
+                padding: 9px 33px 9px 32px;
+                border-radius: 5px;
+                border: 1px solid #efebeb;
+                background: #fff;
+                margin-bottom: 20px;
+                @media #{$xs}{
+                    margin-bottom: 20px;
+										padding: 9px 5px 9px 5px;
+                }
+                @media #{$sm}{
+                    padding: 9px 33px 9px 25px;
+                    margin-bottom: 20px;
+                }
+                &::placeholder {
+                    color: #616875;
+										//color: #777777;
+                    @media #{$xs}{
+                        font-size: 14px;
+                    }
+                }
+            }
+            .label-form{
+                height: 60px;
+                width: 100%;
+                color: #00013b;
+                text-align: center;
+                font-size: 24px;
+                font-weight: 400;
+                padding: 9px 35px 9px 30px;
+                margin-bottom: 20px;
+                @media #{$xs}{
+                    margin-bottom: 20px;
+										padding: 9px 5px 9px 5px;
+                }
+                @media #{$sm}{
+                    padding: 9px 33px 9px 25px;
+                    margin-bottom: 20px;
+                }
+                & > label{
+                  color : #000345;
+                  margin-top: .5rem;
+                  @media #{$xs}{
+                        font-size: 18px;
+												padding: 9px 20px 9px 5px;
+                    }
+                }
+								& > p{
+									margin-top: -15px;
+									@media #{$xs}{
+                        font-size: 14px;
+												margin-top: -25px;
+												margin-right: 20px;
+                    }
+								}
+            }
+						//select-form
+						.select-form{
+								margin-top: 20px;
+								margin-right: 18px;
+								@media #{$xs}{
+										margin-bottom: 20px;
+										padding: 9px 5px 9px 5px;
+								}
+						}
+            // Radio Start
+            .radio-wrapper{
+               & > label {
+                    position: relative;
+                    bottom: -8px;
+                    color: #777777;
+                    font-weight: 700;
+										display: inline;
+										float: left;
+                }
+                display: flex;
+                @media #{$md}{
+                   display: inline-block;
+                }
+                @media #{$lg}{
+                   display: inline-block;
+                }
+                @media #{$sm}{
+                   display: inline-block;
+                }
+                @media #{$xs}{
+                   display: inline-block;
+                }
+                .select-radio{
+										display: inline;
+										float: left;
+										margin-top:20px;
+                    .radio {
+                        margin: 0.5rem;
+                        display: inline-block;
+                        label{
+                            cursor: pointer;
+                            margin-left: 12px;
+                            font-size: 14px;
+                            color: black;
+                            @media #{$lg}{
+                                font-size: 15px;
+                            }
+
+                        }
+                        input[type="radio"] {
+                            position: absolute;
+                            opacity: 0;
+														width: 100px;
+                            cursor: pointer;
+                            + .radio-label {
+                            &:before {
+                                content: '';
+                                background: $radio-color1;
+                                border-radius: 100%;
+                                border: 1px solid darken($radio-color1, 25%);
+                                display: inline-block;
+                                width: 1.4em;
+                                height: 1.4em;
+                                position: relative;
+                                top: 3px;
+                                margin-right: 17px;;
+                                vertical-align: top;
+                                cursor: pointer;
+                                text-align: center;
+                                transition: all 250ms ease;
+                            }
+                            }
+                            &:checked {
+                            + .radio-label {
+                                &:before {
+                                background-color:  $radio-color2;
+                                box-shadow: inset 0 0 0 4px $radio-color1;
+                                }
+                            }
+                            }
+                            &:focus {
+                            + .radio-label {
+                                &:before {
+                                outline: none;
+                                border-color:  $radio-color2;
+                                }
+                            }
+                            }
+                            &:disabled {
+                            + .radio-label {
+                                &:before {
+                                box-shadow: inset 0 0 0 4px $radio-color1;
+                                border-color: darken($radio-color1, 25%);
+                                background: darken($radio-color1, 25%);
+                                }
+                            }
+                            }
+                            + .radio-label {
+                            &:empty {
+                                &:before {
+                                margin-right: 0;
+                                }
+                            }
+                            }
+                        }
+                        }
+                }
+                // End Radio
+            }
+        }
+				p a{
+						color: blue;
+				}
+    }
+}

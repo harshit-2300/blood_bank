@@ -1,0 +1,39 @@
+/* ===================================== Donation Process CSS ================================== */
+.donation-care {
+  padding: 50px;
+  background-color: #FFF; }
+  @media screen and (max-width: 940px) {
+    .donation-care {
+      padding: 30px 10px;
+    }
+
+  }
+  .donation-care h4 {
+    padding: 10px;
+    margin-bottom: 0px;
+    font-size: 1rem;
+    font-weight: 600; }
+  .donation-care p {
+    padding: 10px;
+    padding-top: 0px;
+    font-size: .85rem; }
+  .donation-care i {
+    font-size: 13px;
+    margin-left: 10px; }
+  .donation-care .vd {
+    margin-bottom: 20px; }
+  .donation-care .bkjiu {
+    background-color: #F8F9FA;
+    padding: 5px; }
+  .donation-care .bkjiu .btn {
+    margin-bottom: 6px;
+    margin-left: 6px;
+    padding: 15px 20px;
+  }
+  .donation-care .bkjiu img {
+    max-width: 100%;
+  }
+
+@media screen and (max-width: 940px) {
+  .health-care {
+    padding: 50px 10px; } }
