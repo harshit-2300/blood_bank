@@ -1,0 +1,26 @@
+{
+  "name": "bloodbank",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mani9896/blood_bank.git"
+  },
+  "author": "mani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mani9896/blood_bank/issues"
+  },
+  "homepage": "https://github.com/mani9896/blood_bank#readme",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "express-session": "^1.17.1",
+    "mysql": "^2.18.1"
+  }
+}
