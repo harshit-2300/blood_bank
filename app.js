@@ -27,6 +27,42 @@ app.get("/", async (req, res) => {
   res.render("index");
 });
 
+app.get("/index.html", async (req, res) => {
+  res.render("index");
+});
+
+app.get("/about.html", async (req, res) => {
+  res.render("about");
+});
+
+app.get("/forms/profile.html", async (req, res) => {
+  res.render("forms/profile");
+});
+
+app.get("/blog.html", async (req, res) => {
+  res.render("blog");
+});
+
+app.get("/blog_details.html", async (req, res) => {
+  res.render("blog_details");
+});
+
+app.get("/donate_now.html", async (req, res) => {
+  res.render("donate_now");
+});
+
+app.get("/services.html", async (req, res) => {
+  res.render("services");
+});
+
+app.get("/contact.html", async (req, res) => {
+  res.render("contact");
+});
+
+app.get("/request_now.html", async (req, res) => {
+  res.render("request_now");
+});
+
 app.use("/user", require("./routes/user"));
 
 server.listen(3000 || PORT, function (req, res) {
