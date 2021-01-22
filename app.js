@@ -48,7 +48,7 @@ app.get("/blog_details.html", async (req, res) => {
 });
 
 app.get("/donate_now.html", async (req, res) => {
-  res.render("donate_now");
+  res.render("donate_now", { logged: req.session.admin });
 });
 
 app.get("/services.html", async (req, res) => {
@@ -60,10 +60,10 @@ app.get("/contact.html", async (req, res) => {
 });
 
 app.get("/request_now.html", async (req, res) => {
-  res.render("request_now");
+  res.render("request_now", { logged: req.session.admin });
 });
-
 app.use("/user", require("./routes/user"));
+app.use("/request", require("./routes/request"));
 
 server.listen(3000 || PORT, function (req, res) {
   console.log("Running on Server");

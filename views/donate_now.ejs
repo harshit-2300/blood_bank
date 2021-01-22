@@ -122,7 +122,8 @@
 
 
 
-						<!-- LOGGED OUT show this container if user is logged out  -->
+                        <!-- LOGGED OUT show this container if user is logged out  -->
+                        <%if(!logged){%>
 						<div class="display-logged-out">
 							<div class="row d-flex justify-content-center mt-50">
 								<h3>LogIn / SignUp to see your Donor Card.</h3>
@@ -134,17 +135,19 @@
 								</div>
 								<div class="col-xs-6 ml-20">
 					          <a class="btn-don-req" href="/user/signup"> Sign Up </a>
-					      </div>
+					            </div>
 							</div>
-						</div>
+                        </div>
+                        <%}else{%>
 						<!-- LOGGED OUT container End -->
 						<!-- LOGGED IN show this container if user id logged in -->
-						<div class="display-logged-in">
+						<div class="">
 							<div class="row d-flex justify-content-center mt-50">
 								<!-- Display Donor Card -->
 								<h3>Donor Card</h3>
 							</div>
-					  </div>
+                      </div>
+                      
 						<!-- LOGGED IN container End -->
 				</div>
 				<!-- About Blood Donation Something Motivating -->
@@ -152,8 +155,10 @@
 					<h2>Thanks for Blood Donation<h2>
 					<p>Thanks for taking time to donate blood, your blood will save life.</p>
 				</div>
-				<!-- About Blood Donation End -->
-		</section>
+                <!-- About Blood Donation End -->
+                <%}%>
+        </section>
+        
 	</main>
     <footer>
         <!--? Footer Start-->

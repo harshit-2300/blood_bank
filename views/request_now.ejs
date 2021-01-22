@@ -125,7 +125,8 @@
 																		<!-- Display this Message if user is LOGGED IN -->
                                     <p class="display-logged-in">Place your request and our staff will help you.</p>
 																		<!-- Display Message LOGGED IN END -->
-																		<!-- Display this Message if user is LOGGED OUT -->
+                                                                        <!-- Display this Message if user is LOGGED OUT -->
+                                                                        <%if(!logged){%>
 																		<p class="display-logged-out">Please LogIn or SignUp to Request Blood.</p>
 																		<!-- Display Message LOGGED OUT END -->
                                 </div>
@@ -144,34 +145,35 @@
 											</div>
 												<!-- Buttons END -->
 
-												<!-- Display FORM only if user is LOGGED IN -->
-                        <!-- form -->
-											<div class="display-logged-in">
-                        <form action="#" class="login-form" method="post">
+                                                <!-- Display FORM only if user is LOGGED IN -->
+                                                
+                        <!-- form --><%}else{%>
+					<div class="">
+                        <form action="/request/submit" class="login-form" method="post" enctype="multipart/form-data">
                             <div class="row ">
                                 <div class="col-lg-12">
                                     <div class="input-form">
-                                        <input type="text" placeholder="Full Name (required)" required>
+                                        <input type="text" name="name" placeholder="Full Name (required)" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row ">
                                 <div class="col-lg-12">
                                     <div class="input-form">
-                                        <input type="text" placeholder="Phone Number (required)" required>
+                                        <input type="number" name="phone" placeholder="Phone Number (required)" required>
                                     </div>
                                 </div>
                             </div>
-														<div class="row d-flex justify-content-start">
+							<div class="row d-flex justify-content-start">
                                 <div class="col-xs-6">
                                   <div class="label-form">
                                       <label for="blood-type">Blood Group</label>
-																			<p>(required)</p>
+														<p>(required)</p>
                                   </div>
                                 </div>
                                 <div class="col-xs-6">
                                     <div class="select-form">
-                                        <select name="blood-type" required>
+                                        <select name="blood_type" required>
                                             <option value="" selected>A+</option>
                                             <option value="">AB+</option>
                                             <option value="">B+</option>
@@ -211,14 +213,14 @@
                                   </div>
                                   <div class="col-xs-6 mr-20">
                                       <div class="input-form">
-                                          <input type="date" placeholder="Date of Birth">
+                                          <input type="date" name="dob" placeholder="Date of Birth">
                                       </div>
                                   </div>
                               </div>
                               <div class="row">
                                   <div class="col-12">
                                       <div class="input-form">
-                                          <input type="text" placeholder="Quantity (required)" required>
+                                          <input type="int" name="units" placeholder="Quantity Units(required)" required>
                                       </div>
                                   </div>
                               </div>
@@ -235,27 +237,28 @@
                                       </div>
                                   </div>
                               </div>
-															<div class="row">
+								<div class="row">
                                   <div class="col-12">
-																			<div class="form-group">
-																					<textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder=" Enter Message"></textarea>
-																			</div>
+													<div class="form-group">
+														<textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder=" Enter Message"></textarea>
+													</div>
                                   </div>
                               </div>
                               <div class="row">
                                   <!-- Button -->
-                                  <div class="container">
+                                <div class="container">
                                     <div class="row justify-content-center">
                                         <div class="col-lg-4 col-md-12 col-xs-12">
                                             <button type="submit" class="btn header-btn">Submit</button>
                                         </div>
                                     </div>
-                                  </div>
+                                </div>
                                 <!-- Button-End -->
                               </div>
                         </form>
 											</div>
-												<!-- Display FORM END -->
+                                                <!-- Display FORM END -->
+                                                <%}%>
                     </div>
                 </div>
             </div>
@@ -355,22 +358,7 @@
 
 
 <!-- JS here -->
-<script>
-		if(false){ //condition is true if user is logged in
-					//turn off all the div for logged-out
-					var ele = document.getElementsByClassName("display-logged-out");
-					for(var i = 0;i < ele.length;i++){
-						ele[i].style.display = "none";
-					}
-		}
-		else{
-				//turn off all the div for logged-in
-				var ele = document.getElementsByClassName("display-logged-in");
-				for(var i = 0;i < ele.length;i++){
-					ele[i].style.display = "none";
-				}
-		}
-</script>
+
 		<!-- All JS Custom Plugins Link Here here -->
         <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
 		<!-- Jquery, Popper, Bootstrap -->

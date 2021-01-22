@@ -72,7 +72,7 @@ router.post("/login", async (req, res) => {
       if (isMatch) {
         isLogged = true;
         req.session.name = result[0].name;
-        req.session.user = result[0].id;
+        req.session.user = result[0].PID;
         req.session.admin = true;
         res.send("logged in");
       } else {
