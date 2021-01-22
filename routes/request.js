@@ -11,8 +11,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 const router = express.Router();
 
-router.post("/s", async (req, res) => {
-  console.log("bhbh");
+router.post("/submit", async (req, res) => {
   var request = {
     blood_group: req.body.blood_type,
     quantity: req.body.units,
@@ -20,9 +19,10 @@ router.post("/s", async (req, res) => {
     accepted: 0,
   };
 
+  console.log(request);
   await db.query(
-    "INSERT INTO people SET ?",
-    users,
+    "INSERT INTO request SET ?",
+    request,
     function (error, results, fields) {
       if (error) {
         console.log(error);
