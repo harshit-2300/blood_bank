@@ -35,6 +35,7 @@ router.post("/signup", checkIfUserExists, async (req, res) => {
     password: req.body.password,
     verified: 0,
     gender: req.body.gender,
+    user_type: req.body.user_type,
   };
   console.log(users);
 
@@ -115,8 +116,13 @@ router.post("/login", async (req, res) => {
         req.session.name = result[0].name;
         req.session.user = result[0].PID;
         req.session.admin = true;
+        req.session.user_type=result[0].user_type;
+        console.log(req.session.user_type);
         wrong = false;
+        if(req.session.user_type=="normal")
         res.redirect("/");
+        else
+        res.redirect("/data-entry");
       } else {
         wrong = true;
         res.redirect("/user/login");
