@@ -98,7 +98,11 @@
                                     </div>
                                     <!-- Header-btn -->
                                     <div class="header-right-btn d-none d-lg-block ml-20">
+                                        <%if(!logged){%>
                                         <a href="/user/login" class="btn header-btn">Login</a>
+                                        <%}else{%>
+                                            <a href="/user/logout" class="btn header-btn">Logout</a>
+                                            <%}%>
                                     </div>
                                 </div>
                             </div>

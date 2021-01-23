@@ -149,7 +149,7 @@
                                                 
                         <!-- form --><%}else{%>
 					<div class="">
-                        <form action="/request/submit" class="login-form" method="post">
+                        <form action="/request/submit" class="login-form" method="post" enctype="multipart/form-data">
                             <div class="row ">
                                 <div class="col-lg-12">
                                     <div class="input-form">
@@ -233,7 +233,7 @@
                                   <!-- valid document -->
                                   <div class="col-xs-6">
                                       <div class="input-form">
-                                          <input type="file" name="document" accept="image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" placeholder="valid document" required>
+                                          <input type="file" name="image" accept="image/*" placeholder="valid document" required/>
                                       </div>
                                   </div>
                               </div>

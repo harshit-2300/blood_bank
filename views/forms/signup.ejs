@@ -121,6 +121,9 @@
                                 <!-- Section Tittle -->
                                 <div class="section-tittle mb-50">
                                     <h2>Sign Up</h2>
+                                    <%if(registered){%>
+                                        <h3>Account already with tis email</h3>
+                                        <%}%>
                                     <p>Sign Up to easily donate and receive blood in our nearest Blood Bank.</p>
 																		<p>Already have a account <a href="login.html">click here</a> to LogIn</p>
                                 </div>
@@ -138,7 +141,7 @@
                             <div class="row ">
                                 <div class="col-lg-12">
                                     <div class="input-form">
-                                        <input type="number" name="phone" placeholder="Phone Number (required)" required>
+                                        <input type="text" name="phone" placeholder="Phone Number (required)" required>
                                     </div>
                                 </div>
                             </div>

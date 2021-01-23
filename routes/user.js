@@ -13,6 +13,10 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 const router = express.Router();
 
+const accountSid = "AC142fc44869b899d213595efc3506423a";
+const authToken = "18fd4e04f4f942a98a17ed1bc2214307";
+const client = require("twilio")(accountSid, authToken);
+
 //For Encryption
 const bcrypt = require("bcryptjs");
 
@@ -21,7 +25,7 @@ const checkIfUserExists = require("./middleware/checkIfUserExists.js");
 // const checkIfRegister = require("./middleware/loginMiddleware");
 //Handle Registering Users
 //POST user/signup
-router.post("/signup", async (req, res) => {
+router.post("/signup", checkIfUserExists, async (req, res) => {
   var users = {
     full_name: req.body.name,
     blood_group: req.body.blood_type,
@@ -44,39 +48,78 @@ router.post("/signup", async (req, res) => {
       function (error, results, fields) {
         if (error) {
           console.log(error);
-          res.send("USER NOT REGISTERED");
+          res.redirect("/");
         } else {
-          res.send("USER REGISTERED");
-          // res.redirect("/user/logn");
+          var otp = Math.floor(100000 + Math.random() * 900000);
+          req.session.otp = otp;
+          req.session.email = users.email;
+          client.messages
+            .create({
+              body: otp,
+              from: "+17076796056",
+              to: "+91" + req.body.phone,
+            })
+            .then((message) => console.log(message.sid));
+          res.redirect("/user/otp");
         }
       }
     );
   }
 });
 
+router.get("/otp", async (req, res) => {
+  res.render("otp");
+});
+
+router.post("/otp", async (req, res) => {
+  if (req.body.otp == req.session.otp) {
+    res.redirect("/user/login");
+  } else {
+    await db.query(
+      "DELETE FROM people WHERE email =?",
+      email,
+      function (err, res, fields) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send("Wrong OTP");
+        }
+      }
+    );
+  }
+});
+var wrong = false;
 router.get("/login", function (req, res) {
-  res.render("forms/login");
+  res.render("forms/login", { wrong: wrong });
 });
 
 router.get("/signup", function (req, res) {
-  res.render("forms/signup");
+  res.render("forms/signup", { registered: req.session.reg });
 });
 
 //Handle POST user Login
+
 router.post("/login", async (req, res) => {
   await db.query(
     "SELECT * FROM people WHERE email = ?",
     req.body.email,
     async (error, result, fields) => {
+      if (result.length == 0) {
+        wrong = true;
+        res.redirect("/user/login");
+      }
       var isMatch = await bcrypt.compare(req.body.password, result[0].password);
+
       if (isMatch) {
         isLogged = true;
         req.session.name = result[0].name;
         req.session.user = result[0].PID;
         req.session.admin = true;
-        res.send("logged in");
+        wrong = false;
+        res.redirect("/");
       } else {
-        res.send("wrong password");
+        wrong = true;
+        res.redirect("/user/login");
       }
     }
   );
@@ -84,7 +127,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/logout", function (req, res) {
   req.session.admin = false;
-  res.redirect("/");
+  res.redirect("/user/login");
 });
 module.exports = router;
 

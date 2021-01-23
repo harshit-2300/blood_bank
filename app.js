@@ -24,27 +24,27 @@ app.use(
 
 //render home.ejs with passing a variable
 app.get("/", async (req, res) => {
-  res.render("index");
+  res.render("index", { logged: req.session.admin });
 });
 
 app.get("/index.html", async (req, res) => {
-  res.render("index");
+  res.render("index", { logged: req.session.admin });
 });
 
 app.get("/about.html", async (req, res) => {
-  res.render("about");
+  res.render("about", { logged: req.session.admin });
 });
 
 app.get("/forms/profile.html", async (req, res) => {
-  res.render("forms/profile");
+  res.render("forms/profile", { logged: req.session.admin });
 });
 
 app.get("/blog.html", async (req, res) => {
-  res.render("blog");
+  res.render("blog", { logged: req.session.admin });
 });
 
 app.get("/blog_details.html", async (req, res) => {
-  res.render("blog_details");
+  res.render("blog_details", { logged: req.session.admin });
 });
 
 app.get("/donate_now.html", async (req, res) => {
@@ -52,11 +52,11 @@ app.get("/donate_now.html", async (req, res) => {
 });
 
 app.get("/services.html", async (req, res) => {
-  res.render("services");
+  res.render("services", { logged: req.session.admin });
 });
 
 app.get("/contact.html", async (req, res) => {
-  res.render("contact");
+  res.render("contact", { logged: req.session.admin });
 });
 
 app.get("/request_now.html", async (req, res) => {
