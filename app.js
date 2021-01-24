@@ -27,6 +27,25 @@ app.get("/", async (req, res) => {
   res.render("index", { logged: req.session.admin });
 });
 
+app.get("/data-entry", async (req, res) => {
+  res.render("forms/index", { logged: req.session.admin });
+});
+
+app.get("/registeration-step1.html", async (req, res) => {
+  res.render("forms/registeration-step1", { logged: req.session.admin });
+});
+
+app.get("/pretest-step2.html", async (req, res) => {
+  res.render("forms/pretest-step2", { logged: req.session.admin });
+});
+
+app.get("/donation-step3.html", async (req, res) => {
+  console.log(req.session.name);
+  res.render("forms/donation-step3", { data: { logged: req.session.admin,
+                                       name:"hello"}});
+});
+
+
 app.get("/index.html", async (req, res) => {
   res.render("index", { logged: req.session.admin });
 });
@@ -64,6 +83,7 @@ app.get("/request_now.html", async (req, res) => {
 });
 app.use("/user", require("./routes/user"));
 app.use("/request", require("./routes/request"));
+app.use("/donate", require("./routes/donate"));
 
 server.listen(3000 || PORT, function (req, res) {
   console.log("Running on Server");
