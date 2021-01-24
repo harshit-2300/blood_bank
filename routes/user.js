@@ -54,6 +54,7 @@ router.post("/signup", checkIfUserExists, async (req, res) => {
           var otp = Math.floor(100000 + Math.random() * 900000);
           req.session.otp = otp;
           req.session.email = users.email;
+          console.log("+91" + req.body.phone);
           client.messages
             .create({
               body: otp,
@@ -116,13 +117,11 @@ router.post("/login", async (req, res) => {
         req.session.name = result[0].name;
         req.session.user = result[0].PID;
         req.session.admin = true;
-        req.session.user_type=result[0].user_type;
+        req.session.user_type = result[0].user_type;
         console.log(req.session.user_type);
         wrong = false;
-        if(req.session.user_type=="normal")
-        res.redirect("/");
-        else
-        res.redirect("/data-entry");
+        if (req.session.user_type == "normal") res.redirect("/");
+        else res.redirect("/data-entry");
       } else {
         wrong = true;
         res.redirect("/user/login");

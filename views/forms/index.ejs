@@ -103,20 +103,11 @@
                 </div>
             </div>
             <!-- skip scan QR, we can directly get PID, then redirect to appropriate step -->
-            <form id="" action="#" method="post" class="login-form">
-              <div class="row d-flex justify-content-start align-items-center">
-                <div class="col-6 d-flex align-items-center">
-                  <input type="text" placeholder="Search via PID" required>
-              </div>
-              <div class="col-6 d-flex align-items-center mb-20">
-                  <button type="submit" class="btn-don-req">Search</button>
-              </div>
-          </div>
-      </form>
-      <form id="" action="#" method="post" class="login-form">
+            
+      <form id="" action="/donate/search" method="post" class="login-form">
           <div class="row d-flex justify-content-start align-items-center">
             <div class="col-6 d-flex align-items-center">
-              <input type="text" placeholder="Search via Phone Number" required>
+              <input type="text" placeholder="Search via Email" required>
           </div>
           <div class="col-6 d-flex align-items-center mb-20">
               <button type="submit" class="btn-don-req">Search</button>

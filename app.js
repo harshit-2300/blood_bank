@@ -28,7 +28,7 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/data-entry", async (req, res) => {
-  res.render("forms/index", { logged: req.session.admin });
+  res.render("forms/registeration-step1", { logged: req.session.admin });
 });
 
 app.get("/registeration-step1.html", async (req, res) => {
@@ -41,10 +41,10 @@ app.get("/pretest-step2.html", async (req, res) => {
 
 app.get("/donation-step3.html", async (req, res) => {
   console.log(req.session.name);
-  res.render("forms/donation-step3", { data: { logged: req.session.admin,
-                                       name:"hello"}});
+  res.render("forms/donation-step3", {
+    data: { logged: req.session.admin, name: "hello" },
+  });
 });
-
 
 app.get("/index.html", async (req, res) => {
   res.render("index", { logged: req.session.admin });
