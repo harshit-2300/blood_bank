@@ -1,0 +1,96 @@
+/*link this stylesheet only in ADMIN pages*/
+#history .container .scroll-box {
+  height: 900px;
+  padding-top: 10px;
+}
+#history .scroll-box .record {
+  background-color: #f6f5ff;
+  border-radius: 3px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  margin-top: 0px;
+  margin-bottom: 1px;
+}
+
+#history .scroll-box .record .bold{
+  font-weight: 600;
+}
+
+#history .scroll-box .record tr , .login-form-wrapper tr , .login-form-wrapper th {
+  border-bottom: lightgray solid 2px;
+}
+
+#history .scroll-box .record td , .login-form-wrapper td {
+  color: black;
+  font-weight: 400;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  text-align: center;
+  vertical-align: middle;
+}
+.login-form-wrapper td {
+  text-align:left;
+}
+.login-form-wrapper tr td a {
+  color: blue;
+}
+.login-form-wrapper label {
+  margin-bottom: 0px;
+}
+#history .scroll-box .record .r-status-new, #history .scroll-box .record .r-status-acc, #history .scroll-box .record .r-status-rej {
+  background-color: #fff799;
+  color:black;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding-left: 2px;
+  padding-right: 2px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+}
+#history .scroll-box .record .r-status-acc {
+  background-color: #8eff8a;
+}
+#history .scroll-box .record .r-status-rej {
+  background-color: #ff7d7d;
+}
+/*------scroll-box bar----------*/
+#history .mini-nav {
+  background-color: #f2f2f2;
+  border: 2px solid lightgray;
+  width: auto;
+  height: auto;
+
+}
+.mini-nav p {
+  color: black;
+  font-weight: 600;
+  margin-bottom: 0px;
+  padding-left: 10px;
+}
+/*---------other changes only to be applied on admin side------------*/
+.section-tittle h2{
+  font-weight: 400;
+  font-family: monospace;
+}
+
+input[disabled] {
+  color:black;
+  border: 2px solid transparent;
+}
+
+.icon-delete , #new_bloodbag , #bloodbag-btn-add , #bloodbag-btn-cancel {
+    display: none;
+}
+
+#advanced-search {
+  color:black;
+  border: 2px solid #ae8ff7;
+  border-radius: 5px;
+  background-color: #d8cbf7;
+}
+#advanced-search:hover{
+  background-color: #ebe3fc;
+}

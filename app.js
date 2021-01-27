@@ -82,6 +82,61 @@ app.get("/request_now.html", async (req, res) => {
   res.render("request_now", { logged: req.session.admin });
 });
 
+app.get("/admin/index_admin.html", async (req, res) => {
+  res.render("admin/index_admin", { logged: req.session.admin });
+});
+
+app.get("/admin/admin-people.html", async (req, res) => {
+  res.render("admin/admin-people", { logged: req.session.admin });
+});
+
+app.get("/admin/admin-request.html", async (req, res) => {
+  await db.query(
+    "SELECT full_name, request.blood_group, quantity , request_date FROM people , request WHERE people.PID = request.PID",
+    function (error, result, fields) {
+      if (error) {
+        console.log(error);
+      } else {
+        var requests = result;
+        console.log(result);
+        res.render("admin/admin-request", {
+          logged: req.session.admin,
+          requests: result,
+        });
+      }
+    }
+  );
+});
+
+app.get("/admin/admin-camps.html", async (req, res) => {
+  await db.query(
+    "SELECT * FROM blood_donation_camp",
+    function (error, result, fields) {
+      if (error) {
+        console.log(error);
+      } else {
+        var camps = result;
+        res.render("admin/admin-camps", {
+          logged: req.session.admin,
+          camps: result,
+        });
+      }
+    }
+  );
+});
+
+app.get("/admin/full-camps.html", async (req, res) => {
+  res.render("admin/full-camps", { logged: req.session.admin });
+});
+
+app.get("/admin/full-people.html", async (req, res) => {
+  res.render("admin/full-people", { logged: req.session.admin });
+});
+
+app.get("/admin/full-request.html", async (req, res) => {
+  res.render("admin/full-request", { logged: req.session.admin });
+});
+
 app.use("/user", require("./routes/user"));
 
 app.use("/request", require("./routes/request"));
