@@ -81,8 +81,11 @@ app.get("/contact.html", async (req, res) => {
 app.get("/request_now.html", async (req, res) => {
   res.render("request_now", { logged: req.session.admin });
 });
+
 app.use("/user", require("./routes/user"));
+
 app.use("/request", require("./routes/request"));
+
 app.use("/donate", require("./routes/donate"));
 
 server.listen(3000 || PORT, function (req, res) {
