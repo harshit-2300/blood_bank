@@ -81,6 +81,35 @@ app.get("/contact.html", async (req, res) => {
 app.get("/request_now.html", async (req, res) => {
   res.render("request_now", { logged: req.session.admin });
 });
+
+app.get("/admin/index_admin.html", async (req, res) => {
+  res.render("admin/index_admin", { logged: req.session.admin });
+});
+
+app.get("/admin/admin-people.html", async (req, res) => {
+  res.render("admin/admin-people", { logged: req.session.admin });
+});
+
+app.get("/admin/admin-request.html", async (req, res) => {
+  res.render("admin/admin-request", { logged: req.session.admin });
+});
+
+app.get("/admin/admin-camps.html", async (req, res) => {
+  res.render("admin/admin-camps", { logged: req.session.admin });
+});
+
+app.get("/admin/full-camps.html", async (req, res) => {
+  res.render("admin/full-camps", { logged: req.session.admin });
+});
+
+app.get("/admin/full-people.html", async (req, res) => {
+  res.render("admin/full-people", { logged: req.session.admin });
+});
+
+app.get("/admin/full-request.html", async (req, res) => {
+  res.render("admin/full-request", { logged: req.session.admin });
+});
+
 app.use("/user", require("./routes/user"));
 app.use("/request", require("./routes/request"));
 app.use("/donate", require("./routes/donate"));
