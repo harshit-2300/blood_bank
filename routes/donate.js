@@ -13,6 +13,28 @@ app.use(express.static("public"));
 const router = express.Router();
 const upload = require("./middleware/multerMiddleware");
 
+
+router.post("/search", async (req, res) => {
+  await db.query(
+    "SELECT * FROM people WHERE email = ?",
+    req.body.email,
+    async (error, result, fields) => {
+      if (result.length == 0) {
+        wrong = true;
+        res.redirect("/registeration-step1.html");
+      }
+      else{
+      req.session.user_exist=result;
+      res.redirect("/registeration-step1.html");
+      }
+      
+    }
+  );
+});
+
+
+
+
 router.post("/registeration-step1", async (req, res) => {
   var today = new Date();
   var users = {
@@ -25,6 +47,25 @@ router.post("/registeration-step1", async (req, res) => {
     phone: req.body.phone,
   };
 
+  var did=100;
+  
+  
+    await db.query(
+      "SELECT * FROM donor",
+      function (error, result, fields) {
+        if (error) {
+          console.log(error);
+        } else {
+          
+          console.log(result.length);
+          did=result.length+1;
+          };
+        });
+      
+      
+  
+  
+
   await db.query(
     "INSERT INTO donor SET ?",
     users,
@@ -33,11 +74,16 @@ router.post("/registeration-step1", async (req, res) => {
         console.log(error);
         res.send("error");
       } else {
-        res.render("forms/donation-step3");
+        req.session.did=did;
+        res.redirect("/donation-step3.html");
       }
     }
   );
 });
+
+router.post("/pretest-step2",async(req,res)=> {
+  res.redirect("/donation-step3.html");
+})
 
 router.post("/final", async (req, res) => {
   var reject;

@@ -49,7 +49,8 @@ router.post("/submit", upload.array("image"), async (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        res.send("<h1>Request submitted</h1>");
+        req.session.success=1;
+        res.redirect("/");
       }
     }
   );
