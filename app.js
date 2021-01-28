@@ -141,7 +141,7 @@ app.get("/admin/admin-people.html", async (req, res) => {
 
 app.get("/admin/admin-request.html", async (req, res) => {
   await db.query(
-    "SELECT full_name, request.blood_group, quantity , request_date FROM people , request WHERE people.PID = request.PID",
+    "SELECT full_name, request.blood_group, quantity , request_date,accepted FROM people , request WHERE people.PID = request.PID",
     function (error, result, fields) {
       if (error) {
         console.log(error);
@@ -151,6 +151,7 @@ app.get("/admin/admin-request.html", async (req, res) => {
         res.render("admin/admin-request", {
           logged: req.session.admin,
           requests: result,
+          status:"pending",
         });
       }
     }
@@ -183,8 +184,8 @@ app.get("/admin/add-camp.html", async (req, res) => {
 });
 
 
-app.get("/admin/full-people.html/:id", async (req, res) => {
-  var pid=req.params.id;
+app.get('/admin/full-people.html/:id', async (req, res) => {
+  var pid=req.params['id'];
   await db.query(
     "SELECT * FROM people WHERE PID=?",pid,
     function (error, result, fields) {
@@ -235,6 +236,8 @@ app.use("/user", require("./routes/user"));
 app.use("/request", require("./routes/request"));
 
 app.use("/donate", require("./routes/donate"));
+
+app.use("/admin", require("./routes/admin"));
 
 server.listen(3000 || PORT, function (req, res) {
   console.log("Running on Server");
