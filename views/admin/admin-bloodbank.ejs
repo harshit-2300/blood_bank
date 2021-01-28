@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Admin | Camps </title>
+	<title>Admin | Blood Banks </title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -42,83 +42,64 @@
 	<main>
 		<section id="history" class="d-flex align-items-center mt-50 mb-50">
 			<div class="container display-logged-in ">
-				<h2 class="row d-flex justify-content-center mb-10">Camps</h2>
-				<div class="mini-nav">
-					<div class="container">
-						<div class="row justify-content-start">
-							<p class="col-xs-3 mr-150">Active Camps :  </p>
-							<p class="col-xs-3 mr-150">Upcoming : </p>
-							<p class="col-xs-3 mr-150">Total : </p>
-							<p class="col-xs-3 mr-150"><a href="add-camp.html" target="_blank" class="btn-link">Add New Camp</a></p>
-						</div>
-					</div>
+				<div class="section-tittle">
+					<h2 class="row d-flex justify-content-center mb-50">Blood Banks</h2>
 				</div>
 				<div class="mini-nav">
 					<div class="container">
 						<div class="row justify-content-start">
 							<p class="col-xs-3 mr-150">&#10227;</p>
-							<p class="col-xs-3 mr-150">1-3 out of 3</p>
-							<p class="col-xs-3">&#8592;</p>
-							<p class="col-xs-3">&#8594;</p>
-							<p class="col-xs-3 ml-150">
-								<div class="dropdown">
-									<button type="button" id="advanced-search" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										Advanced Search
-									</button>
-									<div class="dropdown-menu" aria-labelledby="advanced-search">
-										<form class="px-4 py-3" method="get" action="#">
-									    <div class="form-group d-flex justify-content-between">
-												<label class="d-flex mt-10 mr-10">SortBy</label>
-												<select id="sortby" class="default-select form-control">
-													<option value="StartDate" selected>Start Date</option>
-												  <option value="EndDate">End Date</option>
-												  <option value="CampId">Camp Id</option>
-												</select>
-												<label class="d-flex ml-10 mt-10 mr-10 checkbox-inline"><input name="order" class="d-flex mt-2 mr-1" type="radio" value="asc">ascending</label>
-												<label class="d-flex mr-10 mt-10 checkbox-inline"><input name="order" class="d-flex mt-2 mr-1" type="radio" value="desc" checked>descending</label>
-									    </div>
-									    <div class="form-group d-flex justify-content-between">
-												<label class="d-flex mr-15" for="filter">Filters</label>
-												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="oncoming" checked>Oncoming</label>
-												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="ongoing">Ongoing</label>
-												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="previous">Previous</label>
-									    </div>
-											<div class="form-group">
-												<button type="submit" class="genric-btn primary small">Apply</button>
-											</div>
-									  </form>
-									</div>
-								</div>
-							</p>
+							<p class="col-xs-3 mr-150">Total BloodBanks : 5</p>
 						</div>
 					</div>
 				</div>
-				<div class="scroll-box">
-					<table class="table table-striped record">
-						<!-- start displaying records -->
-						<!-- active camps record -->
-
-						<tr>
-							<td class="r-status-acc ml-15 mr-15">Camps</td>
-							<td><a href="full-camps.html" target="_blank" class="btn-link">Camp ID</a></td>
-							<td class="bold">Location</td>
-							<td class="bold">Start Date  </td>
-							<td class="bold">End Date </td>
-						</tr>
-
-						<%for(var i=0;i<camps.length;i++){%>
-							<tr>
-								<td class="r-status-acc ml-15 mr-15">Oncoming</td>
-								<td><a href="full-camps.html" target="_blank" class="btn-link"><%=camps[i].BDCID%></a></td>
-								<td><%=camps[i].location%></td>
-								<td class="bold"> <%=camps[i].camp_start%> </td>
-								<td class="bold"><%=camps[i].camp_end%></td>
-							</tr>
-							<%}%>
-							
-						
-					</table>
-					<!-- All records ends here -->
+				<div class="scroll-box" id="print-multi">
+					<script src="./js/bloodbank-editor.js"></script>
+					<script>
+					max_bloodbank = 5; //number of records in BloodBank table
+					for(let i=0;i<max_bloodbank;i++){
+						document.getElementById("print-multi").innerHTML += (`
+							<table class="table blood-bank-table record">
+								<tr>
+									<td class="bold">Blood Bank Name</td>
+									<td colspan="2"><input type="text" size="50" placeholder="Blood Bank Name" value="Name`+i+`" required disabled class="editable`+i+`"></td>
+									<td>Contact Number : <input type="text" size="18" placeholder="Contact Number" value="+915161561515" required disabled class="editable`+i+`"></td>
+								</tr>
+								<tr>
+									<td>Location</td>
+									<td colspan="3"><input type="text" size="90" placeholder="Location" value="location" required disabled class="editable`+i+`"></td>
+								</tr>
+								<tr>
+									<td>A+ : </td>
+									<td>AB+ : </td>
+									<td>B+ : </td>
+									<td>O+ : </td>
+								</tr>
+								<tr>
+									<td>A- : </td>
+									<td>AB- : </td>
+									<td>B- : </td>
+									<td>O- : </td>
+								</tr>
+								<tr>
+									<td>Total-Available : </td>
+									<td>Total-Supplied : </td>
+									<td>Total-Rejected :</td>
+									<td><a href="./admin-bloodbag.html" target="_blank">link to bloodbags</a></td>
+								</tr>
+								<tr id="toggle-record`+i+`">
+									<td colspan="2"><button type="button" onclick="update_btn(`+i+`)" class="genric-btn info btn-update">Update</button></td>
+		              <td><button type="button" onclick="delete_btn(`+i+`)" class="genric-btn danger btn-delete">Delete</button></td>
+									<td>
+										<button type="button" onclick="edit_btn(`+i+`)" class="genric-btn info circle btn-edit">Edit</button>
+										<button type="button" onclick="cancel_btn(`+i+`)" class="genric-btn info btn-cancel">Cancel</button>
+									</td>
+								</tr>
+							</table>
+						`);
+						hide_all_btn(max_bloodbank); //initialize
+					}
+					</script>
 				</div>
 			</div>
 		</section>
@@ -127,9 +108,11 @@
 	</footer>
 
 	<!-- JS here -->
+
 	<!-- header and footer include -->
 	<script src="../assets/js/header-admin.txt" language="javascript" type="text/javascript"></script>
 	<script src="../assets/js/footer-admin.txt" language="javascript" type="text/javascript"></script>
+
 
 	<!-- All JS Custom Plugins Link Here here -->
 	<script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>

@@ -87,7 +87,21 @@ app.get("/admin/index_admin.html", async (req, res) => {
 });
 
 app.get("/admin/admin-people.html", async (req, res) => {
-  res.render("admin/admin-people", { logged: req.session.admin });
+  await db.query(
+    "SELECT * FROM people",
+    function (error, result, fields) {
+      if (error) {
+        console.log(error);
+      } else {
+        
+        var peoples = result;
+        res.render("admin/admin-people", {
+          logged: req.session.admin,
+          peoples: result,
+        });
+      }
+    }
+  );
 });
 
 app.get("/admin/admin-request.html", async (req, res) => {
@@ -129,12 +143,56 @@ app.get("/admin/full-camps.html", async (req, res) => {
   res.render("admin/full-camps", { logged: req.session.admin });
 });
 
-app.get("/admin/full-people.html", async (req, res) => {
-  res.render("admin/full-people", { logged: req.session.admin });
+app.get("/admin/add-camp.html", async (req, res) => {
+  res.render("admin/add-camp", { logged: req.session.admin });
+});
+
+
+app.get("/admin/full-people.html/:id", async (req, res) => {
+  var pid=req.params.id;
+  await db.query(
+    "SELECT * FROM people WHERE PID=?",pid,
+    function (error, result, fields) {
+      if (error) {
+        console.log(error);
+      } else {
+        var peoples = result;
+        console.log(result);
+        res.render("admin/full-people", {
+          logged: req.session.admin,
+          peoples: result,
+        });
+      }
+    }
+  );
+});
+
+app.get("/admin/add-people.html", async (req, res) => {
+  res.render("admin/add-people", { logged: req.session.admin });
 });
 
 app.get("/admin/full-request.html", async (req, res) => {
   res.render("admin/full-request", { logged: req.session.admin });
+});
+
+app.get("/admin/admin-donation.html", async (req, res) => {
+  res.render("admin/admin-donation", { logged: req.session.admin });
+});
+
+app.get("/admin/admin-bloodbank.html", async (req, res) => {
+  res.render("admin/admin-bloodbank", { logged: req.session.admin });
+});
+
+app.get("/admin/add-bloodbank.html", async (req, res) => {
+  res.render("admin/add-bloodbank", { logged: req.session.admin });
+});
+
+app.get("/admin/admin-bloodbag.html", async (req, res) => {
+  res.render("admin/admin-bloodbag", { logged: req.session.admin });
+});
+
+app.get("/admin/full-bloodbag.html", async (req, res) => {
+  res.render("admin/full-bloodbag", { logged: req.session.admin });
 });
 
 app.use("/user", require("./routes/user"));

@@ -1,0 +1,178 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Admin | Add New Person </title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS here -->
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="../assets/css/slicknav.css">
+  <link rel="stylesheet" href="../assets/css/animate.min.css">
+  <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
+  <link rel="stylesheet" href="../assets/css/themify-icons.css">
+  <link rel="stylesheet" href="../assets/css/slick.css">
+  <link rel="stylesheet" href="../assets/css/nice-select.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <!-- special file -->
+  <link rel="stylesheet" href="../assets/css/login-form.css">
+  <link rel="stylesheet" href="../assets/css/request-style.css">
+</head>
+
+<body>
+  <!-- Preloader Start -->
+  <div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+      <div class="preloader-inner position-relative">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img pere-text">
+          <img src="../assets/img/logo/loder.jpg" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Preloader Start -->
+  <header>
+  </header>
+  <main>
+    <section class="login-form-area section-bg  pt-115 pb-120 fix">
+      <div class="container">
+        <div class="row justify-content-center">
+          <!-- login wrapper -->
+          <div class="col-12">
+            <div class="login-form-wrapper">
+              <!-- From title -->
+              <div class="row">
+                <div class="col-lg-12">
+                  <!-- Section Tittle -->
+                  <div class="section-tittle mb-50">
+                    <h2>New Person</h2>
+                    <p>Create new account for a user.</p>
+                  </div>
+                </div>
+              </div>
+              <!-- form -->
+              <form action="/admin/add-people" method="post">
+                <table class="table table-striped record">
+                  <tr>
+                    <td>Full Name</td>
+                    <td><input type="text" size="50" name="name" placeholder="Full Name" required></td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number</td>
+                    <td><input type="text" size="50" name="phone" placeholder="Phone Number" required></td>
+                  </tr>
+                  <tr>
+                    <td>Blood Group</td>
+                    <td><input type="text" size="10" name="blood_type" placeholder="Blood Group" required></td>
+                  </tr>
+                  <tr>
+                    <td>Date Of Birth</td>
+                    <td><input type="date" name="dob" size="10" required></td>
+                  </tr>
+                  <tr>
+                    <td>Gender</td>
+                    <td>
+                      <input type="radio" id="male" name="gender" value="male">
+                      <label for="male" class="mr-50">Male</label>
+                      <input type="radio" id="female" name="gender" value="female">
+                      <label for="reject">Female</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Email-ID</td>
+                    <td><input type="text" size="40" name="email" placeholder="Email" required></td>
+                  </tr>
+                  <tr>
+                    <tr>
+                      <td>Password</td>
+                      <td><input type="password" name="password" size="40" placeholder="password" required></td>
+                    </tr>
+                    <td>OTP Verification</td>
+                    <td>
+                      <input type="radio" id="yes" name="otp" value="yes">
+                      <label for="yes" class="mr-50">Yes</label>
+                      <input type="radio" id="no" name="otp" value="no">
+                      <label for="no">No</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>User Type</td>
+                    <td>
+                      <input type="radio" id="donor" name="user_type" value="donor" checked>
+                      <label for="donor" class="mr-50">Donor</label>
+                      <input type="radio" id="reciever" name="user" value="reciever">
+                      <label for="reciever" class="mr-50">Reciever</label>
+                      <input type="radio" id="data-entry" name="user" value="data-entry">
+                      <label for="data-entry" class="mr-50">Data-Entry</label>
+                      <input type="radio" id="admin" name="user" value="admin">
+                      <label for="admin" class="mr-50">Admin</label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Height</td>
+                    <td><input type="text" size="15" placeholder="Height (in cms)"></td>
+                  </tr>
+                  <tr>
+                    <td>Weight</td>
+                    <td><input type="text" size="15" placeholder="Weight (in kgs)"></td>
+                  </tr>
+                </table>
+                <div class="container">
+                 <div class="row justify-content-between">
+                  <button type="submit" class="genric-btn info circle">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+</footer>
+
+<!-- JS here -->
+<script src="../assets/js/plain-header-admin.txt" language="javascript" type="text/javascript"></script>
+<script src="../assets/js/footer-admin.txt" language="javascript" type="text/javascript"></script>
+
+<!-- All JS Custom Plugins Link Here here -->
+<script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="../assets/js/popper.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<!-- Jquery Mobile Menu -->
+<script src="../assets/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="../assets/js/owl.carousel.min.js"></script>
+<script src="../assets/js/slick.min.js"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="../assets/js/wow.min.js"></script>
+<script src="../assets/js/animated.headline.js"></script>
+<script src="../assets/js/jquery.magnific-popup.js"></script>
+
+<!-- Nice-select, sticky -->
+<script src="../assets/js/jquery.nice-select.min.js"></script>
+<script src="../assets/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="../assets/js/contact.js"></script>
+<script src="../assets/js/jquery.form.js"></script>
+<script src="../assets/js/jquery.validate.min.js"></script>
+<script src="../assets/js/mail-script.js"></script>
+<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="../assets/js/plugins.js"></script>
+<script src="../assets/js/main.js"></script>
+
+</body>
+</html>
