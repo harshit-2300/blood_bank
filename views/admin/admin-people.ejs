@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="../assets/css/style.css">
   <!-- special file -->
   <link rel="stylesheet" href="../assets/css/login-form.css">
-  <link rel="stylesheet" href="./request-style.css">
+  <link rel="stylesheet" href="../assets/css/request-style.css">
 </head>
 
 <body>
@@ -48,18 +48,49 @@
             <div class="row justify-content-start">
               <p class="col-xs-3 mr-150">New Requests : </p>
               <p class="col-xs-3 mr-150">Accepted : </p>
-              <p class="col-xs-3">Rejected : </p>
+              <p class="col-xs-3 mr-150">Rejected : </p>
+              <p class="col-xs-3"><a href="add-people.html" target="_blank" class="btn-link">Add New user</a></p>
             </div>
           </div>
         </div>
         <div class="mini-nav">
           <div class="container">
             <div class="row justify-content-start">
-              <a href="#" target="_blank"><p class="col-xs-3 mr-150">&#10227</p></a>
-              <p class="col-xs-3 mr-150">1-4 out of 4</p>
-              <p class="col-xs-3">&#8592</p>
-              <p class="col-xs-3">&#8594</p>
-              <p class="col-xs-3 ml-150">Advanced Search</p>
+              <a href="#" target="_blank"><p class="col-xs-3 mr-150">&#10227;</p></a>
+              <p class="col-xs-3 mr-150">1-<%=peoples.length %> out of <%=peoples.length %></p>
+              <p class="col-xs-3">&#8592;</p>
+              <p class="col-xs-3">&#8594;</p>
+							<p class="col-xs-3 ml-150">
+								<div class="dropdown">
+									<button type="button" id="advanced-search" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Advanced Search
+									</button>
+									<div class="dropdown-menu" aria-labelledby="advanced-search">
+										<form class="px-4 py-3" method="get" action="#">
+									    <div class="form-group d-flex justify-content-between">
+												<label class="d-flex mt-10 mr-10">SortBy</label>
+												<select id="sortby" class="default-select form-control">
+													<option value="RegistrationDate" selected>Registration Date</option>
+												  <option value="FullName">Full Name</option>
+												  <option value="PID">PID</option>
+												</select>
+												<label class="d-flex ml-10 mt-10 mr-10 checkbox-inline"><input name="order" class="d-flex mt-2 mr-1" type="radio" value="asc">ascending</label>
+												<label class="d-flex mr-10 mt-10 checkbox-inline"><input name="order" class="d-flex mt-2 mr-1" type="radio" value="desc" checked>descending</label>
+									    </div>
+									    <div class="form-group d-flex justify-content-between">
+												<label class="d-flex mr-15" for="filter">Filters</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="donor" checked>Donor</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="receiver">Receiver</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="data-entry">Data-entry</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="admin">Admin</label>
+									    </div>
+											<div class="form-group">
+												<button type="submit" class="genric-btn primary small">Apply</button>
+											</div>
+									  </form>
+									</div>
+								</div>
+							</p>
             </div>
           </div>
         </div>
@@ -67,37 +98,27 @@
           <table class="table table-striped record">
             <!-- start displaying records -->
             <!-- Person 1 -->
-            <tr>
-              <td><a href="full-people.html" target="_blank"><img src="../assets/img/profile.png" alt=""></a></td>
-              <td>Full Name</td>
-              <td>PID</td>
-              <td>Donor</td>
-              <td class="bold">Date : 01-Jan-2021</td>
+            <tr class="bold">
+              <td><a href="#" target="_blank"><img src="../assets/img/profile.png" alt=""></a></td>
+              <td class="bold">Full Name</td>
+              <td class="bold">PID</td>
+              <td class="bold">Donor</td>
+              <td class="bold" >Date</td>
             </tr>
-            <!-- Person 2 -->
-            <tr>
-              <td><a href="full-people.html" target="_blank"><img src="../assets/img/profile.png" alt=""></a></td>
-              <td>Full Name</td>
-              <td>PID</td>
-              <td>Reciever</td>
-              <td class="bold">Date : 01-Jan-2021</td>
-            </tr>
-            <!-- Person 3 -->
-            <tr>
-              <td><a href="full-people.html" target="_blank"><img src="../assets/img/profile.png" alt=""></a></td>
-              <td>Full Name</td>
-              <td>PID</td>
-              <td>Data-Entry</td>
-              <td class="bold">Date : 01-Jan-2021</td>
-            </tr>
-            <!-- Person 4 -->
-            <tr>
-              <td><a href="full-people.html" target="_blank"><img src="../assets/img/profile.png" alt=""></a></td>
-              <td>Full Name</td>
-              <td>PID</td>
-              <td>Admin</td>
-              <td class="bold">Date : 01-Jan-2021</td>
-            </tr>
+
+            <%for(var i=0;i<peoples.length;i++){%>
+              <tr>
+                <!-- pass the requestID to full-request.html which will than show every details of record -->
+                <td><a href="/admin/full-people.html/<%=peoples[i].PID%>" target="_blank" class="r-status-new " ><img src="../assets/img/profile.png" alt=""></a></td>
+                <td><%=peoples[i].full_name%></td>
+                <td> <%=peoples[i].PID%></td>
+                <td> <%=peoples[i].user_type%></td>
+                <td> <%=peoples[i].DOB%></td>
+              </tr>
+              <%}%>
+
+           
+           
           </table>
           <!-- All records ends here -->
         </div>
@@ -108,8 +129,8 @@
   </footer>
 
   <!-- JS here -->
-  <script src="/assets/js/header-admin.txt" language="javascript" type="text/javascript"></script>
-  <script src="/assets/js/footer-admin.txt" language="javascript" type="text/javascript"></script>
+  <script src="../assets/js/header-admin.txt" language="javascript" type="text/javascript"></script>
+  <script src="..assets/js/footer-admin.txt" language="javascript" type="text/javascript"></script>
   <!-- All JS Custom Plugins Link Here here -->
   <script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
   <!-- Jquery, Popper, Bootstrap -->

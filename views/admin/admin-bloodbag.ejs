@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Admin | Request</title>
+	<title>Blood Bags</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -42,21 +42,34 @@
 	<main>
 		<section id="history" class="d-flex align-items-center mt-50 mb-50">
 			<div class="container display-logged-in ">
-				<h2 class="row d-flex justify-content-center mb-10">Requests</h2>
-				<div class="mini-nav mb-50">
-					<div class="container">
-						<div class="row justify-content-start">
-							<p class="col-xs-3 mr-150">New Requests : </p>
-							<p class="col-xs-3 mr-150">Accepted : </p>
-							<p class="col-xs-3">Rejected : </p>
-						</div>
-					</div>
+				<div class = "section-tittle">
+					<h2 class="row d-flex justify-content-center mb-10">Blood Bags</h2>
 				</div>
+				<div class="mt-50"></div>
+				<table class="table blood-bank-table record">
+					<tr>
+						<td colspan="2">Blood Bank :</td>
+						<td>Total Donors here : </td>
+						<td>Total Receiviers here :</td>
+					</tr>
+					<tr>
+						<td>A+ : </td>
+						<td>AB+ : </td>
+						<td>B+ : </td>
+						<td>O+ : </td>
+					</tr>
+					<tr>
+						<td>A- : </td>
+						<td>AB- : </td>
+						<td>B- : </td>
+						<td>O- : </td>
+					</tr>
+				</table>
 				<div class="mini-nav">
 					<div class="container">
 						<div class="row justify-content-start">
 							<p class="col-xs-3 mr-150">&#10227;</p>
-							<p class="col-xs-3 mr-150">1-<%= requests.length %> out of <%= requests.length %></p>
+							<p class="col-xs-3 mr-150">1-3 out of 3</p>
 							<p class="col-xs-3">&#8592;</p>
 							<p class="col-xs-3">&#8594;</p>
 							<p class="col-xs-3 ml-150">
@@ -69,19 +82,28 @@
 									    <div class="form-group d-flex justify-content-between">
 												<label class="d-flex mt-10 mr-10">SortBy</label>
 												<select id="sortby" class="default-select form-control">
-													<option value="RequestDate" selected>Request Date</option>
-												  <option value="Name">Full Name</option>
+													<option value="DonationDate" selected>Donation Date</option>
 												  <option value="BloodGroup">Blood Group</option>
-												  <option value="Quantity">Quantity</option>
 												</select>
 												<label class="d-flex ml-10 mt-10 mr-10 checkbox-inline"><input name="order" class="d-flex mt-2 mr-1" type="radio" value="asc">ascending</label>
 												<label class="d-flex mr-10 mt-10 checkbox-inline"><input name="order" class="d-flex mt-2 mr-1" type="radio" value="desc" checked>descending</label>
 									    </div>
 									    <div class="form-group d-flex justify-content-between">
 												<label class="d-flex mr-15" for="filter">Filters</label>
-												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="new" checked>New</label>
-												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="acc">Accepted</label>
-												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="rej">Rejected</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="available" checked>Available</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="supplied">Supplied</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="rejected">Rejected</label>
+									    </div>
+											<div class="form-group d-flex justify-content-between">
+												<label class="d-flex mr-15" for="filter">More Filters</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="A+" checked>A+</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="A-" checked>A-</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="B+" checked>B+</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="B-" checked>B-</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="AB+" checked>AB+</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="AB-" checked>AB-</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="O+" checked>O+</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="O-" checked>O-</label>
 									    </div>
 											<div class="form-group">
 												<button type="submit" class="genric-btn primary small">Apply</button>
@@ -96,30 +118,25 @@
 				<div class="scroll-box">
 					<table class="table table-striped record">
 						<!-- start displaying records -->
-						<!-- new record -->
-					   
+						<!-- Stored Blood Bags -->
+						<tr>
+							<td><a href="full-bloodbag.html" class="r-status-acc">Available</a></td>
+							<td>Blood Group</td>
+							<td class="bold">Donation Date : 01-Jan-2021</td>
+						</tr>
+						<!-- Recevied Blood Bags -->
 						<tr>
 							<!-- pass the requestID to full-request.html which will than show every details of record -->
-							<td><a href="#" target="_blank" class="r-status-new">&#9993;</a></td>
-							<td class="bold">Full Name</td>
-							<td class="bold">Blood Type</td>
-							<td class="bold">Quantity</td>
-							<td class="bold">Date : 01-Jan-2021</td>
+							<td><a href="full-bloodbag.html" class="r-status-new">Supplied</a></td>
+							<td>Blood Group</td>
+							<td class="bold">Donation Date : 01-Jan-2021</td>
 						</tr>
-
-
-						<%for(var i=0;i<requests.length;i++){%>
-							<tr>
-								<!-- pass the requestID to full-request.html which will than show every details of record -->
-								<td><a href="full-request.html" target="_blank" class="r-status-new">&#9993;</a></td>
-								<td><%=requests[i].full_name%></td>
-								<td>Blood Group: <%=requests[i].blood_group%></td>
-								<td>Quantity: <%=requests[i].quantity%></td>
-								<td >Date : <%=requests[i].request_date%></td>
-							</tr>
-							<%}%>
-							
-						
+						<!-- Rejected Blood Bags -->
+						<tr>
+							<td><a href="full-bloodbag.html" class="r-status-rej">Discarded</a></td>
+							<td>Blood Group</td>
+							<td class="bold">Donation Date : 01-Jan-2021</td>
+						</tr>
 					</table>
 					<!-- All records ends here -->
 				</div>
@@ -130,11 +147,8 @@
 	</footer>
 
 	<!-- JS here -->
-	<!-- header and footer include -->
-	<script src="../assets/js/header-admin.txt" language="javascript" type="text/javascript"></script>
+	<script src="../assets/js/plain-header-admin.txt" language="javascript" type="text/javascript"></script>
 	<script src="../assets/js/footer-admin.txt" language="javascript" type="text/javascript"></script>
-
-
 	<!-- All JS Custom Plugins Link Here here -->
 	<script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
 	<!-- Jquery, Popper, Bootstrap -->
