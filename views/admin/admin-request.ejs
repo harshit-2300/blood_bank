@@ -109,9 +109,29 @@
 
 
 						<%for(var i=0;i<requests.length;i++){%>
+							<script>
+								 status="Pending";
+						   </script>
+							<% if(requests[i].accepted==0){ %> 
+								<script>
+									 status="Pending";
+								</script>
+								<%}%> 
+
+								<% if(requests[i].accepted==1){ %> 
+									<script>
+										 status="Accepted";
+									</script>
+									<%}%> 
+
+									<% if(requests[i].accepted==-1){ %> 
+										<script>
+											status="Rejected";
+										</script>
+										<%}%> 	
 							<tr>
 								<!-- pass the requestID to full-request.html which will than show every details of record -->
-								<td><a href="full-request.html" target="_blank" class="r-status-new">&#9993;</a></td>
+								<td><a href="full-request.html" target="_blank" class="r-status-new"><%=status%></a></td>
 								<td><%=requests[i].full_name%></td>
 								<td>Blood Group: <%=requests[i].blood_group%></td>
 								<td>Quantity: <%=requests[i].quantity%></td>

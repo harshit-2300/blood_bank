@@ -24,30 +24,65 @@ app.use(
 
 //render home.ejs with passing a variable
 app.get("/", async (req, res) => {
-  res.render("index", { logged: req.session.admin });
+  flag=0;
+  if(typeof req.session.success === 'undefined' || req.session.success==0 )
+  flag=0;
+  else
+  flag=1;
+  req.session.success=0;
+  console.log(flag);
+  res.render("index", { logged: req.session.admin,
+  flag:flag });
 });
 
 app.get("/data-entry", async (req, res) => {
-  res.render("forms/registeration-step1", { logged: req.session.admin });
+  res.render("forms/index", { logged: req.session.admin });
 });
 
 app.get("/registeration-step1.html", async (req, res) => {
-  res.render("forms/registeration-step1", { logged: req.session.admin });
+  
+  console.log(req.session.user_exist)
+  var user=req.session.user_exist;
+  var p=0;
+  if(typeof user === 'undefined')
+  p=1;
+  if(p)
+  res.render("forms/registeration-step1", { logged: req.session.admin,
+                                             full_name:"",
+                                             email:"",
+                                            phone_number: "",
+                                           });
+
+  else
+  res.render("forms/registeration-step1", { logged: req.session.admin,
+    full_name:user[0].full_name,
+    email:user[0].email,
+   phone_number: user[0].phone_number,
+  });                                         
 });
 
 app.get("/pretest-step2.html", async (req, res) => {
-  res.render("forms/pretest-step2", { logged: req.session.admin });
+  res.render("forms/pretest-step2", { logged: req.session.admin ,
+                                      did:req.session.did });
 });
 
 app.get("/donation-step3.html", async (req, res) => {
   console.log(req.session.name);
+  var DID=req.session.did;
+  console.log(DID);
   res.render("forms/donation-step3", {
-    data: { logged: req.session.admin, name: "hello" },
-  });
+     logged: req.session.admin, did: DID, }
+  );
 });
 
 app.get("/index.html", async (req, res) => {
-  res.render("index", { logged: req.session.admin });
+  flag=0;
+  if(typeof req.session.success === 'undefined' || req.session.success== 0 )
+  flag=0;
+  else
+  flag=1;
+  req.session.success=0;
+  res.render("index", { logged: req.session.admin,flag:flag, });
 });
 
 app.get("/about.html", async (req, res) => {
@@ -106,7 +141,7 @@ app.get("/admin/admin-people.html", async (req, res) => {
 
 app.get("/admin/admin-request.html", async (req, res) => {
   await db.query(
-    "SELECT full_name, request.blood_group, quantity , request_date FROM people , request WHERE people.PID = request.PID",
+    "SELECT full_name, request.blood_group, quantity , request_date,accepted FROM people , request WHERE people.PID = request.PID",
     function (error, result, fields) {
       if (error) {
         console.log(error);
@@ -116,6 +151,7 @@ app.get("/admin/admin-request.html", async (req, res) => {
         res.render("admin/admin-request", {
           logged: req.session.admin,
           requests: result,
+          status:"pending",
         });
       }
     }
@@ -148,8 +184,8 @@ app.get("/admin/add-camp.html", async (req, res) => {
 });
 
 
-app.get("/admin/full-people.html/:id", async (req, res) => {
-  var pid=req.params.id;
+app.get('/admin/full-people.html/:id', async (req, res) => {
+  var pid=req.params['id'];
   await db.query(
     "SELECT * FROM people WHERE PID=?",pid,
     function (error, result, fields) {
@@ -200,6 +236,8 @@ app.use("/user", require("./routes/user"));
 app.use("/request", require("./routes/request"));
 
 app.use("/donate", require("./routes/donate"));
+
+app.use("/admin", require("./routes/admin"));
 
 server.listen(3000 || PORT, function (req, res) {
   console.log("Running on Server");
