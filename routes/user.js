@@ -121,6 +121,7 @@ router.post("/login", async (req, res) => {
         console.log(req.session.user_type);
         wrong = false;
         if (req.session.user_type == "normal") res.redirect("/");
+        else if(req.session.user_type=="admin") res.redirect("/admin/index_admin.html");
         else res.redirect("/data-entry");
       } else {
         wrong = true;
