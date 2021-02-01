@@ -40,7 +40,6 @@ app.get("/pretest-step2.html", async (req, res) => {
 });
 
 app.get("/donation-step3.html", async (req, res) => {
-  console.log(req.session.name);
   res.render("forms/donation-step3", {
     data: { logged: req.session.admin, name: "hello" },
   });
@@ -87,26 +86,22 @@ app.get("/admin/index_admin.html", async (req, res) => {
 });
 
 app.get("/admin/admin-people.html", async (req, res) => {
-  await db.query(
-    "SELECT * FROM people",
-    function (error, result, fields) {
-      if (error) {
-        console.log(error);
-      } else {
-        
-        var peoples = result;
-        res.render("admin/admin-people", {
-          logged: req.session.admin,
-          peoples: result,
-        });
-      }
+  await db.query("SELECT * FROM people", function (error, result, fields) {
+    if (error) {
+      console.log(error);
+    } else {
+      var peoples = result;
+      res.render("admin/admin-people", {
+        logged: req.session.admin,
+        peoples: result,
+      });
     }
-  );
+  });
 });
 
 app.get("/admin/admin-request.html", async (req, res) => {
   await db.query(
-    "SELECT full_name, request.blood_group, quantity , request_date FROM people , request WHERE people.PID = request.PID",
+    "SELECT REID ,full_name, request.blood_group, quantity , request_date FROM people , request WHERE people.PID = request.PID",
     function (error, result, fields) {
       if (error) {
         console.log(error);
@@ -147,17 +142,17 @@ app.get("/admin/add-camp.html", async (req, res) => {
   res.render("admin/add-camp", { logged: req.session.admin });
 });
 
-
 app.get("/admin/full-people.html/:id", async (req, res) => {
-  var pid=req.params.id;
+  var pid = req.params.id;
   await db.query(
-    "SELECT * FROM people WHERE PID=?",pid,
+    "SELECT * FROM people WHERE PID=?",
+    pid,
     function (error, result, fields) {
       if (error) {
         console.log(error);
       } else {
         var peoples = result;
-        console.log(result);
+
         res.render("admin/full-people", {
           logged: req.session.admin,
           peoples: result,
@@ -171,8 +166,25 @@ app.get("/admin/add-people.html", async (req, res) => {
   res.render("admin/add-people", { logged: req.session.admin });
 });
 
-app.get("/admin/full-request.html", async (req, res) => {
-  res.render("admin/full-request", { logged: req.session.admin });
+// app.get("/admin/showrequest", async (req, res) => {
+//   res.redirect("/showrequest/");
+// });
+app.get("/showrequest/:id", async (req, res) => {
+  console.log(req.params.id);
+  if (req.params.id) {
+    await db.query(
+      "SELECT * FROM request WHERE REID = ?",
+      req.params.id,
+      function (error, result, fields) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(result);
+          res.render("admin/full-request", { request: result });
+        }
+      }
+    );
+  }
 });
 
 app.get("/admin/admin-donation.html", async (req, res) => {

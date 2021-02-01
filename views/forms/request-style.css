@@ -12,15 +12,18 @@
   margin-bottom: 1px;
 }
 
-#history .scroll-box .record .bold{
+#history .scroll-box .record .bold {
   font-weight: 600;
 }
 
-#history .scroll-box .record tr , .login-form-wrapper tr , .login-form-wrapper th {
+#history .scroll-box .record tr,
+.login-form-wrapper tr,
+.login-form-wrapper th {
   border-bottom: lightgray solid 2px;
 }
 
-#history .scroll-box .record td , .login-form-wrapper td {
+#history .scroll-box .record td,
+.login-form-wrapper td {
   color: black;
   font-weight: 400;
   padding-top: 0px;
@@ -29,20 +32,22 @@
   vertical-align: middle;
 }
 .login-form-wrapper td {
-  text-align:left;
+  text-align: left;
 }
 tr td a {
   color: blue;
 }
-tr td a:hover{
+tr td a:hover {
   color: #04004f;
 }
 .login-form-wrapper label {
   margin-bottom: 0px;
 }
-#history .scroll-box .record .r-status-new, #history .scroll-box .record .r-status-acc, #history .scroll-box .record .r-status-rej {
+#history .scroll-box .record .r-status-new,
+#history .scroll-box .record .r-status-acc,
+#history .scroll-box .record .r-status-rej {
   background-color: #fff799;
-  color:black;
+  color: black;
   border: 2px solid black;
   border-radius: 5px;
   padding-left: 2px;
@@ -67,7 +72,6 @@ tr td a:hover{
   border: 2px solid lightgray;
   width: auto;
   height: auto;
-
 }
 .mini-nav p {
   color: black;
@@ -76,27 +80,30 @@ tr td a:hover{
   padding-left: 10px;
 }
 /*---------other changes only to be applied on admin side------------*/
-.section-tittle h2{
+.section-tittle h2 {
   font-weight: 400;
   font-family: monospace;
 }
 
 input[disabled] {
-  color:black;
+  color: black;
   border: 2px solid transparent;
 }
 
-.icon-delete , #new_bloodbag , #bloodbag-btn-add , #bloodbag-btn-cancel {
-    display: none;
+.icon-delete,
+#new_bloodbag,
+#bloodbag-btn-add,
+#bloodbag-btn-cancel {
+  display: none;
 }
 
 #advanced-search {
-  color:black;
+  color: black;
   border: 2px solid #ae8ff7;
   border-radius: 5px;
   background-color: #d8cbf7;
 }
-#advanced-search:hover{
+#advanced-search:hover {
   cursor: pointer;
   background-color: #ebe3fc;
 }
@@ -112,16 +119,17 @@ input[disabled] {
 }
 
 /*------table for bloodbank-------------*/
-#history .scroll-box table.table.blood-bank-table.record , table.table.blood-bank-table {
+#history .scroll-box table.table.blood-bank-table.record,
+table.table.blood-bank-table {
   margin-bottom: 20px;
   border: 2px solid #a796ff;
   border-bottom: 3px solid #a796ff;
 }
-#history .scroll-box table.table.blood-bank-table.record tr td{
+#history .scroll-box table.table.blood-bank-table.record tr td {
   background-color: #f4f2ff;
   text-align: left;
 }
-table.table.blood-bank-table tr{
+table.table.blood-bank-table tr {
   background-color: #f2f2f2;
   border: 2px solid lightgray;
   border-bottom: 3px solid lightgray;
@@ -132,15 +140,15 @@ table.table.blood-bank-table td {
   padding-top: 0px;
 }
 /*-----------index_admin.html-----------------*/
-.card-body h3{
+.card-body h3 {
   font-family: monospace;
   font-weight: 550;
 }
-.card-body a{
+.card-body a {
   color: blue;
   font-size: 18px;
 }
-.card-body p.card-text{
+.card-body p.card-text {
   margin-bottom: 3px;
   font-family: monospace;
 }
@@ -148,14 +156,14 @@ table.table.blood-bank-table td {
   background-color: #ffffff;
   background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png");
 }
-.card{
+.card {
   border: 2px solid white;
 }
-.card:hover{
-    box-shadow:0 1rem 3rem rgba(0, 0, 0, .5);
-    border: 2px solid gray;
+.card:hover {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.5);
+  border: 2px solid gray;
 }
-.card-body:hover{
-  background-color: rgba(224, 224, 224, .75);
+.card-body:hover {
+  background-color: rgba(224, 224, 224, 0.75);
   backdrop-filter: blur(1px);
 }

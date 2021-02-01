@@ -9,18 +9,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS here -->
-	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
-	<link rel="stylesheet" href="../assets/css/slicknav.css">
-	<link rel="stylesheet" href="../assets/css/animate.min.css">
-	<link rel="stylesheet" href="../assets/css/magnific-popup.css">
-	<link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
-	<link rel="stylesheet" href="../assets/css/themify-icons.css">
-	<link rel="stylesheet" href="../assets/css/slick.css">
-	<link rel="stylesheet" href="../assets/css/nice-select.css">
-	<link rel="stylesheet" href="../assets/css/style.css">
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="/assets/css/slicknav.css">
+	<link rel="stylesheet" href="/assets/css/animate.min.css">
+	<link rel="stylesheet" href="/assets/css/magnific-popup.css">
+	<link rel="stylesheet" href="/assets/css/fontawesome-all.min.css">
+	<link rel="stylesheet" href="/assets/css/themify-icons.css">
+	<link rel="stylesheet" href="/assets/css/slick.css">
+	<link rel="stylesheet" href="/assets/css/nice-select.css">
+	<link rel="stylesheet" href="/assets/css/style.css">
 	<!-- special file -->
-	<link rel="stylesheet" href="../assets/css/login-form.css">
+	<link rel="stylesheet" href="/assets/css/login-form.css">
 	<link rel="stylesheet" href="./request-style.css">
 </head>
 
@@ -31,7 +31,7 @@
 			<div class="preloader-inner position-relative">
 				<div class="preloader-circle"></div>
 				<div class="preloader-img pere-text">
-					<img src="../assets/img/logo/loder.jpg" alt="">
+					<img src="/assets/img/logo/loder.jpg" alt="">
 				</div>
 			</div>
 		</div>
@@ -59,29 +59,26 @@
 							<!-- form -->
 							<form action="#" method="post">
 								<table class="table table-striped record">
-									<tr>
-										<td>Receiver's Name</td>
-										<td><input type="text" size="50" placeholder="Full Name" value="Receiver" required disabled class="editable"></td>
-									</tr>
+									
 									<tr>
 										<td>Request Date</td>
-										<td>01-Jan-2021</td>
+										<td><%=request[0].request_date%></td>
 									</tr>
-									<tr>
+									<!-- <tr>
 										<td>Phone Number</td>
 										<td>+9154151514</td>
-									</tr>
+									</tr> -->
 									<tr>
 										<td>Receiver's Blood Type</td>
-										<td><input type="text" size="10" placeholder="Blood Type" value="A+" required disabled class="editable"></td>
+										<td><input type="text" size="10" placeholder="Blood Type" value="<%=request[0].blood_group%>" required disabled class="editable"></td>
 									</tr>
 									<tr>
 										<td>Requested Quantity</td>
-										<td><input type="text" size="10" placeholder="Quantity" value="10" required disabled class="editable"></td>
+										<td><input type="text" size="10" placeholder="<%request[0].quantity%>" value="<%request[0].quantity%>" required disabled class="editable"></td>
 									</tr>
 									<tr>
 										<td>Valid Document / Prescription</td>
-										<td><a href="#" target="_self">link to document</a></td>
+										<td><a href="#" target="_self"><%=request[0].uploaded_file%></a></td>
 									</tr>
 									<tr>
 										<td>Account Requested</td>
@@ -137,36 +134,36 @@
 	<script src="js/record-editor.js"></script>
 	<script src="js/full-request-editor.js"></script>
 	<!-- All JS Custom Plugins Link Here here -->
-	<script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
+	<script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
 	<!-- Jquery, Popper, Bootstrap -->
-	<script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
-	<script src="../assets/js/popper.min.js"></script>
-	<script src="../assets/js/bootstrap.min.js"></script>
+	<script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="/assets/js/popper.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
 	<!-- Jquery Mobile Menu -->
-	<script src="../assets/js/jquery.slicknav.min.js"></script>
+	<script src="/assets/js/jquery.slicknav.min.js"></script>
 
 	<!-- Jquery Slick , Owl-Carousel Plugins -->
-	<script src="../assets/js/owl.carousel.min.js"></script>
-	<script src="../assets/js/slick.min.js"></script>
+	<script src="/assets/js/owl.carousel.min.js"></script>
+	<script src="/assets/js/slick.min.js"></script>
 	<!-- One Page, Animated-HeadLin -->
-	<script src="../assets/js/wow.min.js"></script>
-	<script src="../assets/js/animated.headline.js"></script>
-	<script src="../assets/js/jquery.magnific-popup.js"></script>
+	<script src="/assets/js/wow.min.js"></script>
+	<script src="/assets/js/animated.headline.js"></script>
+	<script src="/assets/js/jquery.magnific-popup.js"></script>
 
 	<!-- Nice-select, sticky -->
-	<script src="../assets/js/jquery.nice-select.min.js"></script>
-	<script src="../assets/js/jquery.sticky.js"></script>
+	<script src="/assets/js/jquery.nice-select.min.js"></script>
+	<script src="/assets/js/jquery.sticky.js"></script>
 
 	<!-- contact js -->
-	<script src="../assets/js/contact.js"></script>
-	<script src="../assets/js/jquery.form.js"></script>
-	<script src="../assets/js/jquery.validate.min.js"></script>
-	<script src="../assets/js/mail-script.js"></script>
-	<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
+	<script src="/assets/js/contact.js"></script>
+	<script src="/assets/js/jquery.form.js"></script>
+	<script src="/assets/js/jquery.validate.min.js"></script>
+	<script src="/assets/js/mail-script.js"></script>
+	<script src="/assets/js/jquery.ajaxchimp.min.js"></script>
 
 	<!-- Jquery Plugins, main Jquery -->
-	<script src="../assets/js/plugins.js"></script>
-	<script src="../assets/js/main.js"></script>
+	<script src="/assets/js/plugins.js"></script>
+	<script src="/assets/js/main.js"></script>
 
 </body>
 </html>
