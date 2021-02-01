@@ -131,11 +131,8 @@
 										<%}%> 	
 							<tr>
 								<!-- pass the requestID to full-request.html which will than show every details of record -->
-<<<<<<< HEAD
 								<td><a href="/showrequest/<%=requests[i].REID%>" >hvhgvgh</a></td>
-=======
-								<td><a href="full-request.html" target="_blank" class="r-status-new"><%=status%></a></td>
->>>>>>> 73fd337442c4f0dbb58a215c4eb4bafd7479461f
+								<%console.log(requests[i].REID)%>
 								<td><%=requests[i].full_name%></td>
 								<td>Blood Group: <%=requests[i].blood_group%></td>
 								<td>Quantity: <%=requests[i].quantity%></td>

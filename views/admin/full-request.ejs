@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="/assets/css/style.css">
 	<!-- special file -->
 	<link rel="stylesheet" href="/assets/css/login-form.css">
-	<link rel="stylesheet" href="./request-style.css">
+	<!-- <link rel="stylesheet" href="./request-style.css"> -->
 </head>
 
 <body>
@@ -70,15 +70,15 @@
 									</tr> -->
 									<tr>
 										<td>Receiver's Blood Type</td>
-										<td><input type="text" size="10" placeholder="Blood Type" value="<%=request[0].blood_group%>" required disabled class="editable"></td>
+										<td><input type="text" size="10" placeholder="Blood Type" value="<%=request[0].blood_group%>" required disbaled class="editable"></td>
 									</tr>
 									<tr>
 										<td>Requested Quantity</td>
-										<td><input type="text" size="10" placeholder="<%request[0].quantity%>" value="<%request[0].quantity%>" required disabled class="editable"></td>
+										<td><input type="text" size="10" placeholder="<%=request[0].quantity%>" value="<%=request[0].quantity%>" diabled required class="editable"></td>
 									</tr>
 									<tr>
 										<td>Valid Document / Prescription</td>
-										<td><a href="#" target="_self"><%=request[0].uploaded_file%></a></td>
+										<td><a href="<%=request[0].uploaded_file%>" target="_self"><%=request[0].uploaded_file%></a></td>
 									</tr>
 									<tr>
 										<td>Account Requested</td>

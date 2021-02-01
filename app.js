@@ -136,7 +136,7 @@ app.get("/admin/admin-people.html", async (req, res) => {
 
 app.get("/admin/admin-request.html", async (req, res) => {
   await db.query(
-    "SELECT full_name, request.blood_group, quantity , request_date,accepted FROM people , request WHERE people.PID = request.PID",
+    "SELECT REID,full_name, request.blood_group, quantity , request_date,accepted FROM people , request WHERE people.PID = request.PID",
     function (error, result, fields) {
       if (error) {
         console.log(error);
@@ -207,10 +207,10 @@ app.get("/admin/add-people.html", async (req, res) => {
 // });
 app.get("/showrequest/:id", async (req, res) => {
   console.log(req.params.id);
-  if (req.params.id) {
+  {
     await db.query(
       "SELECT * FROM request WHERE REID = ?",
-      req.params.id,
+      1,
       function (error, result, fields) {
         if (error) {
           console.log(error);
