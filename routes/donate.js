@@ -19,7 +19,9 @@ router.post("/search",getPid, async (req, res) => {
   var p=req.session.pid;
   var today= new Date();
   console.log("date is",today);
-   
+   if(p==-1)
+   res.redirect("/registeration-step1.html");
+   else{
   await db.query(
     "SELECT * FROM donation_record WHERE PID = ?",
     p,
@@ -43,6 +45,7 @@ router.post("/search",getPid, async (req, res) => {
       
     }
   );
+   }
 
 
 });
@@ -92,6 +95,7 @@ router.post("/registeration-step1", getPid,  (req, res) => {
     blood_type:req.body.blood_type,
     donation_date: today,
     donation_step:1,
+    BDCID:req.session.bdcid,
   };
   
 

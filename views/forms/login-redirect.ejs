@@ -1,0 +1,258 @@
+<script>
+const session = require("express-session");
+const mysql = require("mysql");
+const db = require("../../config/db.js");
+</script>
+<!-- this contains all  -->
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Login Access</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="manifest" href="site.webmanifest"> -->
+  <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
+
+  <!-- CSS here -->
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="../assets/css/slicknav.css">
+  <link rel="stylesheet" href="../assets/css/flaticon.css">
+  <link rel="stylesheet" href="../assets/css/animate.min.css">
+  <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
+  <link rel="stylesheet" href="../assets/css/themify-icons.css">
+  <link rel="stylesheet" href="../assets/css/slick.css">
+  <link rel="stylesheet" href="../assets/css/nice-select.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/login-form.css">
+</head>
+<body>
+
+  <!--? Preloader Start -->
+  <div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+      <div class="preloader-inner position-relative">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img pere-text">
+          <img src="../assets/img/logo/loder.jpg" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--? Preloader End -->
+  <header>
+    <!-- Header Start -->
+    <div class="header-area">
+      <div class="main-header ">
+        <div class="header-bottom">
+          <div class="container">
+            <div class="row align-items-center">
+              <!-- Logo -->
+              <div class="col-xl-2 col-lg-2 mt-20 mb-20">
+                <div class="logo">
+                  <img src="../assets/img/logo/logo.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Header End -->
+  </header>
+  <main>
+    <section class="login-form-area section-bg  pt-115 pb-200 fix">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-8 col-lg-9">
+            <div class="login-form-wrapper">
+              <div class="row">
+                <div class="col-lg-12">
+                  <!-- Section Tittle -->
+                  <div class="section-tittle mb-50">
+                    <h2>Login As</h2>
+                    <p>Select a way to Login in your account</p>
+                  </div>
+                </div>
+              </div>
+
+              <style>
+              @media (max-width:370px){
+                .genric-btn.danger{
+                  padding-left: 10px;
+                  padding-right: 10px;
+                }
+              }
+              @media (min-width:370px) and (max-width:499px){
+                .genric-btn.danger{
+                  padding-left: 20px;
+                  padding-right: 20px;
+                }
+              }
+              @media (min-width:500px){
+                .genric-btn.danger{
+                  font-size: 16px;
+                }
+              }
+              .nice-select{
+                font-family:sans-serif;
+                font-size: 14px;
+                padding-left: 10px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                white-space: normal;
+                line-height: 1.7;
+                height: auto;
+                min-width: 250px;
+                max-width: 350px;
+              }
+              .nice-select .list{
+                overflow-x: hidden;
+                overflow-y: scroll;
+                -webkit-overflow-scrolling: touch;
+                max-height: 200px;
+              }
+              .nice-select .option{
+                padding-left: 10px;
+                padding-right: 5px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                border-bottom: 1px solid lightgray;
+                line-height: 1.7;
+                white-space: normal;
+                height: auto;
+                max-width: 350px;
+              }
+              #select-location{
+                display: none;
+              }
+              </style>
+
+              <div class="container">
+                <div class="row justify-content-around">
+                  <% if(user_type == "admin"){ %>
+                  <div class="col-xs-4">
+                    <button class="genric-btn danger" type="button" onclick="location.href='../admin/index_admin.html';">Admin</button>
+                  </div>
+                  <%}%>
+                  <%if(user_type == "admin" || user_type=="data-entry"){%>
+                  <div class="col-xs-4">
+                    <button class="genric-btn danger" type="button" onclick="select_location()">Data-Entry</button>
+                  </div>
+                  <%}%>
+                  <div class="col-xs-4">
+                    <button class="genric-btn danger" type="button" onclick="location.href='../index.html';">User</button>
+                  </div>
+                </div>
+              </div>
+                <!-- display below row when data-entry is clicked -->
+                <div class="container mt-20 mb-20" id="select-location">
+                <form action="/user/login-redirect" method="post" id="select-location-form">
+                  <div class="row justify-content-center mt-40" >
+                    <div class="col-xs-6 mr-10 my-auto">
+                      <h4 style="margin-bottom: 0px;">Select Location</h4>
+                    </div>
+                    <div class="col-xs-6 align-content-center">
+                      <select name="user_location" required>
+                        <option value="-1" disabled selected hidden>Please select your current Camp/Blood-Bank Location</option>
+                        <% for(var i=0; i <camps.length;i++){ %>
+                        
+                        <option value="<%=camps[i].BDCID%>"><%=camps[i].location%></option>
+                        <%}%>
+                      </select>
+
+                    </div>
+                  </div>
+                  <div class="row justify-content-center mt-40 mb-10">
+                    <input class="genric-btn danger" type="button" onclick="validate_option()" value="Continue as Data-Entry" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    function select_location(){
+      document.getElementById("select-location").style.display="block";
+    }
+    function validate_option(){
+      let pannel = document.getElementById("select-location");
+      let val = pannel.getElementsByTagName("select")[0];
+      if(val.value == "-1"){ //invalid option selected... show error message
+        pannel.style.border = "1px solid #ff1919";
+        pannel.style.borderRadius = "10px";
+        pannel.style.boxShadow = "0 0 10px #ff1919";
+        confirm("Please select your current Camp/Blood-Bank Location");
+      }
+      else{ //everything is fine.. just submit this form
+        document.getElementById("select-location-form").submit();
+      }
+    }
+  </script>
+  <footer>
+    <div class="footer-area footer-bg">
+      <div class="container">
+        <div class="footer-bottom">
+          <div class="row d-flex align-items-center">
+            <div class="col-lg-12">
+              <div class="footer-copy-right text-center">
+                <p><!-- Link back to IIITDM Jabalpur can't be removed. Template is licensed under CC BY 3.0. -->
+                  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This Website is made  by talented students of <a href="https://www.iiitdmj.ac.in" target="_blank">IIITDM Jabalpur</a>
+                  <!-- Link back to IIIT Jabalpur can't be removed. Template is licensed under CC BY 1.0. --></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+    <!-- JS here -->
+
+    <script src="./../assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="./../assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="./../assets/js/popper.min.js"></script>
+    <script src="./../assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="./../assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="./../assets/js/owl.carousel.min.js"></script>
+    <script src="./../assets/js/slick.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="./../assets/js/wow.min.js"></script>
+    <script src="./../assets/js/animated.headline.js"></script>
+    <script src="./../assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- Nice-select, sticky -->
+    <script src="./../assets/js/jquery.nice-select.min.js"></script>
+    <script src="./../assets/js/jquery.sticky.js"></script>
+
+    <!-- contact js -->
+    <script src="./../assets/js/contact.js"></script>
+    <script src="./../assets/js/jquery.form.js"></script>
+    <script src="./../assets/js/jquery.validate.min.js"></script>
+    <script src="./../assets/js/mail-script.js"></script>
+    <script src="./../assets/js/jquery.ajaxchimp.min.js"></script>
+
+    <!-- Jquery Plugins, main Jquery -->
+    <script src="./../assets/js/plugins.js"></script>
+    <script src="./../assets/js/main.js"></script>
+    <!-- Extra Plugins  -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+    <script src="../assets/plugins/grid-gallery/js/grid-gallery.min.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/app.js"></script>
+
+
+
+  </body>
+  </html>

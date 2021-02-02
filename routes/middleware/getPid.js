@@ -11,6 +11,10 @@ const getPid = (req, res, next) => {
           if (error) {
             console.log(error);
           }
+          else if(typeof req.body.name==="undefined" && result.length==0){
+            req.session.pid=-1;
+            next();
+          }
           else if(result.length==0){
             console.log("not found");
              
