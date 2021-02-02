@@ -68,7 +68,6 @@ app.get("/pretest-step2.html", async (req, res) => {
 app.get("/donation-step3.html", async (req, res) => {
   console.log(req.session.name);
 
-  
   res.render("forms/donation-step3", {
     logged: req.session.admin,
   });
@@ -115,8 +114,74 @@ app.get("/request_now.html", async (req, res) => {
   res.render("request_now", { logged: req.session.admin });
 });
 
+// long code
 app.get("/admin/index_admin.html", async (req, res) => {
-  res.render("admin/index_admin", { logged: req.session.admin });
+  await db.query(
+    "SELECT accepted , COUNT(REID) AS reqs FROM request GROUP BY accepted",
+    async (error, result, fields) => {
+      if (error) {
+        console.log(error);
+      } else {
+        req.session.reqcount = result;
+
+        await db.query(
+          "SELECT user_type , COUNT(PID) AS reqs FROM people GROUP BY user_type",
+          async (errors, results, field) => {
+            if (errors) {
+              console.log(error);
+            } else {
+              req.session.peoplecount = results;
+              var datetime = new Date();
+              var date = datetime.toISOString().slice(0, 10);
+
+              await db.query(
+                "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_end < ?",
+                date,
+                async (error, result, field) => {
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    req.session.ended = result;
+                    await db.query(
+                      "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_start > ?",
+                      date,
+                      async (error, result, fields) => {
+                        if (error) {
+                          console.log(error);
+                        } else {
+                          req.session.oncoming = result;
+                          await db.query(
+                            "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_start > ? AND camp_end < ?",
+                            [date, date],
+                            async (error, results, fields) => {
+                              if (error) {
+                                console.log(error);
+                              } else {
+                                req.session.ongoing = result;
+                                console.log(req.session);
+                                res.render("admin/index_admin", {
+                                  logged: req.session.admin,
+                                  reqcount: req.session.reqcount,
+                                  peoplecount: req.session.peoplecount,
+                                  ended: req.session.ended,
+                                  oncoming: req.session.oncoming,
+                                  ongoing: req.session.oncoming,
+                                });
+                              }
+                            }
+                          );
+                        }
+                      }
+                    );
+                  }
+                }
+              );
+            }
+          }
+        );
+      }
+    }
+  );
 });
 
 app.get("/admin/admin-people.html", async (req, res) => {
@@ -182,7 +247,6 @@ app.get("/admin/full-camps.html/:id", async (req, res) => {
       }
     }
   );
- 
 });
 
 app.get("/admin/add-camp.html", async (req, res) => {
@@ -235,20 +299,20 @@ app.get("/showrequest/:id", async (req, res) => {
 });
 
 app.get("/admin/admin-donation.html", async (req, res) => {
-  
   await db.query(
-    "SELECT * FROM donation_record",function (error, result, fields) {
+    "SELECT * FROM donation_record",
+    function (error, result, fields) {
       if (error) {
         console.log(error);
       } else {
         console.log(result);
-        res.render("admin/admin-donation", { logged: req.session.admin,
-                                             donations:result, });
+        res.render("admin/admin-donation", {
+          logged: req.session.admin,
+          donations: result,
+        });
       }
     }
-    
   );
-  
 });
 
 app.get("/admin/admin-bloodbank.html", async (req, res) => {
