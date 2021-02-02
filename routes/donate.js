@@ -17,12 +17,12 @@ const upload = require("./middleware/multerMiddleware");
 
 router.post("/search",getPid, async (req, res) => {
   var p=req.session.pid;
-  
+  var today= new Date();
   
    
   await db.query(
-    "SELECT * FROM donation_record WHERE PID = ?",
-    p,
+    "SELECT * FROM donation_record WHERE PID = ? AND donation_date = ?",
+    [p,today],
     async (error, result, fields) => {
       if (result.length == 0) {
         wrong = true;
