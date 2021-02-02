@@ -96,20 +96,26 @@
 						<!-- blood donations -->
 						<tr>
 							<!-- pass the requestID to full-request.html which will than show every details of record -->
-							<td><a href="full-donation.html" target="_blank" class="r-status-acc">DID</a></td>
+							<td><a href="#" target="_blank" class="r-status-acc">DID</a></td>
 							<td><a href="full-people.html" target="_blank">Full Name</a></td>
 							<td><a href="full-camps.html" target="_blank">Camp Name</a></td>
 							<td>Blood Type</td>
 							<td class="bold">Date : 01-Jan-2021</td>
 						</tr>
 						<!-- blood donated at blood bank -->
-						<tr>
-							<td><a href="full-donation.html" target="_blank" class="r-status-rej">DID</a></td>
-							<td><a href="full-people.html" target="_blank">Full Name</a></td>
-							<td><a href="admin-bloodbank.html">Blood Bank Name</a></td>
-							<td>Blood Type</td>
-							<td class="bold">Date : 01-Jan-2021</td>
-						</tr>
+						
+
+						<%for(var i=0;i<donations.length;i++){%>
+
+							<tr>
+								<td><a href="/admin/full-donation.html" target="_blank" class="r-status-rej"><%=donations[i].DID%></a></td>
+								<td><a href="/admin/full-people.html/<%=donations[i].PID%>" target="_blank"><%=donations[i].PID%></a></td>
+								<td><a href="/admin/admin-bloodbank.html"><%=donations[i].BLID%></a></td>
+								<td><%=donations[i].blood_type%></td>
+								<td class="bold"><%=donations[i].donation_date%></td>
+							</tr>
+							
+							<%}%>
 					</table>
 					<!-- All records ends here -->
 				</div>

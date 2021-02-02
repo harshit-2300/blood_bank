@@ -169,8 +169,20 @@ app.get("/admin/admin-camps.html", async (req, res) => {
   );
 });
 
-app.get("/admin/full-camps.html", async (req, res) => {
-  res.render("admin/full-camps", { logged: req.session.admin });
+app.get("/admin/full-camps.html/:id", async (req, res) => {
+  await db.query(
+    "SELECT * FROM blood_donation_camp WHERE BDCID = ?",
+    req.params.id,
+    function (error, result, fields) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(result);
+        res.render("admin/full-camps", { request: result });
+      }
+    }
+  );
+ 
 });
 
 app.get("/admin/add-camp.html", async (req, res) => {
@@ -223,7 +235,20 @@ app.get("/showrequest/:id", async (req, res) => {
 });
 
 app.get("/admin/admin-donation.html", async (req, res) => {
-  res.render("admin/admin-donation", { logged: req.session.admin });
+  
+  await db.query(
+    "SELECT * FROM donation_record",function (error, result, fields) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(result);
+        res.render("admin/admin-donation", { logged: req.session.admin,
+                                             donations:result, });
+      }
+    }
+    
+  );
+  
 });
 
 app.get("/admin/admin-bloodbank.html", async (req, res) => {
