@@ -5,6 +5,7 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const db = require("../config/db.js");
 app.use(bodyParser.json());
+const getPid = require("./middleware/getPid.js");
 
 const PORT = process.env.PORT;
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -14,91 +15,138 @@ const router = express.Router();
 const upload = require("./middleware/multerMiddleware");
 
 
-router.post("/search", async (req, res) => {
+router.post("/search",getPid, async (req, res) => {
+  var p=req.session.pid;
+  var today= new Date();
+  
+   
   await db.query(
-    "SELECT * FROM people WHERE email = ?",
-    req.body.email,
+    "SELECT * FROM donation_record WHERE PID = ? AND donation_date = ?",
+    [p,today],
     async (error, result, fields) => {
       if (result.length == 0) {
         wrong = true;
         res.redirect("/registeration-step1.html");
       }
       else{
-      req.session.user_exist=result;
-      res.redirect("/registeration-step1.html");
+        if(result[0].donation_step==1)
+        res.redirect("/pretest-step2.html");
+        else if(result[0].donation_step==2)
+        res.redirect("/donation-step3.html");
+        else{
+        res.redirect("/data-entry");
+        }
       }
       
     }
   );
+
+
 });
 
 
 
 
-router.post("/registeration-step1", async (req, res) => {
+router.post("/registeration-step1", getPid,  (req, res) => {
   var today = new Date();
-  var users = {
-    blood_group: req.body.blood_type,
-    weight: req.body.weight,
-    height: req.body.height,
-    gender: req.body.gender,
-    next_donation_date: today,
-    previous_sms_date: today,
-    phone: req.body.phone,
-  };
+  
+
+  var p=req.session.pid;
+
+  
+  
 
   var did=100;
-  
-  
-    await db.query(
-      "SELECT * FROM donor",
-      function (error, result, fields) {
-        if (error) {
-          console.log(error);
-        } else {
-          
-          console.log(result.length);
-          did=result.length+1;
-          };
-        });
+  console.log(p);
+ 
       
+
+        var donor_user = {
+          PID: p,
+          weight:req.body.weight,
+          height: req.body.height,
+          next_donation_date:today,
+          previous_sms_date:today,
+        };
+
+        db.query(
+          "INSERT INTO donor SET ?",
+          donor_user,
+          function (error, results, fields) {
+            if (error) {
+              console.log(error);
+              res.send("error");
+            } else {
+              console.log("here at insert");
+            }
+          }
+        );   
       
+   
   
+   var users = {
+    PID: p,
+    blood_type:req.body.blood_type,
+    donation_date: today,
+    donation_step:1,
+  };
   
 
-  await db.query(
-    "INSERT INTO donor SET ?",
+
+    db.query(
+    "INSERT INTO donation_record SET ? ; ",
     users,
     function (error, results, fields) {
       if (error) {
         console.log(error);
         res.send("error");
       } else {
+        console.log("here at insert");
+        console.log("result=",results.insertId);
         req.session.did=did;
-        res.redirect("/donation-step3.html");
+        res.redirect("/data-entry");
       }
     }
   );
 });
 
 router.post("/pretest-step2",async(req,res)=> {
-  res.redirect("/donation-step3.html");
-})
+  p=req.session.pid; 
+  var users = {
+    PID: p,
+    blood_test1:req.body.hg_level,
+    blood_test2:req.body.bp_level,
+    blood_test3:req.body.temp_level,
+    donation_step:2,
+  };
+
+    await  db.query(
+    "UPDATE donation_record SET blood_test1=?,blood_test2=?,blood_test3=?,donation_step=? WHERE PID=? ;",
+    [users.blood_test1,users.blood_test2,users.blood_test3,users.donation_step,users.PID],
+    function (error, results, fields) {
+      if (error) {
+        console.log(error);
+        res.send("error");
+      } else {
+        console.log("here at insert in pretets ");
+        console.log('Rows affected:', results.affectedRows);
+        res.redirect("/data-entry");
+        
+      }
+    }
+  );
+   
+
+  
+});
 
 router.post("/final", async (req, res) => {
-  var reject;
-  if (req.body.result == "Accepted") {
-    reject = 0;
-  } else {
-    reject = 1;
-  }
   var bloodbag = {
+    BBID:req.body.BBID,
     BLID: null,
-    blood_group: req.body.blood_type,
-    quantity: req.body.units,
     available: 1,
-    rejected: reject,
-    DonorID: req.body.donor,
+    rejected: 0,
+    Donated: 0,
   };
   {
     await db.query(
@@ -109,7 +157,7 @@ router.post("/final", async (req, res) => {
           console.log(err);
           res.send(err);
         } else {
-          res.send("Blood Bag added");
+          res.redirect("/data-entry");
         }
       }
     );

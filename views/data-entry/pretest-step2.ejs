@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,48 +40,6 @@
 	</div>
 	<!--? Preloader End -->
 	<header>
-		<!-- Header Start -->
-		<div class="header-area">
-			<div class="main-header ">
-				<div class="header-bottom  header-sticky">
-					<div class="container">
-						<div class="row align-items-center">
-							<!-- Logo -->
-							<div class="col-xl-2 col-lg-2">
-								<div class="logo">
-									<a href="data-entry"><img src="../assets/img/logo/logo.png" alt=""></a>
-								</div>
-							</div>
-							<div class="col-xl-10 col-lg-10">
-								<div class="menu-wrapper  d-flex align-items-center justify-content-end">
-									<!-- Main-menu -->
-									<div class="main-menu d-none d-lg-block">
-										<nav>
-											<ul id="navigation">
-												<li><a href="data-entry">Home</a></li>
-												<li><a href="registeration-step1.html">Registeration</a></li>
-												<li><a href="pretest-step2.html">Pre-Examination</a></li>
-												<li><a href="donation-step3.html">Donation</a></li>
-												<!-- <li><a href="forms/signup.html"></a></li> -->
-											</ul>
-										</nav>
-									</div>
-									<!-- Header-btn -->
-									<div class="header-right-btn d-none d-lg-block ml-20">
-										<a href="/user/logout" class="btn header-btn">Logout</a>
-									</div>
-								</div>
-							</div>
-							<!-- Mobile Menu -->
-							<div class="col-12">
-								<div class="mobile_menu d-block d-lg-none"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Header End -->
 	</header>
 	<main>
 		<!-- <div class="container">
@@ -111,11 +70,14 @@
 		</div> -->
 		<!-- Display Donor Card -->
 		<br><br><br>
+		<div class="row d-flex justify-content-center">
+		<!-- Display Donor Card -->
 		<div class="card-wrapper d-flex justify-content-center" style="position:relative;">
-			<!--<img src="../assets\img\donor-id-card.png" style="height:auto;width:90%;max-width:500px;">
-			<h4 style="top:49.5%;left:32.74%;"> Donor Name </h4>
-			<h4 style="top:67.78%;left:48.38%;"> B+ </h4>
-			<h4 style="top:67.7%;left:32.74%;"> 252-25-225 </h4>-->
+			<img src="..\assets\img\donor-id-card.png" style="height:auto;width:90%;max-width:500px;">
+			<h4 style="top:47.0%;left:8.24%;"> Donor Name </h4>
+			<h4 style="top:67.78%;left:46.58%;"> B+ </h4>
+			<h4 style="top:67.78%;left:8.24%;"> 252-25-225 </h4>
+		</div>
 		</div>
 		<section class="login-form-area section-bg  pt-35 pb-120 fix">
 			<div class="container">
@@ -128,12 +90,12 @@
 								<div class="col-lg-12">
 									<!-- Section Tittle -->
 									<div class="section-tittle mb-50">
-										<h2>Pre-Examination Donor </h2>
+										<h2>Pre-Examination</h2>
 									</div>
 								</div>
 							</div>
 							<!-- form -->
-							<form action="/donate/pretest-step2" method="post" class="login-form">
+							<form action="#" method="post" class="login-form">
 
 								<div class="row d-flex justify-content-start">
 									<div class="col-xs-6">
@@ -143,16 +105,16 @@
 									</div>
 									<div class="col-xs-6">
 										<div class="select-form">
-											<select name="blood_type" required>
+											<select name="blood-type" required>
 												<option value="" selected>A+</option>
 												<!-- It should show the Blood group mentioned by Donor ( If mentioned ) -->
-												<option value="A-">A-</option>
-												<option value="B+">B+</option>
-												<option value="B-">B-</option>
-												<option value="AB+">AB+</option>
-												<option value="AB-">AB-</option>
-												<option value="O+">O+</option>
-												<option value="O-">O-</option>
+												<option value="">A-</option>
+												<option value="">B+</option>
+												<option value="">B-</option>
+												<option value="">AB+</option>
+												<option value="">AB-</option>
+												<option value="">O+</option>
+												<option value="">O-</option>
 											</select>
 										</div>
 									</div>
@@ -167,11 +129,11 @@
 										<div class="radio-wrapper">
 											<div class="select-radio">
 												<div class="radio">
-													<input id="radio-1" name="hg_level" type="radio" value="1">
+													<input id="radio-1" name="hg_level" type="radio" value="normal">
 													<label for="radio-1" class="radio-label">Normal</label>
 												</div>
 												<div class="radio">
-													<input id="radio-2" name="hg_level" type="radio" value="0">
+													<input id="radio-2" name="hg_level" type="radio" value="not_normal">
 													<label for="radio-2" class="radio-label">Not Normal</label>
 												</div>
 											</div>
@@ -182,18 +144,18 @@
 								<div class="row d-flex justify-content-start">
 									<div class="col-xs-6">
 										<div class="label-form">
-											<label for="bp_level">Blood Pressure</label>
+											<label for="bp_level">Blood Pressure&emsp;&ensp;</label>
 										</div>
 									</div>
 									<div class="col-xs-6">
 										<div class="radio-wrapper">
 											<div class="select-radio">
 												<div class="radio">
-													<input id="radio-3" name="bp_level" type="radio" value="1">
+													<input id="radio-3" name="bp_level" type="radio" value="normal">
 													<label for="radio-3" class="radio-label">Normal</label>
 												</div>
 												<div class="radio">
-													<input id="radio-4" name="bp_level" type="radio" value="0">
+													<input id="radio-4" name="bp_level" type="radio" value="not_normal">
 													<label for="radio-4" class="radio-label">Not Normal</label>
 												</div>
 											</div>
@@ -211,11 +173,11 @@
 										<div class="radio-wrapper">
 											<div class="select-radio">
 												<div class="radio">
-													<input id="radio-5" name="temp_level" type="radio" value="1">
+													<input id="radio-5" name="temp_level" type="radio" value="normal">
 													<label for="radio-5" class="radio-label">Normal</label>
 												</div>
 												<div class="radio">
-													<input id="radio-6" name="temp_level" type="radio" value="0">
+													<input id="radio-6" name="temp_level" type="radio" value="not_normal">
 													<label for="radio-6" class="radio-label">Not Normal</label>
 												</div>
 											</div>
@@ -226,18 +188,18 @@
 								<div class="row d-flex justify-content-start">
 									<div class="col-xs-6">
 										<div class="label-form">
-											<label for="pulse">Pulse Rate</label>
+											<label for="pulse">Pulse Rate&emsp;&emsp;&emsp;&ensp;</label>
 										</div>
 									</div>
 									<div class="col-xs-6">
 										<div class="radio-wrapper">
 											<div class="select-radio">
 												<div class="radio">
-													<input id="radio-7" name="pulse" type="radio" value="1">
+													<input id="radio-7" name="pulse" type="radio" value="normal">
 													<label for="radio-7" class="radio-label">Normal</label>
 												</div>
 												<div class="radio">
-													<input id="radio-8" name="pulse" type="radio" value="0">
+													<input id="radio-8" name="pulse" type="radio" value="not_normal">
 													<label for="radio-8" class="radio-label">Not Normal</label>
 												</div>
 											</div>
@@ -267,100 +229,11 @@
 
 
 <footer>
-    <!--? Footer Start-->
-    <div class="footer-area footer-bg">
-        <div class="container">
-            <div class="footer-top footer-padding">
-                <!-- footer Heading -->
-                <div class="footer-heading">
-                    <div class="row justify-content-between">
-                        <div class="col-xl-6 col-lg-8 col-md-8">
-                            <div class="wantToWork-caption wantToWork-caption2">
-                                <h2>Be a Blood Donor, Be a Hero!<br>A Real One!</h2>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4">
-                            <span class="contact-number f-right">+91 985 683 9756</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Footer Menu -->
-                <div class="row d-flex justify-content-between">
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>QUICK LINKS</h4>
-                                <ul>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="donate_now.html#camp_map">Donation Camps</a></li>
-                                    <li><a href="contact.html">Contact us</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-4">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>GET ENGAGED</h4>
-                                <ul>
-                                    <li><a href="donate_now.html">As a Donor</a></li>
-                                    <li><a href="request_now.html">As a Reciever</a></li>
-                                    <li><a href="#">As a Volunteer</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>GET IN TOUCH</h4>
-                                <ul>
-                                    <li><a href="contact.html">Address:Maharshi Dayanand Saraswati Chowk, Napier Town, Jabalpur, Madhya Pradesh 482002</a></li>
-                                    <li><a href="contact.html">Phone: 999-999-9999</a></li>
-                                    <li><a href="contact.html">Email: noreply@your-domain.com</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6">
-                        <div class="single-footer-caption mb-50">
-                            <!-- logo -->
-                            <div class="footer-logo">
-                                <a href="index.html"><img src="../assets/img/logo/logo.png" alt=""></a>
-                            </div>
-                            <div class="footer-tittle">
-                                <div class="footer-pera">
-                                    <p class="info1">Every Drop Counts! Your One good step can save a thousand lives! Donate Blood Now!</p>
-                                </div>
-                            </div>
-                            <!-- Footer Social -->
-                            <div class="footer-social ">
-                                <a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fas fa-globe"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Footer Bottom -->
-            <div class="footer-bottom">
-                <div class="row d-flex align-items-center">
-                    <div class="col-lg-12">
-                        <div class="footer-copy-right text-center">
-                            <p><!-- Link back to IIITDM Jabalpur can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This Website is made  by talented students of <a href="https://www.iiitdmj.ac.in" target="_blank">IIITDM Jabalpur</a>
-  <!-- Link back to IIIT Jabalpur can't be removed. Template is licensed under CC BY 1.0. --></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Footer End-->
 </footer>
 <!-- JS here -->
+<!-- header and footer include -->
+<script src="../assets/js/header-data-entry.txt" language="javascript" type="text/javascript"></script>
+<script src="../assets/js/footer-data-entry.txt" language="javascript" type="text/javascript"></script>
 
 <script src="./../assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
