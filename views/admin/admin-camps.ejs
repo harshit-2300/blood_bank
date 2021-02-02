@@ -108,8 +108,10 @@
 
 						<%for(var i=0;i<camps.length;i++){%>
 							<tr>
-								<td class="r-status-acc ml-15 mr-15">Oncoming</td>
-								<td><a href="full-camps.html" target="_blank" class="btn-link"><%=camps[i].BDCID%></a></td>
+								<td class="r-status-acc ml-15 mr-15">
+									
+									Oncoming</td>
+								<td><a href="full-camps.html/<%=camps[i].BDCID%>" target="_blank" class="btn-link"><%=camps[i].BDCID%></a></td>
 								<td><%=camps[i].location%></td>
 								<td class="bold"> <%=camps[i].camp_start%> </td>
 								<td class="bold"><%=camps[i].camp_end%></td>

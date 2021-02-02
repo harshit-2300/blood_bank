@@ -47,7 +47,7 @@ const getPid = (req, res, next) => {
             
           }
           else {
-            console.log(result);
+            console.log("getting pid",result);
            
 
             
