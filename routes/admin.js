@@ -22,10 +22,9 @@ const bcrypt = require("bcryptjs");
 
 //To Check if user already exists
 const checkIfPersonExists = require("./middleware/checkIfPersonExists.js");
+const { fields } = require("./middleware/multerMiddleware.js");
 // const checkIfRegister = require("./middleware/loginMiddleware");
 //Handle Registering Users
-
-
 
 //POST user/signup
 router.post("/add-people", checkIfPersonExists, async (req, res) => {
@@ -45,7 +44,6 @@ router.post("/add-people", checkIfPersonExists, async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   users.password = await bcrypt.hash(req.body.password, salt);
 
-
   msg = "";
   {
     await db.query(
@@ -56,8 +54,6 @@ router.post("/add-people", checkIfPersonExists, async (req, res) => {
           console.log(error);
           res.redirect("/admin/index_admin");
         } else {
-          
-          
           res.redirect("/admin/admin-people");
         }
       }
@@ -65,9 +61,7 @@ router.post("/add-people", checkIfPersonExists, async (req, res) => {
   }
 });
 
-
-
-  /*
+/*
   msg = "";
   {
     await db.query(
@@ -119,38 +113,30 @@ router.post("/otp", async (req, res) => {
 */
 
 router.post("/add-camp", async (req, res) => {
-    var camp = {
-      camp_start: req.body.start_date,
-      camp_end: req.body.end_date,
-      location: req.body.location,
-      comments: req.body.comments,
-    };
-    console.log(camp);
-  
-    
-  
-  
-    msg = "";
-    {
-      await db.query(
-        "INSERT INTO blood_donation_camp SET ?",
-        camp,
-        function (error, results, fields) {
-          if (error) {
-            console.log(error);
-            res.redirect("/admin/add-camp.html");
-          } else {
-            
-            
-            res.redirect("/admin/admin-camps.html");
-          }
+  var camp = {
+    camp_start: req.body.start_date,
+    camp_end: req.body.end_date,
+    location: req.body.location,
+    comments: req.body.comments,
+  };
+  console.log(camp);
+
+  msg = "";
+  {
+    await db.query(
+      "INSERT INTO blood_donation_camp SET ?",
+      camp,
+      function (error, results, fields) {
+        if (error) {
+          console.log(error);
+          res.redirect("/admin/add-camp.html");
+        } else {
+          res.redirect("/admin/admin-camps.html");
         }
-      );
-    }
-  });
-  
-
-
+      }
+    );
+  }
+});
 
 var wrong = false;
 router.get("/index_admin", function (req, res) {
@@ -158,27 +144,57 @@ router.get("/index_admin", function (req, res) {
 });
 
 router.get("/add-people", function (req, res) {
-    res.render("admin/add-people", { wrong: wrong });
-  });
+  res.render("admin/add-people", { wrong: wrong });
+});
 
 router.get("/admin-people", async (req, res) => {
-    await db.query(
-      "SELECT * FROM people",
-      function (error, result, fields) {
-        if (error) {
-          console.log(error);
-        } else {
-          var peoples = result;
-          res.render("admin/admin-people", {
-            logged: req.session.admin,
-            peoples: result,
-          });
-        }
-      }
-    );
+  await db.query("SELECT * FROM people", function (error, result, fields) {
+    if (error) {
+      console.log(error);
+    } else {
+      var peoples = result;
+      res.render("admin/admin-people", {
+        logged: req.session.admin,
+        peoples: result,
+      });
+    }
   });
+});
 
+router.get("/full-camps/filter", async (req, res) => {
+  res.redirect("/admin/admin-camps.html");
+});
+router.post("/full-camps/filter", async (req, res) => {
+  var query;
+  var datetime = new Date();
+  var date = datetime.toISOString().slice(0, 10);
 
+  if (req.body.filter == "oncoming") {
+    query = "SELECT * FROM blood_donation_camp WHERE camp_start > ?";
+  } else if (req.body.filter == "ongoing") {
+    query =
+      "SELECT * FROM blood_donation_camp WHERE camp_start > ? AND camp_end < ?";
+  } else {
+    query = "SELECT * FROM blood_donation_camp WHERE camp_end < ?";
+  }
+  if ((req.body.order = "asc")) {
+    query = query + " ORDER BY camp_start ASC";
+  } else {
+    query = query + " ORDER BY camp_start DESC";
+  }
+
+  await db.query(query, date, async (error, result, fields) => {
+    if (error) {
+      console.log(error);
+    } else {
+      var camps = result;
+      res.render("admin/admin-camps", {
+        logged: req.session.admin,
+        camps: result,
+      });
+    }
+  });
+});
 module.exports = router;
 
 // var isMatch = await bcrypt.compare(password, user.password);
