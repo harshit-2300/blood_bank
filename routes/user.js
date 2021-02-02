@@ -95,6 +95,31 @@ router.get("/login", function (req, res) {
   res.render("forms/login", { wrong: wrong });
 });
 
+router.get("/login-redirect",async (req, res)=> {
+    await db.query(
+    "SELECT * FROM Blood_donation_camp",
+    function(error,result,fields){
+      if (error) {
+        console.log(error);
+        res.send("error");
+      } else {
+        res.render("forms/login-redirect", { wrong: wrong,
+          user_type:req.session.user_type,
+          camps:result, });
+      }
+    }
+  );
+  
+});  
+
+router.post("/login-redirect", async (req, res) => {
+  var bdcid=req.body.user_location;
+  req.session.bdcid=bdcid;
+  res.redirect("/data-entry");
+
+
+});
+
 router.get("/signup", function (req, res) {
   res.render("forms/signup", { registered: req.session.reg });
 });
@@ -120,9 +145,7 @@ router.post("/login", async (req, res) => {
         req.session.user_type = result[0].user_type;
         console.log(req.session.user_type);
         wrong = false;
-        if (req.session.user_type == "normal") res.redirect("/");
-        else if(req.session.user_type=="admin") res.redirect("/admin/index_admin.html");
-        else res.redirect("/data-entry");
+        res.redirect("/user/login-redirect");
       } else {
         wrong = true;
         res.redirect("/user/login");
