@@ -18,11 +18,11 @@ const upload = require("./middleware/multerMiddleware");
 router.post("/search",getPid, async (req, res) => {
   var p=req.session.pid;
   var today= new Date();
-  
+  console.log("date is",today);
    
   await db.query(
-    "SELECT * FROM donation_record WHERE PID = ? AND donation_date = ?",
-    [p,today],
+    "SELECT * FROM donation_record WHERE PID = ?",
+    p,
     async (error, result, fields) => {
       if (result.length == 0) {
         wrong = true;
@@ -31,8 +31,11 @@ router.post("/search",getPid, async (req, res) => {
       else{
         if(result[0].donation_step==1)
         res.redirect("/pretest-step2.html");
-        else if(result[0].donation_step==2)
+        else if(result[0].donation_step==2){
+          req.session.did=result[0].DID;
         res.redirect("/donation-step3.html");
+        
+        }
         else{
         res.redirect("/data-entry");
         }
@@ -148,6 +151,24 @@ router.post("/final", async (req, res) => {
     rejected: 0,
     Donated: 0,
   };
+
+  await  db.query(
+    "UPDATE donation_record SET BBID=? WHERE DID=? ;",
+    [req.body.BBID,req.session.did],
+    function (error, results, fields) {
+      if (error) {
+        console.log(error);
+        res.send("error");
+      } else {
+        console.log("update at insert in pretets ");
+        console.log('Rows affected:', results.affectedRows);
+        
+        
+      }
+    }
+  );
+
+
   {
     await db.query(
       "INSERT INTO blood_bag SET ?",

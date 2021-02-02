@@ -209,7 +209,7 @@ app.get("/showrequest/:id", async (req, res) => {
   {
     await db.query(
       "SELECT * FROM request WHERE REID = ?",
-      1,
+      req.params.id,
       function (error, result, fields) {
         if (error) {
           console.log(error);
