@@ -38,7 +38,7 @@ const getPid = (req, res, next) => {
                 console.log("inserted into peop;e=",result);  
                 req.session.pid=result.insertId;
                 console.log("req,session.pid=",req.session.pid);
-                res.redirect("/data-entry");
+                next();
                 }
               }
             )
