@@ -2620,9 +2620,10 @@ hero-btn {
     text-transform:capitalize
 }
 
-@media only screen and (min-width: 992px) and(max-width: 1199px) {
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
     .main-header .main-menu ul li a {
-        padding:39px 14px
+        padding:39px 14px;
+        font-size: 16px;
     }
 }
 
@@ -6840,6 +6841,44 @@ b, sup, sub, u, del {
 
 }
 
-/*----------------loggedout / loggedin -----------------------*/
+.card-wrapper h4{
+    position:absolute;
+    font-family: monospace;
+    color: black;
+}
 
-/*------------------------------------------------------------*/
+@media (max-width: 400px){
+  .card-wrapper h4{
+      font-size: 14px;
+  }
+}
+
+
+#history .container .scroll-box{
+    height: 300px;
+    width: 100%;
+    border: 2px solid black;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 0rem 1rem 0rem 0rem;
+}
+
+.scroll-box .record {
+    width: 98%;
+    height: auto;
+    color: red;
+    border: 1px solid #3d3d3d;
+    background-color: #ebebeb;
+    margin: 15px 15px 15px 10px;
+    padding: 10px 10px 10px 10px;
+}
+.scroll-box h4{
+    color: black;
+    font-family: monospace;
+    font-weight: 800;
+}
+.scroll-box .record p {
+    color: black;
+    margin-bottom: 2px;
+    margin-right: 8px;
+}
