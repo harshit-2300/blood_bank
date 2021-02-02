@@ -67,11 +67,10 @@ app.get("/pretest-step2.html", async (req, res) => {
 
 app.get("/donation-step3.html", async (req, res) => {
   console.log(req.session.name);
-  var DID = req.session.did;
-  console.log(DID);
+
+  
   res.render("forms/donation-step3", {
     logged: req.session.admin,
-    did: DID,
   });
 });
 
