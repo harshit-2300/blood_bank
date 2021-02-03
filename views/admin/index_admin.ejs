@@ -44,23 +44,43 @@
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-6 mb-40">
-						<div class="card" style="width: 18rem;">
+						<div class="card" style="width: 26rem;">
 						  <div class="card-body">
 						    <h3 class="card-title">Requests</h3>
-						    <p class="card-text">6 new requests.</p>
-								<p class="card-text">15 accepted requests.</p>
-								<p class="card-text">5 rejected requests.</p>
+						    <p class="card-text">
+								<%for(var i=0;i<reqcount.length;i++){%>
+									<%if(reqcount[i].accepted==0){%>
+									<%=reqcount[i].reqs%>
+									<%}%>
+
+								<%}%> new requests.</p>
+								<p class="card-text">
+									<%for(var i=0;i<reqcount.length;i++){%>
+										<%if(reqcount[i].accepted==1){%>
+											<%=reqcount[i].reqs%>
+												<%}%>
+
+													<%}%>
+									 accepted requests.</p>
+								<p class="card-text">
+									<%for(var i=0;i<reqcount.length;i++){%>
+										<%if(reqcount[i].accepted==-1){%>
+											<%=reqcount[i].reqs%>
+												<%}%>
+
+													<%}%>
+									 rejected requests.</p>
 								<a href="admin-request.html" >Requests</a>
 						  </div>
 						</div>
 					</div>
 					<div class="col-6 mb-40">
-						<div class="card" style="width: 18rem;">
+						<div class="card" style="width: 26rem;">
 						  <div class="card-body">
 						    <h3 class="card-title">Donation Camps</h3>
-						    <p class="card-text">Ongoing camps : 3</p>
-						    <p class="card-text">Upcoming camps : 2</p>
-						    <p class="card-text">Ended camps : 6</p>
+						    <p class="card-text">Ongoing camps : <%=ongoing[0].reqs%></p>
+						    <p class="card-text">Upcoming camps : <%=oncoming[0].reqs%></p>
+						    <p class="card-text">Ended camps : <%=ended[0].reqs%></p>
 								<a href="admin-camps.html" >Donation Camps</a>
 						  </div>
 						</div>
@@ -68,24 +88,55 @@
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-6">
-						<div class="card" style="width: 18rem;">
+						<div class="card" style="width: 26rem;">
 						  <div class="card-body">
 						    <h3 class="card-title">Accounts</h3>
-						    <p class="card-text">Normal Users : 65</p>
-						    <p class="card-text">Admins : 2</p>
-						    <p class="card-text">Data-entry Users : 15</p>
+						    <p class="card-text">Normal Users :
+								<%for(var i=0;i<peoplecount.length;i++){%>
+									<%if(peoplecount[i].user_type=='normal'){%>
+										<%=peoplecount[i].reqs%>
+											<%}%>
+
+												<%}%>
+							</p>
+						    <p class="card-text">Admins :
+								<%for(var i=0;i<peoplecount.length;i++){%>
+									<%if(peoplecount[i].user_type=='admin'){%>
+										<%=peoplecount[i].reqs%>
+											<%}%>
+
+												<%}%>
+							</p>
+						    <p class="card-text">Data-entry Users : <%for(var i=0;i<peoplecount.length;i++){%>
+								<%if(peoplecount[i].user_type=='data-entry'){%>
+									<%=peoplecount[i].reqs%>
+										<%}%>
+
+											<%}%></p>
 								<a href="admin-people.html">People</a>
 						  </div>
 						</div>
 					</div>
 					<div class="col-6">
-						<div class="card" style="width: 18rem;">
-						  <div class="card-body">
-						    <h3 class="card-title">Blood Bank</h3>
-						    <p class="card-text">&#8214;A+ 10&#8214;B+ 20&#8214;AB+ 11&#8214;O+ 6&#8214;</p>
-						    <p class="card-text">&#8214;A- 15&#8214;B- 15&#8214;AB- 11&#8214;O- 6&#8214;</p>
+						<div class="card" style="width: 26rem;">
+							<div class="card-body">
+								<h3 class="card-title">Blood Bank</h3>
+								<table class="table record">
+									<tr>
+										<td>A+ : 102</td>
+										<td>AB+ : 235</td>
+										<td>B+ : 233</td>
+										<td>O+ : 312</td>
+									</tr>
+									<tr>
+											<td>A- : 12</td>
+										<td>AB- : 1</td>
+										<td>B- : 245</td>
+										<td>O- : 13</td>
+									</tr>
+								</table>
 								<a href="admin-bloodbank.html" >Blood Bank</a>
-						  </div>
+							</div>
 						</div>
 					</div>
 				</div>
