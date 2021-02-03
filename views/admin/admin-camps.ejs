@@ -56,7 +56,7 @@
 				<div class="mini-nav">
 					<div class="container">
 						<div class="row justify-content-start">
-							<p class="col-xs-3 mr-150">&#10227;</p>
+							<a href="" target="_self"><p class="col-xs-3 mr-150">&#10227;</p></a>
 							<p class="col-xs-3 mr-150">1-3 out of 3</p>
 							<p class="col-xs-3">&#8592;</p>
 							<p class="col-xs-3">&#8594;</p>
@@ -99,8 +99,8 @@
 						<!-- active camps record -->
 
 						<tr>
-							<td class="r-status-acc ml-15 mr-15">Camps</td>
-							<td><a href="full-camps.html" target="_blank" class="btn-link">Camp ID</a></td>
+							<td>Camps</td>
+							<td>Camp ID</td>
 							<td class="bold">Location</td>
 							<td class="bold">Start Date  </td>
 							<td class="bold">End Date </td>
@@ -108,17 +108,25 @@
 
 						<%for(var i=0;i<camps.length;i++){%>
 							<tr>
-								<td class="r-status-acc ml-15 mr-15">
-									
-									Oncoming</td>
-								<td><a href="full-camps.html/<%=camps[i].BDCID%>" target="_blank" class="btn-link"><%=camps[i].BDCID%></a></td>
-								<td><%=camps[i].location%></td>
-								<td class="bold"> <%=camps[i].camp_start%> </td>
-								<td class="bold"><%=camps[i].camp_end%></td>
+								<td>
+									<% if(camps[i].camp_start > new Date()){ %>
+											<a href="full-camps.html/<%=camps[i].BDCID%>" target="_blank" class="r-status-acc ml-15 mr-15">upcoming</a>
+									<%}
+									  else if(camps[i].camp_end > new Date()){ %>
+											<a href="full-camps.html/<%=camps[i].BDCID%>" target="_blank" class="r-status-new ml-15 mr-15">ongoing</a>
+									<%}
+										else { %>
+											<a href="full-camps.html/<%=camps[i].BDCID%>" target="_blank" class="r-status-rej ml-15 mr-15">ended</a>
+									<%}%>
+								</td>
+								<td><%=camps[i].BDCID%></td>
+								<td style="max-width:250px;"><%=camps[i].location%></td>
+								<td class="bold"> <%=('0'+(camps[i].camp_start.getDate())).slice(-2)%>-<%=('0'+(camps[i].camp_start.getMonth()+1)).slice(-2)%>-<%=camps[i].camp_start.getFullYear()%></td>
+								<td class="bold"> <%=('0'+(camps[i].camp_end.getDate())).slice(-2)%>-<%=('0'+(camps[i].camp_end.getMonth()+1)).slice(-2)%>-<%=camps[i].camp_end.getFullYear()%></td>
 							</tr>
 							<%}%>
-							
-						
+
+
 					</table>
 					<!-- All records ends here -->
 				</div>

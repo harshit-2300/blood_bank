@@ -65,18 +65,18 @@
                                     </tr>
                                     <tr>
                                         <td>Start Date</td>
-                                        <td><input type="date" placeholder="01-01-2020" value="<%= request[0].camp_start.getDate() %>-0<%= request[0].camp_start.getMonth()+1 %>-<%= request[0].camp_start.getFullYear() %>" required
-                                                disabled class="editable"> <%= request[0].camp_start.getDate() %>-<%= request[0].camp_start.getMonth()+1 %>-<%= request[0].camp_start.getFullYear() %></td>
+                                        <td><input type="date" value="<%=request[0].camp_start.getFullYear()%>-<%=('0'+(request[0].camp_start.getMonth()+1)).slice(-2)%>-<%=('0'+(request[0].camp_start.getDate())).slice(-2)%>"  required
+                                                disabled class="editable"></td>
                                     </tr>
                                     <tr>
                                         <td>End Date</td>
-                                        <td><input type="date" placeholder="01-01-2020" value="<%= request[0].camp_end %>" required
-                                                disabled class="editable"> <%= request[0].camp_end.getDate() %>-<%= request[0].camp_end.getMonth()+1 %>-<%= request[0].camp_end.getFullYear() %></td>
+                                        <td><input type="date" value="<%=request[0].camp_end.getFullYear()%>-<%=('0'+(request[0].camp_end.getMonth()+1)).slice(-2)%>-<%=('0'+(request[0].camp_end.getDate())).slice(-2)%>" required
+                                                disabled class="editable"></td>
                                     </tr>
                                     <tr>
                                         <td>Location</td>
-                                        <td><input type="text" size="10" placeholder="Location" value="<%= request[0].location %>"
-                                                required disabled class="editable"></td>
+                                        <td><textarea style="width:500px;" name="location" disabled
+                                                class="editable"><%= request[0].location %></textarea></td>
                                     </tr>
                                     <tr>
                                         <td>Total Blood Donated</td>
@@ -93,7 +93,11 @@
 
                                     <tr>
                                         <td>Detailed Donation Info.</td>
-                                        <td><a href="#" target="_self">link to donations</a></td>
+                                        <td><a href="admin-donation.html" target="_self">link to donations</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>All Blood Bags Info.</td>
+                                        <td><a href="admin-bloodbag.html" target="_self">link to bloodbags</a></td>
                                     </tr>
                                     <tr>
                                         <td>Comments</td>
@@ -104,16 +108,14 @@
                                 </table>
                                 <div class="container">
                                     <div class="row justify-content-between">
-                                        <button type="submit" class="genric-btn info circle"
-                                            id="btn-submit">Submit</button>
                                         <button type="button" onclick="edit_btn()" class="genric-btn info circle"
                                             id="btn-edit">Edit</button>
+                                        <button type="button" onclick="cancel_btn()" class="genric-btn info"
+                                            id="btn-cancel">Cancel</button>
                                         <button type="button" onclick="update_btn()" class="genric-btn info"
                                             id="btn-update">Update</button>
                                         <button type="button" onclick="delete_btn()" class="genric-btn danger"
                                             id="btn-delete">Delete</button>
-                                        <button type="button" onclick="cancel_btn()" class="genric-btn info"
-                                            id="btn-cancel">Cancel</button>
                                     </div>
                                 </div>
                             </form>
@@ -130,7 +132,7 @@
     <!-- header and footer include -->
     <script src="assets/js/plain-header-admin.txt" language="javascript" type="text/javascript"></script>
     <script src="assets/js/footer-admin.txt" language="javascript" type="text/javascript"></script>
-    
+
     <!-- custom script databse changes in this .js files -->
     <script src="/assets/js/record-editor.js"></script>
     <script src="/assets/js/full-request-editor.js"></script>
