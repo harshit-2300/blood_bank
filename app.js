@@ -214,6 +214,41 @@ app.get("/admin/admin-request.html", async (req, res) => {
   );
 });
 
+// app.get("/admin/full-camps/filter", async (req, res) => {
+//   res.redirect("/admin/admin-camps.html");
+// });
+
+// app.post("/admin/full-camps/filter", async (req, res) => {
+//   var query;
+//   var datetime = new Date();
+//   var date = datetime.toISOString().slice(0, 10);
+
+//   if (req.body.filter == "oncoming") {
+//     query = "SELECT * FROM blood_donation_camp WHERE camp_start > ?";
+//   } else if (req.body.filter == "ongoing") {
+//     query =
+//       "SELECT * FROM blood_donation_camp WHERE camp_start > ? AND camp_end < ?";
+//   } else {
+//     query = "SELECT * FROM blood_donation_camp WHERE camp_end < ?";
+//   }
+//   if ((req.body.order = "asc")) {
+//     query = query + " ORDER BY camp_start ASC";
+//   } else {
+//     query = query + " ORDER BY camp_start DESC";
+//   }
+
+//   await db.query(query, [date, date], async (error, result, fields) => {
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       res.render("admin/admin-camps", {
+//         logged: req.session.admin,
+//         camps: result,
+//       });
+//     }
+//   });
+// });
+
 app.get("/admin/admin-camps.html", async (req, res) => {
   await db.query(
     "SELECT * FROM blood_donation_camp",
@@ -221,7 +256,6 @@ app.get("/admin/admin-camps.html", async (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        var camps = result;
         res.render("admin/admin-camps", {
           logged: req.session.admin,
           camps: result,

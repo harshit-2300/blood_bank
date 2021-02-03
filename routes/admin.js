@@ -164,6 +164,7 @@ router.get("/admin-people", async (req, res) => {
 router.get("/full-camps/filter", async (req, res) => {
   res.redirect("/admin/admin-camps.html");
 });
+
 router.post("/full-camps/filter", async (req, res) => {
   var query;
   var datetime = new Date();
@@ -183,11 +184,10 @@ router.post("/full-camps/filter", async (req, res) => {
     query = query + " ORDER BY camp_start DESC";
   }
 
-  await db.query(query, date, async (error, result, fields) => {
+  await db.query(query, [date, date], async (error, result, fields) => {
     if (error) {
       console.log(error);
     } else {
-      var camps = result;
       res.render("admin/admin-camps", {
         logged: req.session.admin,
         camps: result,
