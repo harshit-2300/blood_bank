@@ -95,29 +95,28 @@ router.get("/login", function (req, res) {
   res.render("forms/login", { wrong: wrong });
 });
 
-router.get("/login-redirect",async (req, res)=> {
-    await db.query(
+router.get("/login-redirect", async (req, res) => {
+  await db.query(
     "SELECT * FROM Blood_donation_camp",
-    function(error,result,fields){
+    function (error, result, fields) {
       if (error) {
         console.log(error);
         res.send("error");
       } else {
-        res.render("forms/login-redirect", { wrong: wrong,
-          user_type:req.session.user_type,
-          camps:result, });
+        res.render("forms/login-redirect", {
+          wrong: wrong,
+          user_type: req.session.user_type,
+          camps: result,
+        });
       }
     }
   );
-  
-});  
+});
 
 router.post("/login-redirect", async (req, res) => {
-  var bdcid=req.body.user_location;
-  req.session.bdcid=bdcid;
+  var bdcid = req.body.user_location;
+  req.session.bdcid = bdcid;
   res.redirect("/data-entry");
-
-
 });
 
 router.get("/signup", function (req, res) {
@@ -139,16 +138,47 @@ router.post("/login", async (req, res) => {
 
       if (isMatch) {
         isLogged = true;
-        req.session.name = result[0].name;
+        req.session.name = result[0].full_name;
         req.session.user = result[0].PID;
         req.session.admin = true;
         req.session.user_type = result[0].user_type;
-        console.log(req.session.user_type);
+        req.session.blood = result[0].blood_group;
+        req.session.phone = result[0].phone_number;
         wrong = false;
         res.redirect("/user/login-redirect");
       } else {
         wrong = true;
         res.redirect("/user/login");
+      }
+    }
+  );
+});
+
+router.post("/update/profile", async (req, res) => {
+  await db.query(
+    "SELECT * FROM people WHERE email = ?",
+    req.body.email,
+    async (error, result, fields) => {
+      if (result.length == 0) {
+        wrong = true;
+        res.redirect("/user/login");
+      }
+      var isMatch = await bcrypt.compare(req.body.password, result[0].password);
+      if (isMatch) {
+        await db.query(
+          "UPDATE people SET full_name = ? , phone_number = ? , email = ? WHERE PID = ?",
+          [req.body.name, req.body.phone, req.body.email, req.session.user],
+          async (error, result, fields) => {
+            if (error) {
+              console.log(error);
+              res.redirect("/");
+            } else {
+              res.redirect("/forms/profile.html");
+            }
+          }
+        );
+      } else {
+        res.send("Wrong password");
       }
     }
   );

@@ -84,7 +84,37 @@ app.get("/about.html", async (req, res) => {
 });
 
 app.get("/forms/profile.html", async (req, res) => {
-  res.render("forms/profile", { logged: req.session.admin });
+  console.log(req.session);
+  await db.query(
+    "SELECT * FROM request WHERE PID = ?",
+    req.session.user,
+    async (error, result, fields) => {
+      if (error) {
+        console.log(error);
+        res.redirect("/");
+      } else {
+        var requests = result;
+        await db.query(
+          "SELECT * FROM donation_record WHERE PID = ?",
+          req.session.user,
+          async (error, result, fields) => {
+            if (error) {
+              console.log(error);
+              res.redirect("/");
+            } else {
+              var donation = result;
+              res.render("forms/profile", {
+                logged: req.session.admin,
+                info: req.session,
+                requests: requests,
+                donations: donation,
+              });
+            }
+          }
+        );
+      }
+    }
+  );
 });
 
 app.get("/blog.html", async (req, res) => {
