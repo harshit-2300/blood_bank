@@ -1,9 +1,8 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <title>Transportation HTML-5 Template </title>
+    <title>Blood Donation</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
@@ -22,200 +21,177 @@
     <link rel="stylesheet" href="assets/plugins/grid-gallery/css/grid-gallery.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/proc.css">
-</head>
 
+</head>
 <body>
-    <!--? Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/loder.jpg" alt="">
+<!--? Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+            <div class="preloader-img pere-text">
+                <img src="assets/img/logo/loder.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Preloader Start -->
+<header>
+    <!-- Header Start -->
+    <div class="header-area">
+        <div class="main-header ">
+            <div class="header-top d-none d-lg-block">
+                <div class="container">
+                    <div class="col-xl-12">
+                        <div class="row d-flex justify-content-between align-items-center">
+                            <div class="header-info-left">
+                                <ul>
+                                    <li>Phone: +99 (0) 101 0000 888</li>
+                                    <li>Email: noreply@yourdomain.com</li>
+                                </ul>
+                            </div>
+                            <div class="header-info-right">
+                                <ul class="header-social">
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-bottom  header-sticky">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-2 col-lg-2">
+                            <div class="logo">
+                                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10">
+                            <div class="menu-wrapper  d-flex align-items-center justify-content-end">
+                                <!-- Main-menu -->
+                                <div class="main-menu d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a href="index.html">Home</a></li>
+                                            <!-- <li><a href="services.html">Services</a></li> -->
+                                            <li><a href="forms/profile.html">Profile</a>
+                                                <ul class="submenu">
+                                                    <li><a href="forms/profile.html#donar-card">Donar ID-Card</a>
+                                                    </li>
+                                                    <li><a href="forms/profile.html#profile-details">Profile
+                                                            Details</a></li>
+                                                    <li><a href="forms/profile.html#history">Previous
+                                                            Donations/Requests</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="donate_now.html#camp_map">Donation Camps</a></li>
+                                            <li><a href="about.html">About Us</a></li>
+                                            <li><a href="contact.html">Contact Us</a></li>
+                                            <li><a href="/user/signup">Sign Up</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!-- Header-btn -->
+                                <div class="header-right-btn d-none d-lg-block ml-20">
+                                    <%if(!logged){%>
+                                    <a href="/user/login" class="btn header-btn">Login</a>
+                                    <%}else{%>
+                                        <a href="/user/logout" class="btn header-btn">Logout</a>
+                                        <%}%>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Preloader Start -->
-    <header>
-        <!-- Header Start -->
-        <div class="header-area">
-            <div class="main-header ">
-                <div class="header-top d-none d-lg-block">
-                    <div class="container">
-                        <div class="col-xl-12">
-                            <div class="row d-flex justify-content-between align-items-center">
-                                <div class="header-info-left">
-                                    <ul>
-                                        <li>Phone: +99 (0) 101 0000 888</li>
-                                        <li>Email: noreply@yourdomain.com</li>
-                                    </ul>
-                                </div>
-                                <div class="header-info-right">
-                                    <ul class="header-social">
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                    </ul>
+    <!-- Header End -->
+</header>
+<main>
+    <!--? slider Area Start -->
+    <div class="slider-area ">
+        <div class="slider-active">
+            <!-- Single Slider -->
+            <div class="slider-detail">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="assets/images/slider/slide-02.jpg" alt="First slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5 class=" bounceInDown"><div style= "color:white; font-size:44px; margin-left: -40px; font-weight: 600;text-align:center;">Donate Blood & Save a Life</div></h5>
+                                <p class=" bounceInLeft"><div style= "color:white; font-size:20px; margin-left: -40px; font-weight: 400;text-align:center;margin-bottom: 40px;">The blood you donate gives someone another chance at life<br>
+                                    Gift someone a LIFE Today !<br>
+                                    Donate Blood! Save Life!</div></p>
+                                <div class="">
+                                    <a class="btn-don-req" href="donate_now.html"> Donate Blood </a>
+                                    <a class="btn-don-req" href="request_now.html"> Request Blood </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="header-bottom  header-sticky">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <!-- Logo -->
-                            <div class="col-xl-2 col-lg-2">
-                                <div class="logo">
-                                    <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="assets/images/slider/slide-03.jpg" alt="Third slide">
+                            <div class="carousel-caption vdg-cur d-none d-md-block">
+                                <h5 class=" bounceInDown"><div style= "color:white; font-size:44px; margin-left: -40px; font-weight: 600;text-align:center;">Donate Blood & Save a Life</div></h5>
+                                <p class=" bounceInLeft"><div style= "color:white; font-size:20px; margin-left: -40px; font-weight: 400;text-align:center;margin-bottom: 40px;">The blood you donate gives someone another chance at life<br>
+                                    Gift someone a LIFE Today !<br>
+                                    Donate Blood! Save Life!</div></p>
+                                <div class="">
+                                    <a class="btn-don-req" href="donate_now.html"> Donate Blood </a>
+                                    <a class="btn-don-req" href="request_now.html"> Request Blood </a>
                                 </div>
-                            </div>
-                            <div class="col-xl-10 col-lg-10">
-                                <div class="menu-wrapper  d-flex align-items-center justify-content-end">
-                                    <!-- Main-menu -->
-                                    <div class="main-menu d-none d-lg-block">
-                                        <nav>
-                                            <ul id="navigation">
-                                                <li><a href="index.html">Home</a></li>
-                                                <!-- <li><a href="services.html">Services</a></li> -->
-                                                <li><a href="forms/profile.html">Profile</a>
-                                                    <ul class="submenu">
-                                                        <li><a href="forms/profile.html#donar-card">Donar ID-Card</a>
-                                                        </li>
-                                                        <li><a href="forms/profile.html#profile-details">Profile
-                                                                Details</a></li>
-                                                        <li><a href="forms/profile.html#history">Previous
-                                                                Donations/Requests</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="donate_now.html#camp_map">Donation Camps</a></li>
-                                                <li><a href="about.html">About Us</a></li>
-                                                <li><a href="contact.html">Contact Us</a></li>
-                                                <li><a href="/user/signup">Sign Up</a></li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                    <!-- Header-btn -->
-                                    <div class="header-right-btn d-none d-lg-block ml-20">
-                                        <%if(!logged){%>
-                                        <a href="/user/login" class="btn header-btn">Login</a>
-                                        <%}else{%>
-                                            <a href="/user/logout" class="btn header-btn">Logout</a>
-                                            <%}%>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Mobile Menu -->
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
                             </div>
                         </div>
+
                     </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
             </div>
         </div>
-        <!-- Header End -->
-    </header>
-    <main>
-        <!--? slider Area Start -->
-        <div class="slider-area ">
-            <div class="slider-active">
-                <!-- Single Slider -->
-                <div class="slider-detail">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img class="d-block w-100" src="assets/images/slider/slide-02.jpg" alt="First slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5 class=" bounceInDown">
-                                        <div
-                                            style="color:white; font-size:44px; margin-left: -40px; font-weight: 600;text-align:center;">
-                                            Donate Blood & Save a Life</div>
-                                    </h5>
-                                    <p class=" bounceInLeft">
-                                    <div
-                                        style="color:white; font-size:20px; margin-left: -40px; font-weight: 400;text-align:center;margin-bottom: 40px;">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam justo neque,
-                                        <br>
-                                        aliquet sit amet elementum vel, vehicula eget eros. Vivamus arcu metus, mattis
-                                        <br>
-                                        sed sagittis at, sagittis quis neque. Praesent.</div>
-                                    </p>
-                                    <div class="">
-                                        <a class="btn-don-req" href="donate_now.html"> Donate Blood </a>
-                                        <a class="btn-don-req" href="request_now.html"> Request Blood </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="carousel-item">
-                                <img class="d-block w-100" src="assets/images/slider/slide-03.jpg" alt="Third slide">
-                                <div class="carousel-caption vdg-cur d-none d-md-block">
-                                    <h5 class=" bounceInDown">
-                                        <div
-                                            style="color:white; font-size:44px; margin-left: -40px; font-weight: 600;text-align:center;">
-                                            Donate Blood & Save a Life</div>
-                                    </h5>
-                                    <p class=" bounceInLeft">
-                                    <div
-                                        style="color:white; font-size:20px; margin-left: -40px; font-weight: 400;text-align:center;margin-bottom: 40px;">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam justo neque,
-                                        <br>
-                                        aliquet sit amet elementum vel, vehicula eget eros. Vivamus arcu metus, mattis
-                                        <br>
-                                        sed sagittis at, sagittis quis neque. Praesent.</div>
-                                    </p>
-                                    <div class="">
-                                        <a class="btn-don-req" href="donate_now.html"> Donate Blood </a>
-                                        <a class="btn-don-req" href="request_now.html"> Request Blood </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                            data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                            data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <% if(flag==1){ %> 
-            <script>
-                alert("request made successfully");
-            </script>
-            <%}%> 
-          <%flag=0%>  
-        <!-- slider Area End-->
-        <!-- mobile buttons -->
-        <!-- <div class="row"> -->
-        <div class="btn-don-req-wrapper">
-            <a class="btn-don-req" href="donate_now.html"> Donate Blood </a>
-            <a class="btn-don-req" href="request_now.html"> Request Blood </a>
-        </div>
-        <!-- </div> -->
-        <!-- mobile buttons end -->
-        <!--? our info Start -->
-        <div class="our-info-area pt-70 pb-40">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-info mb-30">
-                            <!-- <div class="info_button"> -->
+    </div>
+    <% if(flag==1){ %>
+        <script>
+            alert("request made successfully");
+        </script>
+        <%}%>
+      <%flag=0%>
+    <!-- slider Area End-->
+    <!-- mobile buttons -->
+      <!-- <div class="row"> -->
+      <div class="btn-don-req-wrapper">
+          <a class="btn-don-req" href="donate_now.html"> Donate Blood </a>
+          <a class="btn-don-req" href="request_now.html"> Request Blood </a>
+      </div>
+    <!-- </div> -->
+    <!-- mobile buttons end -->
+    <!--? our info Start -->
+    <div class="our-info-area pt-70 pb-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-info mb-30">
+                        <!-- <div class="info_button"> -->
                             <div class="info-icon">
                                 <span class="flaticon-support"></span>
                             </div>
@@ -223,80 +199,78 @@
                                 <p>Call Us Anytime</p>
                                 <span>+ (91) 1800-567-8990</span>
                             </div>
-                            <!-- </div> -->
+                        <!-- </div> -->
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-info mb-30">
+                        <div class="info-icon">
+                            <span class="flaticon-clock"></span>
+                        </div>
+                        <div class="info-caption">
+                            <p>Sunday CLOSED</p>
+                            <span>Mon - Sat 8.00 - 18.00</span>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-info mb-30">
-                            <div class="info-icon">
-                                <span class="flaticon-clock"></span>
-                            </div>
-                            <div class="info-caption">
-                                <p>Sunday CLOSED</p>
-                                <span>Mon - Sat 8.00 - 18.00</span>
-                            </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-info mb-30">
+                        <div class="info-icon">
+                            <span class="flaticon-place"></span>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-info mb-30">
-                            <div class="info-icon">
-                                <span class="flaticon-place"></span>
-                            </div>
-                            <div class="info-caption">
-                                <p>Jabalpur, 482005</p>
-                                <span>MP, India</span>
-                            </div>
+                        <div class="info-caption">
+                            <p>Jabalpur, 482005</p>
+                            <span>MP, India</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</main>
     <!-- info End -->
     <!--? Gallery Area Start -->
     <div id="gallery" class="gallery container-fluid">
         <div class="container">
             <div class="row">
-                <div class="col-12 pb-10">
-                    <center>
-                        <h2>Checkout Our Gallery</h2>
-                    </center>
-                </div>
+              <div class="col-12 pb-10">
+                <center><h2>Checkout Our Gallery</h2></center>
+              </div>
             </div>
             <div class="gallery-row row">
-                <div id="gg-screen"></div>
-                <div class="gg-box">
-                    <div class="gg-element">
-                        <img src="assets/images/gallery/g1.jpg">
-                    </div>
-                    <div class="gg-element">
-                        <img src="assets/images/gallery/g2.jpg">
-                    </div>
-                    <div class="gg-element">
-                        <img src="assets/images/gallery/g3.jpg">
-                    </div>
-                    <div class="gg-element">
-                        <img src="assets/images/gallery/g4.jpg">
-                    </div>
-                    <div class="gg-element">
-                        <img src="assets/images/gallery/g5.jpg">
-                    </div>
-                    <div class="gg-element">
-                        <img src="assets/images/gallery/g6.jpg">
-                    </div>
-                    <div class="gg-element">
-                        <img src="assets/images/gallery/g7.jpg">
-                    </div>
-                    <div class="gg-element">
-                        <img src="assets/images/gallery/g8.jpg">
-                    </div>
-                    <div class="gg-element">
-                        <img src="assets/images/gallery/g9.jpg">
-                    </div>
-                    <div class="gg-element">
-                        <img src="assets/images/gallery/g10.jpg">
-                    </div>
-                </div>
+                    <div id="gg-screen"></div>
+                    <div class="gg-box">
+                            <div class="gg-element">
+                                <img src="assets/images/gallery/g1.jpg">
+                            </div>
+                            <div class="gg-element">
+                                <img src="assets/images/gallery/g2.jpg">
+                            </div>
+                            <div class="gg-element">
+                                <img src="assets/images/gallery/g3.jpg">
+                            </div>
+                            <div class="gg-element">
+                                <img src="assets/images/gallery/g4.jpg">
+                            </div>
+                            <div class="gg-element">
+                                <img src="assets/images/gallery/g5.jpg">
+                            </div>
+                            <div class="gg-element">
+                                <img src="assets/images/gallery/g6.jpg">
+                            </div>
+                            <div class="gg-element">
+                                <img src="assets/images/gallery/g7.jpg">
+                            </div>
+                            <div class="gg-element">
+                                <img src="assets/images/gallery/g8.jpg">
+                            </div>
+                            <div class="gg-element">
+                                <img src="assets/images/gallery/g9.jpg">
+                            </div>
+                            <div class="gg-element">
+                                <img src="assets/images/gallery/g10.jpg">
+                            </div>
+                          </div>
             </div>
         </div>
     </div>
@@ -305,163 +279,149 @@
     <!-- donation process -->
     <section id="process" class="donation-care pt-20">
         <div class="container pt-20 pb-50">
-            <div class="row">
-                <div class="col-12 pb-10">
-                    <center>
-                        <h2>Donation Process</h2>
-                        <p>The donation process from the time you arrive center until the time you leave</p>
-                    </center>
-                </div>
+          <div class="row">
+            <div class="col-12 pb-10">
+              <center><h2>Donation Process</h2>
+              <p>The donation process from the time you arrive center until the time you leave</p></center>
             </div>
-            <div class="row">
+          </div>
+           <div class="row">
                 <div class="col-md-3 col-sm-6 vd">
-                    <div class="bkjiu">
-                        <img src="assets/images/gallery/g1.jpg" alt="">
-                        <h4><b>1 - </b>Registration</h4>
-                        <p>Ut wisi enim ad minim veniam, quis laore nostrud exerci tation ulm hedi corper turet suscipit
-                            lobortis</p>
-                        <button class="btn btn-sm btn-danger">Readmore <i class="fas fa-arrow-right"></i></button>
+                   <div class="bkjiu">
+                    <img src="assets/images/gallery/g1.jpg" alt="">
+                    <h4><b>1 - </b>Registration</h4>
+                    <p>Donor fills up the registration form and gives his consent for donation. Having a <a href="forms/profile.html#donar-card" style="color:#ff1919;"> Donor ID card </a> will save you all this time.</p>
+                    <button class="btn btn-sm btn-danger"><a href="https://www.google.com/search?q=registration+process+of+blood+donation&rlz=1C1CHBD_enIN899IN899&oq=registration+process+of+bloo&aqs=chrome.4.69i57j33i22i29i30i395l7.16153j1j7&sourceid=chrome&ie=UTF-8" target="_blank">Readmore </a><i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 vd">
-                    <div class="bkjiu">
-                        <img src="assets/images/gallery/g2.jpg" alt="">
-                        <h4><b>2 - </b>Seeing</h4>
-                        <p>Ut wisi enim ad minim veniam, quis laore nostrud exerci tation ulm hedi corper turet suscipit
-                            lobortis</p>
-                        <button class="btn btn-sm btn-danger">Readmore <i class="fas fa-arrow-right"></i></button>
+                   <div class="bkjiu">
+                    <img src="assets/images/gallery/g2.jpg" alt="">
+                       <h4><b>2 - </b>Medical Check up</h4>
+                    <p>Donors Medical History is asked, check up of temperature, blood pressure, pulse and haemoglobin.</p>
+                    <button class="btn btn-sm btn-danger"><a href="https://www.google.com/search?safe=active&rlz=1C1CHBD_enIN899IN899&sxsrf=ALeKk02-iH2G113OTNeRD4wv7y6gG-9g3A%3A1611140502534&ei=lg0IYLP9H5bAz7sP-6WCyAE&q=medical+check+up+in+blood+donation&oq=medical+check+up+in+blood+donation&gs_lcp=CgZwc3ktYWIQAzIECCMQJzoHCAAQsQMQQzoFCAAQkQI6BggAEAcQHjoECAAQQ1CP2RBYnoIRYPeMEWgAcAF4AYAB4gKIAaUkkgEHMC45LjcuNJgBAKABAaoBB2d3cy13aXrAAQE&sclient=psy-ab&ved=0ahUKEwizoNiKrqruAhUW4HMBHfuSABkQ4dUDCA0&uact=5" target="_blank">Readmore </a><i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 vd">
-                    <div class="bkjiu">
-                        <img src="assets/images/gallery/g3.jpg" alt="">
-                        <h4><b>3 - </b>Donation</h4>
-                        <p>Ut wisi enim ad minim veniam, quis laore nostrud exerci tation ulm hedi corper turet suscipit
-                            lobortis</p>
-                        <button class="btn btn-sm btn-danger">Readmore <i class="fas fa-arrow-right"></i></button>
+                   <div class="bkjiu">
+                    <img src="assets/images/gallery/g3.jpg" alt="">
+                       <h4><b>3 - </b>Donation</h4>
+                    <p>Phlebotomist draws a unit of blood. A new sterile meedle is used to draw each unit.</p>
+                    <button class="btn btn-sm btn-danger"><a href="https://www.google.com/search?safe=active&rlz=1C1CHBD_enIN899IN899&sxsrf=ALeKk03SIDuxA2N19aZKG-9aWDTYBYTkNw%3A1611142311598&ei=pxQIYOr9I8Ko9QOu05foCA&q=blood+donation+by+phlebotomist&oq=blood+donation+by+phlebotomist&gs_lcp=CgZwc3ktYWIQAzIECCMQJzoECAAQR1CVRVigR2DTSWgAcAJ4AIABoAKIAcsDkgEFMC4xLjGYAQCgAQGqAQdnd3Mtd2l6yAEIwAEB&sclient=psy-ab&ved=0ahUKEwiq7ajptKruAhVCVH0KHa7pBY0Q4dUDCA0&uact=5" target="_blank"> Readmore </a><i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 vd">
-                    <div class="bkjiu">
-                        <img src="assets/images/gallery/g4.jpg" alt="">
-                        <h4><b>4 - </b>Save Life</h4>
-                        <p>Ut wisi enim ad minim veniam, quis laore nostrud exerci tation ulm hedi corper turet suscipit
-                            lobortis</p>
-                        <button class="btn btn-sm btn-danger">Readmore <i class="fas fa-arrow-right"></i></button>
-                    </div>
+                   <div class="bkjiu">
+                       <img src="assets/images/gallery/g4.jpg" alt="">
+                       <h4><b>4 - </b>Refreshment</h4>
+                        <p>Enjoy snacks to replenish Fluids. Enjoy the feeling of accomplishment of being a Life Saver!</p>
+                        <button class="btn btn-sm btn-danger"><a href = "https://www.google.com/search?safe=active&rlz=1C1CHBD_enIN899IN899&sxsrf=ALeKk02WqENesYtMMJ9c_NCcXhiG3o78Ig%3A1611142322313&ei=shQIYMTMEo_59QOj77-ABQ&q=refreshments+in+blood+donation&oq=refreshments+in+bloo&gs_lcp=CgZwc3ktYWIQAxgBMggIIRAWEB0QHjIICCEQFhAdEB4yBAghEAo6BAgAEEc6BQgAEM0COgcIABCxAxBDOggIABCxAxCRAjoECAAQQzoKCAAQsQMQgwEQQzoGCAAQBxAeOgIIADoICAAQBxAKEB46CAgAEAgQBxAeOgcIIRAKEKABOgkIABDJAxAWEB46BggAEBYQHjoMCAAQyQMQChBGEP8BOgQIABAKUO8sWL2LAWCamAFoAHACeAKAAYgDiAGAM5IBCDAuMTkuOC40mAEAoAEBqgEHZ3dzLXdpesgBCMABAQ&sclient=psy-ab" target="_blank"> Readmore </a><i class="fas fa-arrow-right"></i></button>
+                   </div>
                 </div>
-            </div>
+           </div>
 
 
         </div>
     </section>
     <!-- donation process end -->
 
-    <footer>
-        <!--? Footer Start-->
-        <div class="footer-area footer-bg">
-            <div class="container">
-                <div class="footer-top footer-padding">
-                    <!-- footer Heading -->
-                    <div class="footer-heading">
-                        <div class="row justify-content-between">
-                            <div class="col-xl-6 col-lg-8 col-md-8">
-                                <div class="wantToWork-caption wantToWork-caption2">
-                                    <h2>Be a Blood Donor, Be a Hero!<br>A Real One!</h2>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4">
-                                <span class="contact-number f-right">+91 985 683 9756</span>
-                            </div>
+<footer>
+  <!--? Footer Start-->
+<div class="footer-area footer-bg">
+    <div class="container">
+        <div class="footer-top footer-padding">
+            <!-- footer Heading -->
+            <div class="footer-heading">
+                <div class="row justify-content-between">
+                    <div class="col-xl-6 col-lg-8 col-md-8">
+                        <div class="wantToWork-caption wantToWork-caption2">
+                            <h2>Be a Blood Donor, Be a Hero!<br>A Real One!</h2>
                         </div>
                     </div>
-                    <!-- Footer Menu -->
-                    <div class="row d-flex justify-content-between">
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
-                            <div class="single-footer-caption mb-50">
-                                <div class="footer-tittle">
-                                    <h4>QUICK LINKS</h4>
-                                    <ul>
-                                        <li><a href="about.html">About Us</a></li>
-                                        <li><a href="donate_now.html#camp_map">Donation Camps</a></li>
-                                        <li><a href="contact.html">Contact us</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-4">
-                            <div class="single-footer-caption mb-50">
-                                <div class="footer-tittle">
-                                    <h4>GET ENGAGED</h4>
-                                    <ul>
-                                        <li><a href="donate_now.html">As a Donor</a></li>
-                                        <li><a href="request_now.html">As a Reciever</a></li>
-                                        <li><a href="#">As a Volunteer</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
-                            <div class="single-footer-caption mb-50">
-                                <div class="footer-tittle">
-                                    <h4>GET IN TOUCH</h4>
-                                    <ul>
-                                        <li><a href="contact.html">Address:Maharshi Dayanand Saraswati Chowk, Napier
-                                                Town, Jabalpur, Madhya Pradesh 482002</a></li>
-                                        <li><a href="contact.html">Phone: 999-999-9999</a></li>
-                                        <li><a href="contact.html">Email: noreply@your-domain.com</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6">
-                            <div class="single-footer-caption mb-50">
-                                <!-- logo -->
-                                <div class="footer-logo">
-                                    <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
-                                </div>
-                                <div class="footer-tittle">
-                                    <div class="footer-pera">
-                                        <p class="info1">Every Drop Counts! Your One good step can save a thousand
-                                            lives! Donate Blood Now!</p>
-                                    </div>
-                                </div>
-                                <!-- Footer Social -->
-                                <div class="footer-social ">
-                                    <a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a>
-                                    <a href=""><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fas fa-globe"></i></a>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
+                    <div class="col-xl-3 col-lg-4">
+                        <span class="contact-number f-right">+91 985 683 9756</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Menu -->
+            <div class="row d-flex justify-content-between">
+                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+                    <div class="single-footer-caption mb-50">
+                        <div class="footer-tittle">
+                            <h4>QUICK LINKS</h4>
+                            <ul>
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="donate_now.html#camp_map">Donation Camps</a></li>
+                                <li><a href="contact.html">Contact us</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <!-- Footer Bottom -->
-                <div class="footer-bottom">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-lg-12">
-                            <div class="footer-copy-right text-center">
-                                <p>
-                                    <!-- Link back to IIITDM Jabalpur can't be removed. Template is licensed under CC BY 3.0. -->
-                                    Copyright &copy;
-                                    <script>document.write(new Date().getFullYear());</script> All rights reserved |
-                                    This Website is made by talented students of <a href="https://www.iiitdmj.ac.in"
-                                        target="_blank">IIITDM Jabalpur</a>
-                                    <!-- Link back to IIIT Jabalpur can't be removed. Template is licensed under CC BY 1.0. -->
-                                </p>
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-4">
+                    <div class="single-footer-caption mb-50">
+                        <div class="footer-tittle">
+                            <h4>GET ENGAGED</h4>
+                            <ul>
+                                <li><a href="donate_now.html">As a Donor</a></li>
+                                <li><a href="request_now.html">As a Reciever</a></li>
+                                <li><a href="#">As a Volunteer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                    <div class="single-footer-caption mb-50">
+                        <div class="footer-tittle">
+                            <h4>GET IN TOUCH</h4>
+                            <ul>
+                                <li><a href="contact.html">Address:Maharshi Dayanand Saraswati Chowk, Napier Town, Jabalpur, Madhya Pradesh 482002</a></li>
+                                <li><a href="contact.html">Phone: 999-999-9999</a></li>
+                                <li><a href="contact.html">Email: noreply@your-domain.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6">
+                    <div class="single-footer-caption mb-50">
+                        <!-- logo -->
+                        <div class="footer-logo">
+                            <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                        </div>
+                        <div class="footer-tittle">
+                            <div class="footer-pera">
+                                <p class="info1">Every Drop Counts! Your One good step can save a thousand lives! Donate Blood Now!</p>
                             </div>
+                        </div>
+                        <!-- Footer Social -->
+                        <div class="footer-social ">
+                            <a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                            <a href=""><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-globe"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Footer End-->
-    </footer>
-    <!-- Scroll Up -->
-    <div id="back-top">
-        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="row d-flex align-items-center">
+                <div class="col-lg-12">
+                    <div class="footer-copy-right text-center">
+                        <p><!-- Link back to IIITDM Jabalpur can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This Website is made  by talented students of <a href="https://www.iiitdmj.ac.in" target="_blank">IIITDM Jabalpur</a>
+<!-- Link back to IIIT Jabalpur can't be removed. Template is licensed under CC BY 1.0. --></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+</footer>
+<!-- Scroll Up -->
+<div id="back-top" >
+    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
 
     <!-- JS here -->
 
@@ -501,5 +461,4 @@
     <script src="assets/js/script.js"></script>
 
 </body>
-
 </html>
