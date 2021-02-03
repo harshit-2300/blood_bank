@@ -55,7 +55,7 @@
 				<div class="mini-nav">
 					<div class="container">
 						<div class="row justify-content-start">
-							<p class="col-xs-3 mr-150">&#10227;</p>
+							<a href="" target="_self"><p class="col-xs-3 mr-150">&#10227;</p></a>
 							<p class="col-xs-3 mr-150">1-<%= requests.length %> out of <%= requests.length %></p>
 							<p class="col-xs-3">&#8592;</p>
 							<p class="col-xs-3">&#8594;</p>
@@ -97,14 +97,14 @@
 					<table class="table table-striped record">
 						<!-- start displaying records -->
 						<!-- new record -->
-					   
+
 						<tr>
 							<!-- pass the requestID to full-request.html which will than show every details of record -->
-							<td><a href="#" target="_blank" class="r-status-new">&#9993;</a></td>
+							<td>&#9993;</td>
 							<td class="bold">Full Name</td>
 							<td class="bold">Blood Type</td>
 							<td class="bold">Quantity</td>
-							<td class="bold">Date : 01-Jan-2021</td>
+							<td class="bold">Date</td>
 						</tr>
 
 
@@ -112,35 +112,49 @@
 							<script>
 								 status="Pending";
 						   </script>
-							<% if(requests[i].accepted==0){ %> 
+							<% if(requests[i].accepted==0){ %>
 								<script>
 									 status="Pending";
 								</script>
-								<%}%> 
+								<%}%>
 
-								<% if(requests[i].accepted==1){ %> 
+								<% if(requests[i].accepted==1){ %>
 									<script>
 										 status="Accepted";
 									</script>
-									<%}%> 
+									<%}%>
 
-									<% if(requests[i].accepted==-1){ %> 
+									<% if(requests[i].accepted==-1){ %>
 										<script>
 											status="Rejected";
 										</script>
-										<%}%> 	
+										<%}%>
 							<tr>
 								<!-- pass the requestID to full-request.html which will than show every details of record -->
+<<<<<<< HEAD
 								<td><a href="/showrequest/<%=requests[i].REID%>" ><%=status%></a></td>
+=======
+								<td>
+									<% if(requests[i].accepted==0){ %>
+										<a href="/showrequest/<%=requests[i].REID%>" class="r-status-new">&#9993;</a>
+									<%}
+									 else if(requests[i].accepted==1){ %>
+										<a href="/showrequest/<%=requests[i].REID%>" class="r-status-acc">&#x2713;</a>
+									<%}
+									 else if(requests[i].accepted==-1){ %>
+										<a href="/showrequest/<%=requests[i].REID%>" class="r-status-rej">&#10005;</a>
+									<%}%>
+								</td>
+>>>>>>> 57a6c9ee597bcd30b94508b7c80cba011ef584f9
 								<%console.log(requests[i].REID)%>
 								<td><%=requests[i].full_name%></td>
-								<td>Blood Group: <%=requests[i].blood_group%></td>
-								<td>Quantity: <%=requests[i].quantity%></td>
-								<td >Date : <%=requests[i].request_date%></td>
+								<td><%=requests[i].blood_group%></td>
+								<td><%=requests[i].quantity%></td>
+								<td><%=requests[i].request_date%></td>
 							</tr>
 							<%}%>
-							
-						
+
+
 					</table>
 					<!-- All records ends here -->
 				</div>
