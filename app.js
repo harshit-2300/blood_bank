@@ -75,12 +75,16 @@ app.get(
   "/pretest-step2.html",
   [checkIfLogged, checkIfdataEntry],
   async (req, res) => {
+    var p=" ";
+    var user = req.session.user_exist;
+    if (typeof user === "undefined") p = " ";
+    else p=user[0].blood_group;
     res.render("forms/pretest-step2", {
       logged: req.session.admin,
       full_name: "",
       email: "",
       phone_number: "",
-      blood_group: " ",
+      blood_group: p,
       gender: " ",
       dob: " ",
     });
