@@ -43,14 +43,10 @@ router.post("/search",getPid, async (req, res) => {
         res.redirect("/data-entry");
         }
       }
-      
     }
-  );
-   }
-
-
+    );
+  }
 });
-
 
 
 
@@ -62,46 +58,36 @@ router.post("/registeration-step1", getPid,  (req, res) => {
 
   
   console.log("today=",today);
-
-  var did=100;
-  console.log(p);
- 
-      
-
-        var donor_user = {
-          PID: p,
-          weight:req.body.weight,
-          height: req.body.height,
-          next_donation_date:today,
-          previous_sms_date:today,
-        };
-
-        db.query(
-          "INSERT INTO donor SET ?",
-          donor_user,
-          function (error, results, fields) {
-            if (error) {
-              console.log(error);
-              res.send("error");
-            } else {
-              console.log("here at insert");
-            }
-          }
-        );   
-      
-   
-  
-   var users = {
+  var donor_user = {
     PID: p,
-    blood_type:req.body.blood_type,
-    donation_date: today,
-    donation_step:1,
-    BDCID:req.session.bdcid,
+    weight: req.body.weight,
+    height: req.body.height,
+    next_donation_date: today,
+    previous_sms_date: today,
   };
-  
 
+  db.query(
+    "INSERT INTO donor SET ?",
+    donor_user,
+    function (error, results, fields) {
+      if (error) {
+        console.log(error);
+        res.send("error");
+      } else {
+        console.log("here at insert");
+      }
+    }
+  );
 
-    db.query(
+  var users = {
+    PID: p,
+    blood_type: req.body.blood_type,
+    donation_date: today,
+    donation_step: 1,
+    BDCID: req.session.bdcid,
+  };
+
+  db.query(
     "INSERT INTO donation_record SET ? ; ",
     users,
     function (error, results, fields) {
@@ -110,69 +96,68 @@ router.post("/registeration-step1", getPid,  (req, res) => {
         res.send("error");
       } else {
         console.log("here at insert");
-        console.log("result=",results.insertId);
-        req.session.did=did;
+        console.log("result=", results.insertId);
+        req.session.did = did;
         res.redirect("/data-entry");
       }
     }
   );
 });
 
-router.post("/pretest-step2",async(req,res)=> {
-  p=req.session.pid; 
+router.post("/pretest-step2", async (req, res) => {
+  p = req.session.pid;
   var users = {
     PID: p,
-    blood_test1:req.body.hg_level,
-    blood_test2:req.body.bp_level,
-    blood_test3:req.body.temp_level,
-    donation_step:2,
+    blood_test1: req.body.hg_level,
+    blood_test2: req.body.bp_level,
+    blood_test3: req.body.temp_level,
+    donation_step: 2,
   };
 
-    await  db.query(
+  await db.query(
     "UPDATE donation_record SET blood_test1=?,blood_test2=?,blood_test3=?,donation_step=? WHERE PID=? ;",
-    [users.blood_test1,users.blood_test2,users.blood_test3,users.donation_step,users.PID],
+    [
+      users.blood_test1,
+      users.blood_test2,
+      users.blood_test3,
+      users.donation_step,
+      users.PID,
+    ],
     function (error, results, fields) {
       if (error) {
         console.log(error);
         res.send("error");
       } else {
         console.log("here at insert in pretets ");
-        console.log('Rows affected:', results.affectedRows);
+        console.log("Rows affected:", results.affectedRows);
         res.redirect("/data-entry");
-        
       }
     }
   );
-   
-
-  
 });
 
 router.post("/final", async (req, res) => {
   var bloodbag = {
-    BBID:req.body.BBID,
+    BBID: req.body.BBID,
     BLID: null,
     available: 1,
     rejected: 0,
     Donated: 0,
   };
 
-  await  db.query(
+  await db.query(
     "UPDATE donation_record SET BBID=? WHERE DID=? ;",
-    [req.body.BBID,req.session.did],
+    [req.body.BBID, req.session.did],
     function (error, results, fields) {
       if (error) {
         console.log(error);
         res.send("error");
       } else {
         console.log("update at insert in pretets ");
-        console.log('Rows affected:', results.affectedRows);
-        
-        
+        console.log("Rows affected:", results.affectedRows);
       }
     }
   );
-
 
   {
     await db.query(
@@ -190,7 +175,12 @@ router.post("/final", async (req, res) => {
   }
 });
 
-router.get("/final", async (req, res) => {
+const checkIfLogged = require("./middleware/checkIfLogged");
+
+const checkIfdataEntry = require("./middleware/checkIfdataEntry");
+
+router.get("/final", [checkIfLogged, checkIfdataEntry], async (req, res) => {
   res.redirect("/data-entry");
 });
+
 module.exports = router;
