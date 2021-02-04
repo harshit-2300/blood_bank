@@ -14,46 +14,64 @@ app.use(express.static("public"));
 const router = express.Router();
 const upload = require("./middleware/multerMiddleware");
 
-router.post("/search", getPid, async (req, res) => {
-  var p = req.session.pid;
-  var today = new Date();
-  console.log("date is", today);
-  if (p == -1) res.redirect("/registeration-step1.html");
-  else {
-    await db.query(
-      "SELECT * FROM donation_record WHERE PID = ?",
-      p,
-      async (error, result, fields) => {
-        if (result.length == 0) {
-          wrong = true;
-          res.redirect("/registeration-step1.html");
-        } else {
-          if (result[0].donation_step == 1) res.redirect("/pretest-step2.html");
-          else if (result[0].donation_step == 2) {
-            req.session.did = result[0].DID;
-            res.redirect("/donation-step3.html");
-          } else {
-            res.redirect("/data-entry");
-          }
+
+router.post("/search",getPid, async (req, res) => {
+  var p=req.session.pid;
+  var today= new Date();
+  today=today.getFullYear()+'-'+('0'+(today.getMonth()+1)).slice(-2)+'-'+('0'+(today.getDate())).slice(-2);
+  console.log("date is",today);
+   if(p==-1)
+   res.redirect("/registeration-step1.html");
+   else{
+  await db.query(
+    "SELECT * FROM donation_record WHERE PID = ? AND donation_date=?",
+    [p,today],
+    async (error, result, fields) => {
+      if (result.length == 0) {
+        wrong = true;
+        res.redirect("/registeration-step1.html");
+      }
+      else{
+        if(result[0].donation_step==1)
+        res.redirect("/pretest-step2.html");
+        else if(result[0].donation_step==2){
+          req.session.did=result[0].DID;
+        res.redirect("/donation-step3.html");
+        
+        }
+        else{
+        res.redirect("/data-entry");
         }
       }
+    }
     );
   }
 });
 
-router.post("/registeration-step1", getPid, (req, res) => {
+
+
+router.post("/registeration-step1", getPid,  (req, res) => {
   var today = new Date();
+  var next_date="";
 
-  var p = req.session.pid;
+  if(today.getMonth()>=9){
+    next_date=(today.getFullYear()+1)+'-'+('0'+(today.getMonth()-8)).slice(-2)+'-'+('0'+(today.getDate())).slice(-2);
+  }
+  else
+  {
+   next_date= today.getFullYear()+'-'+('0'+(today.getMonth()+1+3)).slice(-2)+'-'+('0'+(today.getDate())).slice(-2);
+  }
+  today=today.getFullYear()+'-'+('0'+(today.getMonth()+1)).slice(-2)+'-'+('0'+(today.getDate())).slice(-2);
 
-  var did = 100;
-  console.log(p);
+  var p=req.session.pid;
 
+  
+  console.log("today=",today);
   var donor_user = {
     PID: p,
     weight: req.body.weight,
     height: req.body.height,
-    next_donation_date: today,
+    next_donation_date: next_date,
     previous_sms_date: today,
   };
 
@@ -88,7 +106,7 @@ router.post("/registeration-step1", getPid, (req, res) => {
       } else {
         console.log("here at insert");
         console.log("result=", results.insertId);
-        req.session.did = did;
+        
         res.redirect("/data-entry");
       }
     }
@@ -134,10 +152,11 @@ router.post("/final", async (req, res) => {
     available: 1,
     rejected: 0,
     Donated: 0,
+    
   };
 
   await db.query(
-    "UPDATE donation_record SET BBID=? WHERE DID=? ;",
+    "UPDATE donation_record SET BBID=? , donation_step=3 WHERE DID=? ;",
     [req.body.BBID, req.session.did],
     function (error, results, fields) {
       if (error) {
@@ -159,6 +178,7 @@ router.post("/final", async (req, res) => {
           console.log(err);
           res.send(err);
         } else {
+          
           res.redirect("/data-entry");
         }
       }
@@ -173,4 +193,5 @@ const checkIfdataEntry = require("./middleware/checkIfdataEntry");
 router.get("/final", [checkIfLogged, checkIfdataEntry], async (req, res) => {
   res.redirect("/data-entry");
 });
+
 module.exports = router;

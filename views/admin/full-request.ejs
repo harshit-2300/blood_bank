@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Admin Home </title>
+	<title>Request Details</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="/assets/css/style.css">
 	<!-- special file -->
 	<link rel="stylesheet" href="/assets/css/login-form.css">
-	<!-- <link rel="stylesheet" href="./request-style.css"> -->
+	<link rel="stylesheet" href="/assets/css/request-style.css">
 </head>
 
 <body>
@@ -59,7 +59,7 @@
 							<!-- form -->
 							<form action="#" method="post">
 								<table class="table table-striped record">
-									
+
 									<tr>
 										<td>Request Date</td>
 										<td><%=request[0].request_date%></td>
@@ -70,11 +70,11 @@
 									</tr> -->
 									<tr>
 										<td>Receiver's Blood Type</td>
-										<td><input type="text" size="10" placeholder="Blood Type" value="<%=request[0].blood_group%>" required disbaled class="editable"></td>
+										<td><input type="text" size="10" placeholder="Blood Type" value="<%=request[0].blood_group%>" required disabled class="editable"></td>
 									</tr>
 									<tr>
 										<td>Requested Quantity</td>
-										<td><input type="text" size="10" placeholder="<%=request[0].quantity%>" value="<%=request[0].quantity%>" diabled required class="editable"></td>
+										<td><input type="text" size="10" placeholder="<%=request[0].quantity%>" value="<%=request[0].quantity%>" disabled required class="editable"></td>
 									</tr>
 									<tr>
 										<td>Valid Document / Prescription</td>
@@ -108,7 +108,6 @@
 								</table>
 								<div class="container">
 									<div class="row justify-content-between">
-										<button type="submit" class="genric-btn info circle" id="btn-submit">Submit</button>
 										<button type="button" onclick="edit_btn()" class="genric-btn info circle" id="btn-edit">Edit</button>
 										<button type="button" onclick="update_btn()" class="genric-btn info" id="btn-update">Update</button>
 										<button type="button" onclick="delete_btn()" class="genric-btn danger" id="btn-delete">Delete</button>
@@ -131,8 +130,9 @@
 	<script src="/assets/js/footer-admin.txt" language="javascript" type="text/javascript"></script>
 
 	<!-- custom script databse changes in this .js files -->
-	<script src="js/record-editor.js"></script>
-	<script src="js/full-request-editor.js"></script>
+	<script src="/assets/js/record-editor.js"></script>
+	<script src="/assets/js/full-request-editor.js"></script>
+
 	<!-- All JS Custom Plugins Link Here here -->
 	<script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
 	<!-- Jquery, Popper, Bootstrap -->
