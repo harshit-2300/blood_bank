@@ -50,6 +50,7 @@ tr td a:hover{
   margin-top: 2px;
   margin-bottom: 2px;
   font-weight: 600;
+  line-height: 1.4;
   display: flex;
   justify-content: center;
   max-width: 120px;

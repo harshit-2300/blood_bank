@@ -131,7 +131,17 @@
 										<%}%> 	
 							<tr>
 								<!-- pass the requestID to full-request.html which will than show every details of record -->
-								<td><a href="/showrequest/<%=requests[i].REID%>" >hvhgvgh</a></td>
+								<td>
+									<% if(requests[i].accepted==0){ %>
+										<a href="/showrequest/<%=requests[i].REID%>" class="r-status-new">&#9993;</a>
+									<%}
+									 else if(requests[i].accepted==1){ %>
+										<a href="/showrequest/<%=requests[i].REID%>" class="r-status-acc">&#x2713;</a>
+									<%}
+									 else if(requests[i].accepted==-1){ %>
+										<a href="/showrequest/<%=requests[i].REID%>" class="r-status-rej">&#10005;</a>
+									<%}%>
+								</td>
 								<%console.log(requests[i].REID)%>
 								<td><%=requests[i].full_name%></td>
 								<td>Blood Group: <%=requests[i].blood_group%></td>

@@ -56,7 +56,7 @@
         <div class="mini-nav">
           <div class="container">
             <div class="row justify-content-start">
-              <a href="#" target="_blank"><p class="col-xs-3 mr-150">&#10227;</p></a>
+              <a href="" target="_self"><p class="col-xs-3 mr-150">&#10227;</p></a>
               <p class="col-xs-3 mr-150">1-<%=peoples.length %> out of <%=peoples.length %></p>
               <p class="col-xs-3">&#8592;</p>
               <p class="col-xs-3">&#8594;</p>
@@ -99,17 +99,17 @@
             <!-- start displaying records -->
             <!-- Person 1 -->
             <tr class="bold">
-              <td><a href="#" target="_blank"><img src="../assets/img/profile.png" alt=""></a></td>
+              <td class="bold">Profile</td>
               <td class="bold">Full Name</td>
               <td class="bold">PID</td>
-              <td class="bold">Donor</td>
+              <td class="bold">User-Type</td>
               <td class="bold" >Date</td>
             </tr>
 
             <%for(var i=0;i<peoples.length;i++){%>
               <tr>
                 <!-- pass the requestID to full-request.html which will than show every details of record -->
-                <td><a href="/admin/full-people.html/<%=peoples[i].PID%>" target="_blank" class="r-status-new " ><img src="../assets/img/profile.png" alt=""></a></td>
+                <td><a href="/admin/full-people.html/<%=peoples[i].PID%>" target="_blank"><img src="../assets/img/profile.png" alt=""></a></td>
                 <td><%=peoples[i].full_name%></td>
                 <td> <%=peoples[i].PID%></td>
                 <td> <%=peoples[i].user_type%></td>
@@ -117,8 +117,8 @@
               </tr>
               <%}%>
 
-           
-           
+
+
           </table>
           <!-- All records ends here -->
         </div>

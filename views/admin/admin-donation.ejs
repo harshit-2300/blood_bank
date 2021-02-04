@@ -96,14 +96,14 @@
 						<!-- blood donations -->
 						<tr>
 							<!-- pass the requestID to full-request.html which will than show every details of record -->
-							<td><a href="#" target="_blank" class="r-status-acc">DID</a></td>
-							<td><a href="full-people.html" target="_blank">Full Name</a></td>
-							<td><a href="full-camps.html" target="_blank">Camp Name</a></td>
+							<td>DID</td>
+							<td>Full Name</td>
+							<td>Camp Name</td>
 							<td>Blood Type</td>
 							<td class="bold">Date : 01-Jan-2021</td>
 						</tr>
 						<!-- blood donated at blood bank -->
-						
+
 
 						<%for(var i=0;i<donations.length;i++){%>
 
@@ -114,7 +114,7 @@
 								<td><%=donations[i].blood_type%></td>
 								<td class="bold"><%=donations[i].donation_date%></td>
 							</tr>
-							
+
 							<%}%>
 					</table>
 					<!-- All records ends here -->
