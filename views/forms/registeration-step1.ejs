@@ -117,7 +117,7 @@
 			<h4 style="top:67.78%;left:48.38%;"> B+ </h4>
 			<h4 style="top:67.7%;left:32.74%;"> 252-25-225 </h4>-->
 		</div>
-		
+
 
 		<section class="login-form-area section-bg  pt-115 pb-120 fix">
         <div class="container">
@@ -211,7 +211,8 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="input-form">
-                                        <input type="date" name="dob" placeholder="Date of Birth">
+																			<%var tdob = new Date(dob);%>
+																			<input type="date" name="dob" value="<%=tdob.getFullYear()%>-<%=('0'+(tdob.getMonth()+1)).slice(-2)%>-<%=('0'+(tdob.getDate())).slice(-2)%>">
                                     </div>
                                 </div>
                             </div>
