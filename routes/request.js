@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 const fs = require("fs");
 const api = require("../api/api.js");
 
+const checkIfLogged = require("./middleware/checkIfLogged");
 const PORT = process.env.PORT;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -67,7 +68,7 @@ var transporter = nodemailer.createTransport({
   },
 });
 
-router.get("/sendmails", async (req, res) => {
+router.get("/sendmails", checkIfLogged, async (req, res) => {
   console.log(req.session.blood_group);
   await db.query(
     "SELECT email FROM people WHERE blood_group = ?",

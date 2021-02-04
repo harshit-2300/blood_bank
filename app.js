@@ -8,6 +8,10 @@ const PORT = process.env.PORT;
 const http = require("http");
 const bodyParser = require("body-parser");
 
+const checkIfLogged = require("./routes/middleware/checkIfLogged.js");
+const checkIfAdmin = require("./routes/middleware/checkIfAdmin.js");
+const checkIfdataEntry = require("./routes/middleware/checkIfdataEntry");
+
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -33,42 +37,54 @@ app.get("/", async (req, res) => {
   res.render("index", { logged: req.session.admin, flag: flag });
 });
 
-app.get("/data-entry", async (req, res) => {
+app.get("/data-entry", [checkIfLogged, checkIfdataEntry], async (req, res) => {
   res.render("forms/index", { logged: req.session.admin });
 });
 
-app.get("/registeration-step1.html", async (req, res) => {
-  var user = req.session.user_exist;
-  var p = 0;
-  if (typeof user === "undefined") p = 1;
-  if (p)
-    res.render("forms/registeration-step1", {
-      logged: req.session.admin,
-      full_name: "",
-      email: "",
-      phone_number: "",
-    });
-  else
-    res.render("forms/registeration-step1", {
-      logged: req.session.admin,
-      full_name: user[0].full_name,
-      email: user[0].email,
-      phone_number: user[0].phone_number,
-    });
-});
+app.get(
+  "/registeration-step1.html",
+  [checkIfLogged, checkIfdataEntry],
+  async (req, res) => {
+    var user = req.session.user_exist;
+    var p = 0;
+    if (typeof user === "undefined") p = 1;
+    if (p)
+      res.render("forms/registeration-step1", {
+        logged: req.session.admin,
+        full_name: "",
+        email: "",
+        phone_number: "",
+      });
+    else
+      res.render("forms/registeration-step1", {
+        logged: req.session.admin,
+        full_name: user[0].full_name,
+        email: user[0].email,
+        phone_number: user[0].phone_number,
+      });
+  }
+);
 
-app.get("/pretest-step2.html", async (req, res) => {
-  res.render("forms/pretest-step2", {
-    logged: req.session.admin,
-    did: req.session.did,
-  });
-});
+app.get(
+  "/pretest-step2.html",
+  [checkIfLogged, checkIfdataEntry],
+  async (req, res) => {
+    res.render("forms/pretest-step2", {
+      logged: req.session.admin,
+      did: req.session.did,
+    });
+  }
+);
 
-app.get("/donation-step3.html", async (req, res) => {
-  res.render("forms/donation-step3", {
-    logged: req.session.admin,
-  });
-});
+app.get(
+  "/donation-step3.html",
+  [checkIfLogged, checkIfdataEntry],
+  async (req, res) => {
+    res.render("forms/donation-step3", {
+      logged: req.session.admin,
+    });
+  }
+);
 
 app.get("/index.html", async (req, res) => {
   flag = 0;
@@ -83,7 +99,7 @@ app.get("/about.html", async (req, res) => {
   res.render("about", { logged: req.session.admin });
 });
 
-app.get("/forms/profile.html", async (req, res) => {
+app.get("/forms/profile.html", checkIfLogged, async (req, res) => {
   console.log(req.session);
   await db.query(
     "SELECT * FROM request WHERE PID = ?",
@@ -125,11 +141,11 @@ app.get("/blog_details.html", async (req, res) => {
   res.render("blog_details", { logged: req.session.admin });
 });
 
-app.get("/donate_now.html", async (req, res) => {
+app.get("/donate_now.html", checkIfLogged, async (req, res) => {
   res.render("donate_now", { logged: req.session.admin });
 });
 
-app.get("/services.html", async (req, res) => {
+app.get("/services.html", checkIfLogged, async (req, res) => {
   res.render("services", { logged: req.session.admin });
 });
 
@@ -137,112 +153,124 @@ app.get("/contact.html", async (req, res) => {
   res.render("contact", { logged: req.session.admin });
 });
 
-app.get("/request_now.html", async (req, res) => {
+app.get("/request_now.html", checkIfLogged, async (req, res) => {
   res.render("request_now", { logged: req.session.admin });
 });
 
 // long code
-app.get("/admin/index_admin.html", async (req, res) => {
-  await db.query(
-    "SELECT accepted , COUNT(REID) AS reqs FROM request GROUP BY accepted",
-    async (error, result, fields) => {
-      if (error) {
-        console.log(error);
-      } else {
-        req.session.reqcount = result;
+app.get(
+  "/admin/index_admin.html",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    await db.query(
+      "SELECT accepted , COUNT(REID) AS reqs FROM request GROUP BY accepted",
+      async (error, result, fields) => {
+        if (error) {
+          console.log(error);
+        } else {
+          req.session.reqcount = result;
 
-        await db.query(
-          "SELECT user_type , COUNT(PID) AS reqs FROM people GROUP BY user_type",
-          async (errors, results, field) => {
-            if (errors) {
-              console.log(error);
-            } else {
-              req.session.peoplecount = results;
-              var datetime = new Date();
-              var date = datetime.toISOString().slice(0, 10);
+          await db.query(
+            "SELECT user_type , COUNT(PID) AS reqs FROM people GROUP BY user_type",
+            async (errors, results, field) => {
+              if (errors) {
+                console.log(error);
+              } else {
+                req.session.peoplecount = results;
+                var datetime = new Date();
+                var date = datetime.toISOString().slice(0, 10);
 
-              await db.query(
-                "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_end < ?",
-                date,
-                async (error, result, field) => {
-                  if (error) {
-                    console.log(error);
-                  } else {
-                    req.session.ended = result;
-                    await db.query(
-                      "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_start > ?",
-                      date,
-                      async (error, result, fields) => {
-                        if (error) {
-                          console.log(error);
-                        } else {
-                          req.session.oncoming = result;
-                          await db.query(
-                            "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_start > ? AND camp_end < ?",
-                            [date, date],
-                            async (error, results, fields) => {
-                              if (error) {
-                                console.log(error);
-                              } else {
-                                req.session.ongoing = result;
+                await db.query(
+                  "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_end < ?",
+                  date,
+                  async (error, result, field) => {
+                    if (error) {
+                      console.log(error);
+                    } else {
+                      req.session.ended = result;
+                      await db.query(
+                        "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_start > ?",
+                        date,
+                        async (error, result, fields) => {
+                          if (error) {
+                            console.log(error);
+                          } else {
+                            req.session.oncoming = result;
+                            await db.query(
+                              "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_start > ? AND camp_end < ?",
+                              [date, date],
+                              async (error, results, fields) => {
+                                if (error) {
+                                  console.log(error);
+                                } else {
+                                  req.session.ongoing = result;
 
-                                res.render("admin/index_admin", {
-                                  logged: req.session.admin,
-                                  reqcount: req.session.reqcount,
-                                  peoplecount: req.session.peoplecount,
-                                  ended: req.session.ended,
-                                  oncoming: req.session.oncoming,
-                                  ongoing: req.session.oncoming,
-                                });
+                                  res.render("admin/index_admin", {
+                                    logged: req.session.admin,
+                                    reqcount: req.session.reqcount,
+                                    peoplecount: req.session.peoplecount,
+                                    ended: req.session.ended,
+                                    oncoming: req.session.oncoming,
+                                    ongoing: req.session.oncoming,
+                                  });
+                                }
                               }
-                            }
-                          );
+                            );
+                          }
                         }
-                      }
-                    );
+                      );
+                    }
                   }
-                }
-              );
+                );
+              }
             }
-          }
-        );
+          );
+        }
       }
-    }
-  );
-});
+    );
+  }
+);
 
-app.get("/admin/admin-people.html", async (req, res) => {
-  await db.query("SELECT * FROM people", function (error, result, fields) {
-    if (error) {
-      console.log(error);
-    } else {
-      var peoples = result;
-      res.render("admin/admin-people", {
-        logged: req.session.admin,
-        peoples: result,
-      });
-    }
-  });
-});
-
-app.get("/admin/admin-request.html", async (req, res) => {
-  await db.query(
-    "SELECT REID,full_name, request.blood_group, quantity , request_date,accepted FROM people , request WHERE people.PID = request.PID",
-    function (error, result, fields) {
+app.get(
+  "/admin/admin-people.html",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    await db.query("SELECT * FROM people", function (error, result, fields) {
       if (error) {
         console.log(error);
       } else {
-        var requests = result;
-
-        res.render("admin/admin-request", {
+        var peoples = result;
+        res.render("admin/admin-people", {
           logged: req.session.admin,
-          requests: result,
-          status: "pending",
+          peoples: result,
         });
       }
-    }
-  );
-});
+    });
+  }
+);
+
+app.get(
+  "/admin/admin-request.html",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    await db.query(
+      "SELECT REID,full_name, request.blood_group, quantity , request_date,accepted FROM people , request WHERE people.PID = request.PID",
+      function (error, result, fields) {
+        if (error) {
+          console.log(error);
+        } else {
+          var requests = result;
+
+          res.render("admin/admin-request", {
+            logged: req.session.admin,
+            requests: result,
+            status: "pending",
+          });
+        }
+      }
+    );
+  }
+);
 
 // app.get("/admin/full-camps/filter", async (req, res) => {
 //   res.redirect("/admin/admin-camps.html");
@@ -279,68 +307,88 @@ app.get("/admin/admin-request.html", async (req, res) => {
 //   });
 // });
 
-app.get("/admin/admin-camps.html", async (req, res) => {
-  await db.query(
-    "SELECT * FROM blood_donation_camp",
-    function (error, result, fields) {
-      if (error) {
-        console.log(error);
-      } else {
-        res.render("admin/admin-camps", {
-          logged: req.session.admin,
-          camps: result,
-        });
+app.get(
+  "/admin/admin-camps.html",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    await db.query(
+      "SELECT * FROM blood_donation_camp",
+      function (error, result, fields) {
+        if (error) {
+          console.log(error);
+        } else {
+          res.render("admin/admin-camps", {
+            logged: req.session.admin,
+            camps: result,
+          });
+        }
       }
-    }
-  );
-});
+    );
+  }
+);
 
-app.get("/admin/full-camps.html/:id", async (req, res) => {
-  await db.query(
-    "SELECT * FROM blood_donation_camp WHERE BDCID = ?",
-    req.params.id,
-    function (error, result, fields) {
-      if (error) {
-        console.log(error);
-      } else {
-        res.render("admin/full-camps", { request: result });
+app.get(
+  "/admin/full-camps.html/:id",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    await db.query(
+      "SELECT * FROM blood_donation_camp WHERE BDCID = ?",
+      req.params.id,
+      function (error, result, fields) {
+        if (error) {
+          console.log(error);
+        } else {
+          res.render("admin/full-camps", { request: result });
+        }
       }
-    }
-  );
-});
+    );
+  }
+);
 
-app.get("/admin/add-camp.html", async (req, res) => {
-  res.render("admin/add-camp", { logged: req.session.admin });
-});
+app.get(
+  "/admin/add-camp.html",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    res.render("admin/add-camp", { logged: req.session.admin });
+  }
+);
 
-app.get("/admin/full-people.html/:id", async (req, res) => {
-  var pid = req.params["id"];
-  await db.query(
-    "SELECT * FROM people WHERE PID=?",
-    pid,
-    function (error, result, fields) {
-      if (error) {
-        console.log(error);
-      } else {
-        var peoples = result;
+app.get(
+  "/admin/full-people.html/:id",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    var pid = req.params["id"];
+    await db.query(
+      "SELECT * FROM people WHERE PID=?",
+      pid,
+      function (error, result, fields) {
+        if (error) {
+          console.log(error);
+        } else {
+          var peoples = result;
 
-        res.render("admin/full-people", {
-          logged: req.session.admin,
-          peoples: result,
-        });
+          res.render("admin/full-people", {
+            logged: req.session.admin,
+            peoples: result,
+          });
+        }
       }
-    }
-  );
-});
+    );
+  }
+);
 
-app.get("/admin/add-people.html", async (req, res) => {
-  res.render("admin/add-people", { logged: req.session.admin });
-});
+app.get(
+  "/admin/add-people.html",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    res.render("admin/add-people", { logged: req.session.admin });
+  }
+);
 
 // app.get("/admin/showrequest", async (req, res) => {
 //   res.redirect("/showrequest/");
 // });
-app.get("/showrequest/:id", async (req, res) => {
+app.get("/showrequest/:id", [checkIfLogged, checkIfAdmin], async (req, res) => {
   {
     await db.query(
       "SELECT * FROM request WHERE REID = ?",
@@ -356,37 +404,57 @@ app.get("/showrequest/:id", async (req, res) => {
   }
 });
 
-app.get("/admin/admin-donation.html", async (req, res) => {
-  await db.query(
-    "SELECT * FROM donation_record",
-    function (error, result, fields) {
-      if (error) {
-        console.log(error);
-      } else {
-        res.render("admin/admin-donation", {
-          logged: req.session.admin,
-          donations: result,
-        });
+app.get(
+  "/admin/admin-donation.html",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    await db.query(
+      "SELECT * FROM donation_record",
+      function (error, result, fields) {
+        if (error) {
+          console.log(error);
+        } else {
+          res.render("admin/admin-donation", {
+            logged: req.session.admin,
+            donations: result,
+          });
+        }
       }
-    }
-  );
-});
+    );
+  }
+);
 
-app.get("/admin/admin-bloodbank.html", async (req, res) => {
-  res.render("admin/admin-bloodbank", { logged: req.session.admin });
-});
+app.get(
+  "/admin/admin-bloodbank.html",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    res.render("admin/admin-bloodbank", { logged: req.session.admin });
+  }
+);
 
-app.get("/admin/add-bloodbank.html", async (req, res) => {
-  res.render("admin/add-bloodbank", { logged: req.session.admin });
-});
+app.get(
+  "/admin/add-bloodbank.html",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    res.render("admin/add-bloodbank", { logged: req.session.admin });
+  }
+);
 
-app.get("/admin/admin-bloodbag.html", async (req, res) => {
-  res.render("admin/admin-bloodbag", { logged: req.session.admin });
-});
+app.get(
+  "/admin/admin-bloodbag.html",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    res.render("admin/admin-bloodbag", { logged: req.session.admin });
+  }
+);
 
-app.get("/admin/full-bloodbag.html", async (req, res) => {
-  res.render("admin/full-bloodbag", { logged: req.session.admin });
-});
+app.get(
+  "/admin/full-bloodbag.html",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    res.render("admin/full-bloodbag", { logged: req.session.admin });
+  }
+);
 
 app.use("/user", require("./routes/user"));
 
