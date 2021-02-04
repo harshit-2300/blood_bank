@@ -95,7 +95,7 @@ router.get("/sendmails", checkIfLogged, async (req, res) => {
             }
           });
         }
-        res.redirect("/user/otp");
+        res.redirect("/");
       }
     }
   );
