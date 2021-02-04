@@ -18,13 +18,14 @@ const upload = require("./middleware/multerMiddleware");
 router.post("/search",getPid, async (req, res) => {
   var p=req.session.pid;
   var today= new Date();
+  today=today.getFullYear()+'-'+('0'+(today.getMonth()+1)).slice(-2)+'-'+('0'+(today.getDate())).slice(-2);
   console.log("date is",today);
    if(p==-1)
    res.redirect("/registeration-step1.html");
    else{
   await db.query(
-    "SELECT * FROM donation_record WHERE PID = ?",
-    p,
+    "SELECT * FROM donation_record WHERE PID = ? AND donation_date=?",
+    [p,today],
     async (error, result, fields) => {
       if (result.length == 0) {
         wrong = true;
@@ -55,12 +56,12 @@ router.post("/search",getPid, async (req, res) => {
 
 router.post("/registeration-step1", getPid,  (req, res) => {
   var today = new Date();
-  
+  today=today.getFullYear()+'-'+('0'+(today.getMonth()+1)).slice(-2)+'-'+('0'+(today.getDate())).slice(-2);
 
   var p=req.session.pid;
 
   
-  
+  console.log("today=",today);
 
   var did=100;
   console.log(p);
