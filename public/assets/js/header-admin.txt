@@ -17,25 +17,25 @@ document.getElementsByTagName("header")[0].innerHTML = (`
                                 <div class="main-menu d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a href="./index_admin.html">Home</a></li>
-                                            <li><a href="./admin-people.html">People</a>
+                                            <li><a href="/admin/index_admin.html">Home</a></li>
+                                            <li><a href="/admin/admin-people.html">People</a>
                                             <ul class="submenu">
-                                                  <li><a href="./admin-people.html">View All users</a></li>
-                                                  <li><a href="./add-people.html" target = "_blank">Add New User</a></li>
+                                                  <li><a href="/admin/admin-people.html">View All users</a></li>
+                                                  <li><a href="/admin/add-people.html" target = "_blank">Add New User</a></li>
                                               </ul>
                                               </li>
-                                            <li><a href="./admin-request.html">Requests</a></li>
-                                            <li><a href="./admin-donation.html">Donations</a></li>
-                                            <li><a href="./admin-camps.html">Donation Camps</a>
+                                            <li><a href="/admin/admin-request.html">Requests</a></li>
+                                            <li><a href="/admin/admin-donation.html">Donations</a></li>
+                                            <li><a href="/admin/admin-camps.html">Donation Camps</a>
                                               <ul class="submenu">
-                                                  <li><a href="./admin-camps.html">Running Camps</a></li>
-                                                  <li><a href="./add-camp.html" target = "_blank">Host New camp</a></li>
+                                                  <li><a href="/admin/admin-camps.html">Running Camps</a></li>
+                                                  <li><a href="/admin/add-camp.html" target = "_blank">Host New camp</a></li>
                                               </ul>
                                             </li>
-                                            <li><a href="./admin-bloodbank.html">Blood Banks</a>
+                                            <li><a href="/admin/admin-bloodbank.html">Blood Banks</a>
                                               <ul class="submenu">
-                                                  <li><a href="./admin-bloodbank.html">Blood Bank Status</a></li>
-                                                  <li><a href="./add-bloodbank.html" target="_blank">Add New Blood Bank</a></li>
+                                                  <li><a href="/admin/admin-bloodbank.html">Blood Bank Status</a></li>
+                                                  <li><a href="/admin/add-bloodbank.html" target="_blank">Add New Blood Bank</a></li>
                                               </ul>
                                             </li>
                                         </ul>
