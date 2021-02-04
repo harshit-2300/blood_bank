@@ -25,6 +25,17 @@ const checkIfUserExists = require("./middleware/checkIfUserExists.js");
 // const checkIfRegister = require("./middleware/loginMiddleware");
 //Handle Registering Users
 //POST user/signup
+
+var nodemailer = require("nodemailer");
+
+var transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "2019284@iiitdmj.ac.in",
+    pass: "mani284%&",
+  },
+});
+
 router.post("/signup", checkIfUserExists, async (req, res) => {
   var users = {
     full_name: req.body.name,
@@ -54,15 +65,21 @@ router.post("/signup", checkIfUserExists, async (req, res) => {
           var otp = Math.floor(100000 + Math.random() * 900000);
           req.session.otp = otp;
           req.session.email = users.email;
-          console.log("+91" + req.body.phone);
-          client.messages
-            .create({
-              body: otp,
-              from: "+17076796056",
-              to: "+91" + req.body.phone,
-            })
-            .then((message) => console.log(message.sid));
-          res.redirect("/user/otp");
+          var mailOptions = {
+            from: "2019284@iiitdmj.ac.in",
+            to: req.session.email,
+            subject: "OTP",
+            text: otp.toString(),
+          };
+
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log("Email sent: " + info.response);
+              res.redirect("/user/otp");
+            }
+          });
         }
       }
     );
@@ -78,13 +95,13 @@ router.post("/otp", async (req, res) => {
     res.redirect("/user/login");
   } else {
     await db.query(
-      "DELETE FROM people WHERE email =?",
+      "DELETE FROM people WHERE email = ?",
       email,
       function (err, res, fields) {
         if (err) {
           console.log(err);
         } else {
-          res.send("Wrong OTP");
+          res.redirect("/");
         }
       }
     );

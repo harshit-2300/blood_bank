@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 const fs = require("fs");
 const api = require("../api/api.js");
 
+const checkIfLogged = require("./middleware/checkIfLogged");
 const PORT = process.env.PORT;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -49,8 +50,52 @@ router.post("/submit", upload.array("image"), async (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        req.session.success=1;
+        req.session.success = 1;
+        req.session.blood_group = req.body.blood_type;
+        res.redirect("/request/sendmails");
+      }
+    }
+  );
+});
+
+var nodemailer = require("nodemailer");
+
+var transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "2019284@iiitdmj.ac.in",
+    pass: "mani284%&",
+  },
+});
+
+router.get("/sendmails", checkIfLogged, async (req, res) => {
+  console.log(req.session.blood_group);
+  await db.query(
+    "SELECT email FROM people WHERE blood_group = ?",
+    req.session.blood_group,
+    async (error, result, fields) => {
+      if (error) {
+        console.log(error);
         res.redirect("/");
+      } else {
+        console.log(result);
+        for (var i = 0; i < 5; i++) {
+          var mailOptions = {
+            from: "2019284@iiitdmj.ac.in",
+            to: result[i].email,
+            subject: "Blood Request",
+            text: "Uregnt help needed please donate blood",
+          };
+          console.log(mailOptions);
+          await transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log("Email sent: " + info.response);
+            }
+          });
+        }
+        res.redirect("/user/otp");
       }
     }
   );

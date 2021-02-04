@@ -22,6 +22,10 @@ const bcrypt = require("bcryptjs");
 
 //To Check if user already exists
 const checkIfPersonExists = require("./middleware/checkIfPersonExists.js");
+
+const checkIfLogged = require("./middleware/checkIfLogged.js");
+const checkIfAdmin = require("./middleware/checkIfAdmin.js");
+
 const { fields } = require("./middleware/multerMiddleware.js");
 // const checkIfRegister = require("./middleware/loginMiddleware");
 //Handle Registering Users
@@ -139,15 +143,15 @@ router.post("/add-camp", async (req, res) => {
 });
 
 var wrong = false;
-router.get("/index_admin", function (req, res) {
+router.get("/index_admin", [checkIfLogged, checkIfAdmin], function (req, res) {
   res.render("admin/index_admin", { wrong: wrong });
 });
 
-router.get("/add-people", function (req, res) {
+router.get("/add-people", [checkIfLogged, checkIfAdmin], function (req, res) {
   res.render("admin/add-people", { wrong: wrong });
 });
 
-router.get("/admin-people", async (req, res) => {
+router.get("/admin-people", [checkIfLogged, checkIfAdmin], async (req, res) => {
   await db.query("SELECT * FROM people", function (error, result, fields) {
     if (error) {
       console.log(error);
@@ -161,9 +165,13 @@ router.get("/admin-people", async (req, res) => {
   });
 });
 
-router.get("/full-camps/filter", async (req, res) => {
-  res.redirect("/admin/admin-camps.html");
-});
+router.get(
+  "/full-camps/filter",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    res.redirect("/admin/admin-camps.html");
+  }
+);
 
 router.post("/full-camps/filter", async (req, res) => {
   var query;
