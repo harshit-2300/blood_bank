@@ -113,7 +113,7 @@
                 <td><%=peoples[i].full_name%></td>
                 <td> <%=peoples[i].PID%></td>
                 <td> <%=peoples[i].user_type%></td>
-                <td> <%=peoples[i].DOB%></td>
+                <td> <%=('0'+(peoples[i].DOB.getDate())).slice(-2)%>-<%=('0'+(peoples[i].DOB.getMonth()+1)).slice(-2)%>-<%=peoples[i].DOB.getFullYear()%></td>
               </tr>
               <%}%>
 

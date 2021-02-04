@@ -112,7 +112,7 @@
 								<td><a href="/admin/full-people.html/<%=donations[i].PID%>" target="_blank"><%=donations[i].PID%></a></td>
 								<td><a href="/admin/admin-bloodbank.html"><%=donations[i].BLID%></a></td>
 								<td><%=donations[i].blood_type%></td>
-								<td class="bold"><%=donations[i].donation_date%></td>
+								<td class="bold"><%=('0'+(donations[i].donation_date.getDate())).slice(-2)%>-<%=('0'+(donations[i].donation_date.getMonth()+1)).slice(-2)%>-<%=donations[i].donation_date.getFullYear()%></td>
 							</tr>
 
 							<%}%>
