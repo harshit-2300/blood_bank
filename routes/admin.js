@@ -196,6 +196,7 @@ router.post("/full-camps/filter", async (req, res) => {
     if (error) {
       console.log(error);
     } else {
+      console.log("filtered camps=",result);
       res.render("admin/admin-camps", {
         logged: req.session.admin,
         camps: result,
