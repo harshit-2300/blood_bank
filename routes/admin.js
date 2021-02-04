@@ -308,6 +308,7 @@ router.get("/add-bloodbank.html", async (req, res) => {
     logged: req.session.admin,
   });
 });
+
 router.post("/add-bloodbank.html", async (req, res) => {
   var bloodbank = {
     LID: 1,
