@@ -167,18 +167,19 @@
                                 <div class="col-xs-6">
                                     <div class="select-form">
                                         <select name="blood_type" required>
-                                            <option value="A+" selected>A+</option>
-                                            <option value="A-">A-</option>
-                                            <option value="B+">B+</option>
-                                            <option value="B-">B-</option>
-                                            <option value="AB+">AB+</option>
-                                            <option value="AB-">AB-</option>
-                                            <option value="O+">O+</option>
-                                            <option value="O-">O-</option>
+                                            <option id="A+" value="A+" selected>A+</option>
+                                            <option id="A-" value="A-">A-</option>
+                                            <option id="B+" value="B+">B+</option>
+                                            <option id="B-" value="B-">B-</option>
+                                            <option id="AB+" value="AB+">AB+</option>
+                                            <option id="AB-" value="AB-">AB-</option>
+                                            <option id="O+" value="O+">O+</option>
+                                            <option id="O-" value="O-">O-</option>
                                         </select>
                                     </div>
                                 </div>
                               </div>
+                              <script>document.getElementById("<%=blood_group%>").selected = "true"</script>
                               <div class="row d-flex justify-content-start">
 																<div class="col-xs-6">
 																	<div class="label-form">
@@ -190,17 +191,18 @@
                                   <div class="radio-wrapper">
                                       <div class="select-radio">
                                           <div class="radio">
-                                              <input id="radio-1" name="gender" type="radio" value="male">
+                                              <input id="male" name="gender" type="radio" value="male">
                                               <label for="radio-1" class="radio-label">Male</label>
                                           </div>
                                           <div class="radio">
-                                              <input id="radio-2" name="gender" type="radio" value="female">
+                                              <input id="female" name="gender" type="radio" value="female">
                                               <label for="radio-2" class="radio-label">Female</label>
                                           </div>
                                       </div>
                                    </div>
                                  </div>
                               </div>
+                              <script>document.getElementById("<%=gender%>").checked = "true"</script>
                             <div class="row">
                                 <div class="col-sm-6">
                                   <div class="label-form">
@@ -246,6 +248,8 @@
 
 
 </main>
+
+
 
 
 <footer>

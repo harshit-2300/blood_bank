@@ -3,10 +3,10 @@ const mysql = require("mysql");
 const db = require("../../config/db.js");
 const getPid = (req, res, next) => {
     
-    mail=req.body.email;
+    phone=req.body.phone;
 
     db.query(
-        "SELECT * FROM people WHERE email=?",mail,
+        "SELECT * FROM people WHERE phone_number=?",phone,
         function (error, result, fields) {
           if (error) {
             console.log(error);
@@ -58,6 +58,7 @@ const getPid = (req, res, next) => {
             
             console.log("at pid");
             req.session.pid=result[0].PID;
+            req.session.user_exist=result;
             next();
             };
           });
