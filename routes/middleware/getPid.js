@@ -58,6 +58,7 @@ const getPid = (req, res, next) => {
             
             console.log("at pid");
             req.session.pid=result[0].PID;
+            req.session.user_exist=result;
             next();
             };
           });
