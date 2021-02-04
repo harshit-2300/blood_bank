@@ -97,12 +97,7 @@ app.get(
   async (req, res) => {
     res.render("forms/donation-step3", {
       logged: req.session.admin,
-      full_name: user[0].full_name,
-      email: user[0].email,
-      phone_number: user[0].phone_number,
-      blood_group: user[0].blood_group,
-      gender: user[0].gender,
-      dob: user[0].DOB,
+      
     });
   }
 );
