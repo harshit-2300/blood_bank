@@ -118,6 +118,7 @@ router.post("/otp", async (req, res) => {
 
 router.post("/add-camp", async (req, res) => {
   var camp = {
+    camp_name:req.body.camp_name,
     camp_start: req.body.start_date,
     camp_end: req.body.end_date,
     location: req.body.location,

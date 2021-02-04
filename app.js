@@ -424,8 +424,9 @@ app.get(
   "/admin/admin-donation.html",
   [checkIfLogged, checkIfAdmin],
   async (req, res) => {
+
     await db.query(
-      "SELECT * FROM donation_record",
+      "SELECT * FROM donation_record,people,blood_donation_camp WHERE donation_record.PID=people.PID AND donation_record.BDCID=blood_donation_camp.BDCID",
       function (error, result, fields) {
         if (error) {
           console.log(error);
