@@ -61,11 +61,11 @@
 							<p class="col-xs-3">&#8594;</p>
 							<p class="col-xs-3 ml-150">
 								<div class="dropdown">
-									<button type="button" id="advanced-search" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<button type="buttoradio-search" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										Advanced Search
 									</button>
 									<div class="dropdown-menu" aria-labelledby="advanced-search">
-										<form class="px-4 py-3" method="get" action="#">
+										<form class="px-4 py-3" method="POST" action="/admin/full-request/filter">
 									    <div class="form-group d-flex justify-content-between">
 												<label class="d-flex mt-10 mr-10">SortBy</label>
 												<select id="sortby" class="default-select form-control">
@@ -79,9 +79,9 @@
 									    </div>
 									    <div class="form-group d-flex justify-content-between">
 												<label class="d-flex mr-15" for="filter">Filters</label>
-												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="new" checked>New</label>
-												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="acc">Accepted</label>
-												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="checkbox" value="rej">Rejected</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="radio" value="new" checked>New</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="radio" value="acc">Accepted</label>
+												<label class="d-flex mr-10 checkbox-inline"><input name="filter" class="d-flex mt-2 mr-1" type="radio" value="rej">Rejected</label>
 									    </div>
 											<div class="form-group">
 												<button type="submit" class="genric-btn primary small">Apply</button>
