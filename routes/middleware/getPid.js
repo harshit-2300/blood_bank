@@ -13,6 +13,7 @@ const getPid = (req, res, next) => {
           }
           else if(typeof req.body.name==="undefined" && result.length==0){
             req.session.pid=-1;
+            delete req.session.user_exist;
             next();
           }
           else if(result.length==0){
@@ -39,6 +40,7 @@ const getPid = (req, res, next) => {
                 }
                 else
                 {
+                  
                 console.log("inserted into peop;e=",result);  
                 req.session.pid=result.insertId;
                 console.log("req,session.pid=",req.session.pid);

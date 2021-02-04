@@ -54,6 +54,9 @@ app.get(
         full_name: "",
         email: "",
         phone_number: "",
+        blood_group:" ",
+        gender: " ",
+        dob:" ",
       });
     else
       res.render("forms/registeration-step1", {
@@ -61,6 +64,9 @@ app.get(
         full_name: user[0].full_name,
         email: user[0].email,
         phone_number: user[0].phone_number,
+        blood_group:user[0].blood_group,
+        gender: user[0].gender,
+        dob:user[0].DOB,
       });
   }
 );
@@ -69,12 +75,16 @@ app.get(
   "/pretest-step2.html",
   [checkIfLogged, checkIfdataEntry],
   async (req, res) => {
+    var p=" ";
+    var user = req.session.user_exist;
+    if (typeof user === "undefined") p = " ";
+    else p=user[0].blood_group;
     res.render("forms/pretest-step2", {
       logged: req.session.admin,
       full_name: "",
       email: "",
       phone_number: "",
-      blood_group: " ",
+      blood_group: p,
       gender: " ",
       dob: " ",
     });
@@ -87,12 +97,7 @@ app.get(
   async (req, res) => {
     res.render("forms/donation-step3", {
       logged: req.session.admin,
-      full_name: user[0].full_name,
-      email: user[0].email,
-      phone_number: user[0].phone_number,
-      blood_group: user[0].blood_group,
-      gender: user[0].gender,
-      dob: user[0].DOB,
+      
     });
   }
 );
