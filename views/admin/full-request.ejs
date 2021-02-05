@@ -57,8 +57,14 @@
 								</div>
 							</div>
 							<!-- form -->
-							<form action="#" method="post">
+							<form  action="/edit/edit-request" method="post">
 								<table class="table table-striped record">
+								
+									<tr>
+										<td>REID</td>
+										<td><input type="text" style="width:500px;" name="REID" value="<%=request[0].REID%>" class="editable" disabled  ></td>
+									</tr>
+
 
 									<tr>
 										<td>Request Date</td>
@@ -70,11 +76,11 @@
 									</tr> -->
 									<tr>
 										<td>Receiver's Blood Type</td>
-										<td><input type="text" size="10" placeholder="Blood Type" value="<%=request[0].blood_group%>" required disabled class="editable"></td>
+										<td><input type="text" name="blood_group" size="10" disabled placeholder="Blood Type" value="<%=request[0].blood_group%>" required  class="editable"></td>
 									</tr>
 									<tr>
 										<td>Requested Quantity</td>
-										<td><input type="text" size="10" placeholder="<%=request[0].quantity%>" value="<%=request[0].quantity%>" disabled required class="editable"></td>
+										<td><input type="text" name="quantity" disabled size="10" placeholder="<%=request[0].quantity%>" value="<%=request[0].quantity%>" disabled required class="editable"></td>
 									</tr>
 									<tr>
 										<td>Valid Document / Prescription</td>
@@ -91,9 +97,9 @@
 									<tr>
 										<td>Accept Request</td>
 										<td>
-											<input type="radio" id="accept" name="status" value="accepted" required class="editable" checked disabled>
-											<label for="accept" class="mr-50">Accept</label>
-											<input type="radio" id="reject" name="status" value="rejected" required class="editable" disabled>
+											<input type="radio" name="status" id="accept" name="status" value="1" disabled required class="editable" checked >
+											<label for="accept"  class="mr-50">Accept</label>
+											<input type="radio" name="status" id="reject" name="status" disabled value="-1" required class="editable" >
 											<label for="reject">Reject</label>
 										</td>
 									</tr>
@@ -109,8 +115,8 @@
 								<div class="container">
 									<div class="row justify-content-between">
 										<button type="button" onclick="edit_btn()" class="genric-btn info circle" id="btn-edit">Edit</button>
-										<button type="button" onclick="update_btn()" class="genric-btn info" id="btn-update">Update</button>
-										<button type="button" onclick="delete_btn()" class="genric-btn danger" id="btn-delete">Delete</button>
+										<button type="submit" onclick="return confirm('Do you really want to update?');" name="submit" value="update"  class="genric-btn info" id="btn-update">Update</button>
+										<button type="submit" onclick="return confirm('Do you really want to delete?');" name="submit" value="delete"  class="genric-btn danger" id="btn-delete">Delete</button>
 										<button type="button" onclick="cancel_btn()" class="genric-btn info" id="btn-cancel">Cancel</button>
 									</div>
 								</div>
@@ -121,6 +127,8 @@
 			</div>
 		</section>
 	</main>
+    
+
 	<footer>
 	</footer>
 
