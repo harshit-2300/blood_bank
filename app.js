@@ -37,10 +37,12 @@ app.get("/", async (req, res) => {
   res.render("index", { logged: req.session.admin, flag: flag });
 });
 
+// get data-entry
 app.get("/data-entry", [checkIfLogged, checkIfdataEntry], async (req, res) => {
   res.render("forms/index", { logged: req.session.admin });
 });
 
+// registration step 1
 app.get(
   "/registeration-step1.html",
   [checkIfLogged, checkIfdataEntry],
@@ -71,6 +73,7 @@ app.get(
   }
 );
 
+// registration step 2
 app.get(
   "/pretest-step2.html",
   [checkIfLogged, checkIfdataEntry],
@@ -91,6 +94,7 @@ app.get(
   }
 );
 
+// donation step 3
 app.get(
   "/donation-step3.html",
   [checkIfLogged, checkIfdataEntry],
@@ -101,6 +105,7 @@ app.get(
   }
 );
 
+// get
 app.get("/index.html", async (req, res) => {
   flag = 0;
   if (typeof req.session.success === "undefined" || req.session.success == 0)
@@ -172,7 +177,7 @@ app.get("/request_now.html", checkIfLogged, async (req, res) => {
   res.render("request_now", { logged: req.session.admin });
 });
 
-// long code
+// long code admin/index
 app.get(
   "/admin/index_admin.html",
   [checkIfLogged, checkIfAdmin],
@@ -246,6 +251,7 @@ app.get(
   }
 );
 
+// admin/admin-people.html
 app.get(
   "/admin/admin-people.html",
   [checkIfLogged, checkIfAdmin],
@@ -264,6 +270,7 @@ app.get(
   }
 );
 
+// admin - request
 app.get(
   "/admin/admin-request.html",
   [checkIfLogged, checkIfAdmin],
@@ -443,7 +450,20 @@ app.get(
   "/admin/admin-bloodbank.html",
   [checkIfLogged, checkIfAdmin],
   async (req, res) => {
-    res.render("admin/admin-bloodbank", { logged: req.session.admin });
+    await db.query(
+      "SELECT * FROM blood_bank",
+      async (error, result, fields) => {
+        if (error) {
+          console.log(error);
+          res.redirect("/");
+        } else {
+          res.render("admin/admin-bloodbank", {
+            logged: req.session.admin,
+            banks: result,
+          });
+        }
+      }
+    );
   }
 );
 
