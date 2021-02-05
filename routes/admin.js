@@ -118,6 +118,7 @@ router.post("/otp", async (req, res) => {
 
 router.post("/add-camp", async (req, res) => {
   var camp = {
+    camp_name:req.body.camp_name,
     camp_start: req.body.start_date,
     camp_end: req.body.end_date,
     location: req.body.location,
@@ -196,13 +197,138 @@ router.post("/full-camps/filter", async (req, res) => {
     if (error) {
       console.log(error);
     } else {
-      console.log("filtered camps=",result);
+      console.log("filtered camps=", result);
       res.render("admin/admin-camps", {
         logged: req.session.admin,
         camps: result,
       });
     }
   });
+});
+
+router.post("/full-people/filter", async (req, res) => {
+  var query;
+
+  var user_type;
+  if (req.body.filter == "normal") {
+    query = "SELECT * FROM people WHERE user_type = ?";
+    user_type = "normal";
+  } else if (req.body.filter == "data-entry") {
+    query = "SELECT * FROM people WHERE user_type = ?";
+    user_type = "data-entry";
+  } else {
+    query = "SELECT * FROM people WHERE user_type = ?";
+    user_type = "admin";
+  }
+  if ((req.body.order = "asc")) {
+    query = query + " ORDER BY full_name ASC";
+  } else {
+    query = query + " ORDER BY full_name DESC";
+  }
+
+  await db.query(query, user_type, async (error, result, fields) => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.render("admin/admin-people", {
+        logged: req.session.admin,
+        peoples: result,
+      });
+    }
+  });
+});
+
+router.post("/full-people/filter", async (req, res) => {
+  var query;
+
+  var accepted;
+  if (req.body.filter == "new") {
+    query = "SELECT * FROM request WHERE accepted = ?";
+    accepted = 0;
+  } else if (req.body.filter == "acc") {
+    query = "SELECT * FROM request WHERE accepted = ?";
+    accepted = 1;
+  } else {
+    query = "SELECT * FROM request WHERE accepted = ?";
+    accepted = -1;
+  }
+  if ((req.body.order = "asc")) {
+    query = query + " ORDER BY request_date ASC";
+  } else {
+    query = query + " ORDER BY request_date DESC";
+  }
+
+  await db.query(query, user_type, async (error, result, fields) => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.render("admin/admin-request", {
+        logged: req.session.admin,
+        requests: result,
+        status: "pending",
+      });
+    }
+  });
+});
+
+router.post("/full-donation/filter", async (req, res) => {
+  var query;
+
+  var accepted;
+  if (req.body.filter == "negative") {
+    query = "SELECT * FROM donation_record WHERE accepted = ?";
+    accepted = 0;
+  } else if (req.body.filter == "acc") {
+    query = "SELECT * FROM request WHERE accepted = ?";
+    accepted = 1;
+  } else {
+    query = "SELECT * FROM request WHERE accepted = ?";
+    accepted = -1;
+  }
+  if ((req.body.order = "asc")) {
+    query = query + " ORDER BY request_date ASC";
+  } else {
+    query = query + " ORDER BY request_date DESC";
+  }
+
+  await db.query(query, user_type, async (error, result, fields) => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.render("admin/admin-request", {
+        logged: req.session.admin,
+        requests: result,
+        status: "pending",
+      });
+    }
+  });
+});
+
+router.get("/add-bloodbank.html", async (req, res) => {
+  res.render("admin/add-bloodbank", {
+    logged: req.session.admin,
+  });
+});
+router.post("/add-bloodbank.html", async (req, res) => {
+  var bloodbank = {
+    LID: 1,
+    branch_name: req.body.name,
+    branch_location: req.body.location,
+    contact_number: req.body.contact,
+  };
+
+  await db.query(
+    "INSERT INTO blood_bank SET ? ",
+    bloodbank,
+    async (error, result, fields) => {
+      if (error) {
+        console.log(error);
+        res.redirect("/");
+      } else {
+        res.redirect("/admin/admin-bloodbank.html");
+      }
+    }
+  );
 });
 module.exports = router;
 

@@ -406,6 +406,7 @@ app.get(
 // });
 app.get("/showrequest/:id", [checkIfLogged, checkIfAdmin], async (req, res) => {
   {
+    
     await db.query(
       "SELECT * FROM request WHERE REID = ?",
       req.params.id,
@@ -424,8 +425,9 @@ app.get(
   "/admin/admin-donation.html",
   [checkIfLogged, checkIfAdmin],
   async (req, res) => {
+
     await db.query(
-      "SELECT * FROM donation_record",
+      "SELECT * FROM donation_record,people,blood_donation_camp WHERE donation_record.PID=people.PID AND donation_record.BDCID=blood_donation_camp.BDCID",
       function (error, result, fields) {
         if (error) {
           console.log(error);
@@ -439,6 +441,28 @@ app.get(
     );
   }
 );
+
+app.get(
+  "/admin-donation.html/:id",
+  [checkIfLogged,checkIfAdmin],
+  async (req,res) => {
+    await db.query(
+      "SELECT * FROM donation_record,people WHERE donation_record.BDCID=? AND donation_record.PID=people.PID",
+      req.params["id"],
+      function (error, result, fields) {
+        if (error) {
+          console.log(error);
+        } else {
+          res.render("admin/admin-donation", {
+            logged: req.session.admin,
+            donations: result,
+          });
+        }
+      }
+
+    )
+  }
+)
 
 app.get(
   "/admin/admin-bloodbank.html",
@@ -487,6 +511,9 @@ app.use("/request", require("./routes/request"));
 app.use("/donate", require("./routes/donate"));
 
 app.use("/admin", require("./routes/admin"));
+
+app.use("/edit", require("./routes/edit"));
+
 
 server.listen(3000 || PORT, function (req, res) {
   console.log("Running on Server");
