@@ -179,7 +179,7 @@ router.post("/full-camps/filter", async (req, res) => {
   var datetime = new Date();
   var date = datetime.toISOString().slice(0, 10);
 
-  if (req.body.filter == "oncoming") {
+  if (req.body.filter == "Upcoming") {
     query = "SELECT * FROM blood_donation_camp WHERE camp_start > ?";
   } else if (req.body.filter == "ongoing") {
     query =
