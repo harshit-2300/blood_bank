@@ -58,6 +58,53 @@ router.post("/edit-request", async (req, res) => {
     console.log(req.body);
     
     
+} );
+
+router.post("/edit-camp", async (req, res) => {
+    
+  if(req.body.submit=='update'){
+      await db.query(
+          "UPDATE blood_donation_camp SET camp_start=?,camp_end=?,location=?,comments=? WHERE BDCID=? ;",
+          [
+            req.body.camp_start,
+            req.body.camp_end,
+            req.body.location,
+            req.body.comments,
+            req.body.BDCID,
+          ],
+          function (error, results, fields) {
+            if (error) {
+              console.log(error);
+              res.send("error");
+            } else {
+              console.log("here at update in camps ");
+              console.log("Rows affected:", results.affectedRows);
+              res.redirect("/admin/admin-camps.html");
+            }
+          }
+        );
+  }
+  else
+  {
+      await db.query(
+          "DELETE FROM blood_donation_camp WHERE BDCID=?",
+          req.body.BDCID,
+          function (error, results, fields) {
+            if (error) {
+              console.log(error);
+              res.send("error");
+            } else {
+              console.log("here at delete in camps ");
+              console.log("Rows affected:", results.affectedRows);
+              res.redirect("/admin/admin-camps.html");
+            }
+          }
+        );
+  }
+  console.log("submit=",req.body.submit);
+  console.log(req.body);
+  
+  
 } ) 
 
 module.exports = router;
