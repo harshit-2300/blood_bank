@@ -139,6 +139,72 @@ router.post("/edit-camp", async (req, res) => {
   console.log(req.body);
 
 
-} ) 
+} ) ;
+
+router.post("/edit-people", async (req, res) => {
+
+  if(req.body.submit=='update'){
+      await db.query(
+          "UPDATE people SET full_name=?,blood_group=?,DOB=?,verified=? WHERE PID=? ;",
+          [
+            req.body.full_name,
+            req.body.blood_group,
+            req.body.dob,
+            req.body.otp,
+            req.body.PID,
+          ],
+          function (error, results, fields) {
+            if (error) {
+              console.log(error);
+              res.send("error");
+            } else {
+              console.log("here at update in people ");
+
+              console.log("Rows affected:", results.affectedRows);
+               db.query(
+                "UPDATE donor SET height=?,weight=? WHERE PID=? ;",
+                [
+                  req.body.height,
+                  req.body.weight,                  
+                  req.body.PID,
+                ],
+                function (error, results, fields) {
+                  if (error) {
+                    console.log(error);
+                    res.send("error");
+                  } else {
+                    console.log("here at update in people ");
+                    console.log("Rows affected:", results.affectedRows);
+                    res.redirect("/admin/admin-people.html");
+                  }
+                }
+              );
+            
+            }
+          }
+        );
+  }
+  else
+  {
+      await db.query(
+          "DELETE FROM people WHERE PID=?",
+          req.body.PID,
+          function (error, results, fields) {
+            if (error) {
+              console.log(error);
+              res.send("error");
+            } else {
+              console.log("here at delete in people ");
+              console.log("Rows affected:", results.affectedRows);
+              res.redirect("/admin/admin-people.html");
+            }
+          }
+        );
+  }
+  console.log("submit=",req.body.submit);
+  console.log(req.body);
+
+
+} ) ;
 
 module.exports = router;
