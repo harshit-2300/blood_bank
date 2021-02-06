@@ -224,15 +224,27 @@ app.get(
                                   console.log(error);
                                 } else {
                                   req.session.ongoing = results;
+                                  await db.query(
+                                    "SELECT blood_type ,COUNT(DID) AS reqs FROM donation_record GROUP BY blood_type",
+                                    async (error, result, fields) => {
+                                      if (error) {
+                                        console.log(error);
+                                        res.redirect("/");
+                                      } else {
+                                        req.session.bagscount = result;
 
-                                  res.render("admin/index_admin", {
-                                    logged: req.session.admin,
-                                    reqcount: req.session.reqcount,
-                                    peoplecount: req.session.peoplecount,
-                                    ended: req.session.ended,
-                                    Upcoming: req.session.Upcoming,
-                                    ongoing: req.session.ongoing,
-                                  });
+                                        res.render("admin/index_admin", {
+                                          logged: req.session.admin,
+                                          reqcount: req.session.reqcount,
+                                          peoplecount: req.session.peoplecount,
+                                          ended: req.session.ended,
+                                          Upcoming: req.session.Upcoming,
+                                          ongoing: req.session.ongoing,
+                                          countsbags: req.session.bagscount,
+                                        });
+                                      }
+                                    }
+                                  );
                                 }
                               }
                             );
@@ -437,16 +449,15 @@ app.get(
         function (error, result, fields) {
           if (error) {
             console.log(error);
-          } else if(result.length==0)  {
+          } else if (result.length == 0) {
             res.redirect("/admin/admin-donation.html");
-          }
-          else{
-            
+          } else {
             console.log(result);
             res.render("admin/full-donation", {
-              logged:req.session.admin,
-               donation: result,
-            DID:req.params["id"] ,});
+              logged: req.session.admin,
+              donation: result,
+              DID: req.params["id"],
+            });
           }
         }
       );
