@@ -57,7 +57,8 @@
                             </div>
                         </div>
                         <!-- form -->
-                        <form action="#" method="post">
+                        <form action="/edit/edit-people" method="post">
+                          <input type="hidden" style="width:500px;" name="PID" value="<%=peoples[0].PID%>"   >
                             <table class="table table-striped record">
                               <tr>
                                 <td>PID</td>
@@ -65,7 +66,7 @@
                               </tr>
                               <tr>
                                 <td>Full Name</td>
-                                <td><input type="text" size="50" placeholder="Full Name" value="<%=peoples[0].full_name%>" required disabled class="editable"></td>
+                                <td><input type="text" name="full_name" size="50" placeholder="Full Name" value="<%=peoples[0].full_name%>" required disabled class="editable"></td>
                               </tr>
                               <tr>
                                 <td>Phone Number</td>
@@ -73,17 +74,17 @@
                               </tr>
                               <tr>
                                 <td>Blood Group</td>
-                                <td><input type="text" size="10" placeholder="Blood Group" value="<%=peoples[0].blood_group%>" required disabled class="editable"></td>
+                                <td><input type="text" size="10" name="blood_group" placeholder="Blood Group" value="<%=peoples[0].blood_group%>" required disabled class="editable"></td>
                               </tr>
                               <tr>
                                 <td>Date Of Birth</td>
-                                <td><input type="date" size="10" value="<%=peoples[0].DOB%>" required disabled class="editable"></td>
+                                <td><input type="date" size="10" name="dob" value="<%=peoples[0].DOB%>" required disabled class="editable"></td>
                               </tr>
                               <tr>
                                 <td>Gender</td>
                                 <td>
 
-                                  <label for="male" class="mr-50"><%=peoples[0].gender%></label>
+                                  <label for="male"  class="mr-50"><%=peoples[0].gender%></label>
 
                                 </td>
                               </tr>
@@ -98,9 +99,9 @@
                               <tr>
                                 <td>OTP Verification</td>
                                 <td>
-                                  <input type="radio" id="yes" name="otp" value="yes" disabled class="editable">
+                                  <input type="radio" id="yes" name="otp" value="1" disabled class="editable">
                                   <label for="yes" class="mr-50">Yes</label>
-                                  <input type="radio" id="no" name="otp" value="no" checked disabled class="editable">
+                                  <input type="radio" id="no" name="otp" value="0" checked disabled class="editable">
                                   <label for="no">No</label>
                                 </td>
                               </tr>
@@ -113,11 +114,11 @@
                               </tr>
                               <tr>
                                 <td>Height</td>
-                                <td><input type="text" size="50" placeholder="Height (in cms)" value="170" required disabled class="editable"></td>
+                                <td><input type="text" name="height" size="50" placeholder="Height (in cms)" value="170" required disabled class="editable"></td>
                               </tr>
                               <tr>
                                 <td>Weight</td>
-                                <td><input type="text" size="50" placeholder="Weight (in kgs)" value="72" required disabled class="editable"></td>
+                                <td><input type="text" name="weight" size="50" placeholder="Weight (in kgs)" value="72" required disabled class="editable"></td>
                               </tr>
                               <tr>
                                 <td>Next Safe Donation</td>
@@ -139,8 +140,8 @@
 														<div class="container">
 															<div class="row justify-content-between">
 																<button type="button" onclick="edit_btn()" class="genric-btn info circle" id="btn-edit">Edit</button>
-																<button type="button" onclick="update_btn()" class="genric-btn info" id="btn-update">Update</button>
-																<button type="button" onclick="delete_btn()" class="genric-btn danger" id="btn-delete">Delete</button>
+																<button type="submit" name="submit" value="update" onclick="return confirm('Do you really want to update?');" class="genric-btn info" id="btn-update">Update</button>
+																<button type="submit" name="submit" value="delete" onclick="return confirm('Do you really want to delete?');" class="genric-btn danger" id="btn-delete">Delete</button>
 																<button type="button" onclick="cancel_btn()" class="genric-btn info" id="btn-cancel">Cancel</button>
 															</div>
 														</div>
