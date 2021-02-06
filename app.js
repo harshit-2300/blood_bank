@@ -37,10 +37,12 @@ app.get("/", async (req, res) => {
   res.render("index", { logged: req.session.admin, flag: flag });
 });
 
+// get data-entry
 app.get("/data-entry", [checkIfLogged, checkIfdataEntry], async (req, res) => {
   res.render("forms/index", { logged: req.session.admin });
 });
 
+// registration step 1
 app.get(
   "/registeration-step1.html",
   [checkIfLogged, checkIfdataEntry],
@@ -54,9 +56,9 @@ app.get(
         full_name: "",
         email: "",
         phone_number: "",
-        blood_group:" ",
+        blood_group: " ",
         gender: " ",
-        dob:" ",
+        dob: " ",
       });
     else
       res.render("forms/registeration-step1", {
@@ -64,21 +66,22 @@ app.get(
         full_name: user[0].full_name,
         email: user[0].email,
         phone_number: user[0].phone_number,
-        blood_group:user[0].blood_group,
+        blood_group: user[0].blood_group,
         gender: user[0].gender,
-        dob:user[0].DOB,
+        dob: user[0].DOB,
       });
   }
 );
 
+// registration step 2
 app.get(
   "/pretest-step2.html",
   [checkIfLogged, checkIfdataEntry],
   async (req, res) => {
-    var p=" ";
+    var p = " ";
     var user = req.session.user_exist;
     if (typeof user === "undefined") p = " ";
-    else p=user[0].blood_group;
+    else p = user[0].blood_group;
     res.render("forms/pretest-step2", {
       logged: req.session.admin,
       full_name: "",
@@ -91,17 +94,18 @@ app.get(
   }
 );
 
+// donation step 3
 app.get(
   "/donation-step3.html",
   [checkIfLogged, checkIfdataEntry],
   async (req, res) => {
     res.render("forms/donation-step3", {
       logged: req.session.admin,
-      
     });
   }
 );
 
+// get
 app.get("/index.html", async (req, res) => {
   flag = 0;
   if (typeof req.session.success === "undefined" || req.session.success == 0)
@@ -173,7 +177,7 @@ app.get("/request_now.html", checkIfLogged, async (req, res) => {
   res.render("request_now", { logged: req.session.admin });
 });
 
-// long code
+// long code admin/index
 app.get(
   "/admin/index_admin.html",
   [checkIfLogged, checkIfAdmin],
@@ -211,7 +215,7 @@ app.get(
                           if (error) {
                             console.log(error);
                           } else {
-                            req.session.oncoming = result;
+                            req.session.Upcoming = result;
                             await db.query(
                               "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_start > ? AND camp_end < ?",
                               [date, date],
@@ -226,8 +230,8 @@ app.get(
                                     reqcount: req.session.reqcount,
                                     peoplecount: req.session.peoplecount,
                                     ended: req.session.ended,
-                                    oncoming: req.session.oncoming,
-                                    ongoing: req.session.oncoming,
+                                    Upcoming: req.session.Upcoming,
+                                    ongoing: req.session.Upcoming,
                                   });
                                 }
                               }
@@ -247,6 +251,7 @@ app.get(
   }
 );
 
+// admin/admin-people.html
 app.get(
   "/admin/admin-people.html",
   [checkIfLogged, checkIfAdmin],
@@ -265,6 +270,7 @@ app.get(
   }
 );
 
+// admin - request
 app.get(
   "/admin/admin-request.html",
   [checkIfLogged, checkIfAdmin],
@@ -297,7 +303,7 @@ app.get(
 //   var datetime = new Date();
 //   var date = datetime.toISOString().slice(0, 10);
 
-//   if (req.body.filter == "oncoming") {
+//   if (req.body.filter == "Upcoming") {
 //     query = "SELECT * FROM blood_donation_camp WHERE camp_start > ?";
 //   } else if (req.body.filter == "ongoing") {
 //     query =
@@ -406,7 +412,6 @@ app.get(
 // });
 app.get("/showrequest/:id", [checkIfLogged, checkIfAdmin], async (req, res) => {
   {
-    
     await db.query(
       "SELECT * FROM request WHERE REID = ?",
       req.params.id,
@@ -422,10 +427,30 @@ app.get("/showrequest/:id", [checkIfLogged, checkIfAdmin], async (req, res) => {
 });
 
 app.get(
+  "/showdonation/:id",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    {
+      await db.query(
+        "SELECT  full_name , donation_record.DID , BBID , blood_type , donation_date , blood_test1 , blood_test2, blood_test3 FROM donation_record, people WHERE donation_record.DID = ? AND donation_record.PID = people.PID",
+        req.params.id,
+        function (error, result, fields) {
+          if (error) {
+            console.log(error);
+          } else {
+            req.session.DID = result[0].DID;
+            res.render("admin/full-donation", { donation: result });
+          }
+        }
+      );
+    }
+  }
+);
+
+app.get(
   "/admin/admin-donation.html",
   [checkIfLogged, checkIfAdmin],
   async (req, res) => {
-
     await db.query(
       "SELECT * FROM donation_record,people,blood_donation_camp WHERE donation_record.PID=people.PID AND donation_record.BDCID=blood_donation_camp.BDCID",
       function (error, result, fields) {
@@ -444,8 +469,8 @@ app.get(
 
 app.get(
   "/admin-donation.html/:id",
-  [checkIfLogged,checkIfAdmin],
-  async (req,res) => {
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
     await db.query(
       "SELECT * FROM donation_record,people WHERE donation_record.BDCID=? AND donation_record.PID=people.PID",
       req.params["id"],
@@ -459,16 +484,28 @@ app.get(
           });
         }
       }
-
-    )
+    );
   }
-)
+);
 
 app.get(
   "/admin/admin-bloodbank.html",
   [checkIfLogged, checkIfAdmin],
   async (req, res) => {
-    res.render("admin/admin-bloodbank", { logged: req.session.admin });
+    await db.query(
+      "SELECT * FROM blood_bank",
+      async (error, result, fields) => {
+        if (error) {
+          console.log(error);
+          res.redirect("/");
+        } else {
+          res.render("admin/admin-bloodbank", {
+            logged: req.session.admin,
+            banks: result,
+          });
+        }
+      }
+    );
   }
 );
 
@@ -496,11 +533,7 @@ app.get(
   }
 );
 
-
 /* all links redirected from filter */
-
-
-
 
 /* end --------------------- */
 
@@ -513,7 +546,6 @@ app.use("/donate", require("./routes/donate"));
 app.use("/admin", require("./routes/admin"));
 
 app.use("/edit", require("./routes/edit"));
-
 
 server.listen(3000 || PORT, function (req, res) {
   console.log("Running on Server");

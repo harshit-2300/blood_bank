@@ -57,7 +57,8 @@
                                 </div>
                             </div>
                             <!-- form -->
-                            <form action="#" method="post">
+                            <form action="/edit/edit-camp" method="post">
+                                <input type="hidden" name="BDCID" value="<%= request[0].BDCID %>">
                                 <table class="table table-striped record">
                                     <tr>
                                         <td>Camp Id</td>
@@ -65,12 +66,12 @@
                                     </tr>
                                     <tr>
                                         <td>Start Date</td>
-                                        <td><input type="date" value="<%=request[0].camp_start.getFullYear()%>-<%=('0'+(request[0].camp_start.getMonth()+1)).slice(-2)%>-<%=('0'+(request[0].camp_start.getDate())).slice(-2)%>"  required
+                                        <td><input name="camp_start" type="date" value="<%=request[0].camp_start.getFullYear()%>-<%=('0'+(request[0].camp_start.getMonth()+1)).slice(-2)%>-<%=('0'+(request[0].camp_start.getDate())).slice(-2)%>"  required
                                                 disabled class="editable"></td>
                                     </tr>
                                     <tr>
                                         <td>End Date</td>
-                                        <td><input type="date" value="<%=request[0].camp_end.getFullYear()%>-<%=('0'+(request[0].camp_end.getMonth()+1)).slice(-2)%>-<%=('0'+(request[0].camp_end.getDate())).slice(-2)%>" required
+                                        <td><input type="date" name="camp_end" value="<%=request[0].camp_end.getFullYear()%>-<%=('0'+(request[0].camp_end.getMonth()+1)).slice(-2)%>-<%=('0'+(request[0].camp_end.getDate())).slice(-2)%>" required
                                                 disabled class="editable"></td>
                                     </tr>
                                     <tr>
@@ -101,7 +102,7 @@
                                     </tr>
                                     <tr>
                                         <td>Comments</td>
-                                        <td><textarea style="width:500px;" name="purpose" disabled
+                                        <td><textarea style="width:500px;" name="comments" disabled
                                                 class="editable"><%= request[0].comments %></textarea></td>
                                     </tr>
 
@@ -112,9 +113,9 @@
                                             id="btn-edit">Edit</button>
                                         <button type="button" onclick="cancel_btn()" class="genric-btn info"
                                             id="btn-cancel">Cancel</button>
-                                        <button type="button" onclick="update_btn()" class="genric-btn info"
+                                        <button type="submit" name="submit" value="update" onclick="return confirm('Do you really want to update?');" class="genric-btn info"
                                             id="btn-update">Update</button>
-                                        <button type="button" onclick="delete_btn()" class="genric-btn danger"
+                                        <button type="submit" name="submit" value="delete" onclick="return confirm('Do you really want to delete?');" class="genric-btn danger"
                                             id="btn-delete">Delete</button>
                                     </div>
                                 </div>
