@@ -432,14 +432,21 @@ app.get(
   async (req, res) => {
     {
       await db.query(
-        "SELECT  full_name , donation_record.DID , BBID , blood_type , donation_date , blood_test1 , blood_test2, blood_test3 FROM donation_record, people WHERE donation_record.DID = ? AND donation_record.PID = people.PID",
-        req.params.id,
+        "SELECT  * FROM donation_record, people WHERE donation_record.DID = ? AND donation_record.PID = people.PID",
+        req.params["id"],
         function (error, result, fields) {
           if (error) {
             console.log(error);
-          } else {
-            req.session.DID = result[0].DID;
-            res.render("admin/full-donation", { donation: result });
+          } else if(result.length==0)  {
+            res.redirect("/admin/admin-donation.html");
+          }
+          else{
+            
+            console.log(result);
+            res.render("admin/full-donation", {
+              logged:req.session.admin,
+               donation: result,
+            DID:req.params["id"] ,});
           }
         }
       );
