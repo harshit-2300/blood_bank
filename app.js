@@ -496,6 +496,14 @@ app.get(
   }
 );
 
+app.get(
+  "/admin/full-donation.html",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    res.render("admin/full-donation", { logged: req.session.admin });
+  }
+);
+
 
 /* all links redirected from filter */
 
