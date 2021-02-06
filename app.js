@@ -215,7 +215,7 @@ app.get(
                           if (error) {
                             console.log(error);
                           } else {
-                            req.session.oncoming = result;
+                            req.session.Upcoming = result;
                             await db.query(
                               "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_start > ? AND camp_end < ?",
                               [date, date],
@@ -230,8 +230,8 @@ app.get(
                                     reqcount: req.session.reqcount,
                                     peoplecount: req.session.peoplecount,
                                     ended: req.session.ended,
-                                    oncoming: req.session.oncoming,
-                                    ongoing: req.session.oncoming,
+                                    Upcoming: req.session.Upcoming,
+                                    ongoing: req.session.Upcoming,
                                   });
                                 }
                               }
@@ -303,7 +303,7 @@ app.get(
 //   var datetime = new Date();
 //   var date = datetime.toISOString().slice(0, 10);
 
-//   if (req.body.filter == "oncoming") {
+//   if (req.body.filter == "Upcoming") {
 //     query = "SELECT * FROM blood_donation_camp WHERE camp_start > ?";
 //   } else if (req.body.filter == "ongoing") {
 //     query =

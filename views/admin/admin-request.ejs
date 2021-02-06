@@ -146,7 +146,7 @@
 								<td><%=requests[i].full_name%></td>
 								<td><%=requests[i].blood_group%></td>
 								<td><%=requests[i].quantity%></td>
-								<td><%=requests[i].request_date%></td>
+								<td><%=('0'+(requests[i].request_date.getDate())).slice(-2)%>-<%=('0'+(requests[i].request_date.getMonth()+1)).slice(-2)%>-<%=requests[i].request_date.getFullYear()%></td>
 							</tr>
 							<%}%>
 
