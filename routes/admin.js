@@ -118,7 +118,7 @@ router.post("/otp", async (req, res) => {
 
 router.post("/add-camp", async (req, res) => {
   var camp = {
-    camp_name:req.body.camp_name,
+    camp_name: req.body.camp_name,
     camp_start: req.body.start_date,
     camp_end: req.body.end_date,
     location: req.body.location,
@@ -238,7 +238,7 @@ router.post("/full-people/filter", async (req, res) => {
   });
 });
 
-router.post("/full-people/filter", async (req, res) => {
+router.post("/full-request/filter", async (req, res) => {
   var query;
 
   var accepted;
@@ -258,7 +258,7 @@ router.post("/full-people/filter", async (req, res) => {
     query = query + " ORDER BY request_date DESC";
   }
 
-  await db.query(query, user_type, async (error, result, fields) => {
+  await db.query(query, accepted, async (error, result, fields) => {
     if (error) {
       console.log(error);
     } else {
@@ -271,34 +271,39 @@ router.post("/full-people/filter", async (req, res) => {
   });
 });
 
+// donation filter
+router.get("/full-donation/filter", async (req, res) => {
+  res.redirect("/admin/admin-donation.html");
+});
+
 router.post("/full-donation/filter", async (req, res) => {
   var query;
 
   var accepted;
   if (req.body.filter == "negative") {
-    query = "SELECT * FROM donation_record WHERE accepted = ?";
-    accepted = 0;
-  } else if (req.body.filter == "acc") {
-    query = "SELECT * FROM request WHERE accepted = ?";
-    accepted = 1;
+    query = "SELECT * FROM donation_record WHERE donation_step = ?";
+    accepted = [-1];
+  } else if (req.body.filter == "positive") {
+    query = "SELECT * FROM donation_record WHERE  donation_step = ?";
+    accepted = [3];
   } else {
-    query = "SELECT * FROM request WHERE accepted = ?";
-    accepted = -1;
+    query =
+      "SELECT * FROM donation_record WHERE donation_step = ? OR donation_step = ?";
+    accepted = [1, 2];
   }
   if ((req.body.order = "asc")) {
-    query = query + " ORDER BY request_date ASC";
+    query = query + " ORDER BY donation_date ASC";
   } else {
-    query = query + " ORDER BY request_date DESC";
+    query = query + " ORDER BY donation_date DESC";
   }
 
-  await db.query(query, user_type, async (error, result, fields) => {
+  await db.query(query, accepted, async (error, result, fields) => {
     if (error) {
       console.log(error);
     } else {
-      res.render("admin/admin-request", {
+      res.render("admin/admin-donation", {
         logged: req.session.admin,
-        requests: result,
-        status: "pending",
+        donations: result,
       });
     }
   });
@@ -309,6 +314,7 @@ router.get("/add-bloodbank.html", async (req, res) => {
     logged: req.session.admin,
   });
 });
+
 router.post("/add-bloodbank.html", async (req, res) => {
   var bloodbank = {
     LID: 1,
@@ -330,6 +336,7 @@ router.post("/add-bloodbank.html", async (req, res) => {
     }
   );
 });
+
 module.exports = router;
 
 // var isMatch = await bcrypt.compare(password, user.password);
