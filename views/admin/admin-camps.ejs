@@ -110,13 +110,13 @@
 							<tr>
 								<td>
 									<% if(camps[i].camp_start > new Date()){ %>
-											<a href="full-camps.html/<%=camps[i].BDCID%>" target="_blank" class="r-status-acc ml-15 mr-15">upcoming</a>
+											<a href="/admin/full-camps.html/<%=camps[i].BDCID%>" target="_blank" class="r-status-acc ml-15 mr-15">upcoming</a>
 									<%}
 									  else if(camps[i].camp_end > new Date()){ %>
-											<a href="full-camps.html/<%=camps[i].BDCID%>" target="_blank" class="r-status-new ml-15 mr-15">ongoing</a>
+											<a href="/admin/full-camps.html/<%=camps[i].BDCID%>" target="_blank" class="r-status-new ml-15 mr-15">ongoing</a>
 									<%}
 										else { %>
-											<a href="full-camps.html/<%=camps[i].BDCID%>" target="_blank" class="r-status-rej ml-15 mr-15">ended</a>
+											<a href="/admin/full-camps.html/<%=camps[i].BDCID%>" target="_blank" class="r-status-rej ml-15 mr-15">ended</a>
 									<%}%>
 								</td>
 								<td><%=camps[i].BDCID%></td>
