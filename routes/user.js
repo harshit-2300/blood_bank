@@ -113,8 +113,10 @@ router.get("/login", function (req, res) {
 });
 
 router.get("/login-redirect", async (req, res) => {
+  var today=new Date();
   await db.query(
-    "SELECT * FROM Blood_donation_camp",
+    "SELECT * FROM Blood_donation_camp WHERE camp_start<= ? AND camp_end >= ?",
+    [today,today],
     function (error, result, fields) {
       if (error) {
         console.log(error);

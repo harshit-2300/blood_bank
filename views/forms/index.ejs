@@ -103,12 +103,12 @@
                 </div>
             </div>
             <!-- skip scan QR, we can directly get PID, then redirect to appropriate step -->
-        
-            
+
+
       <form id="" action="/donate/search" method="post" class="login-form">
           <div class="row d-flex justify-content-start align-items-center">
             <div class="col-6 d-flex align-items-center">
-              <input type="text" name="phone" placeholder="Search via Phone number" required>
+              <input type="text" name="phone" placeholder="Search via Phone number" pattern="[1-9]{1}[0-9]{9}" title="Must contain 10 digits 0-9 , first digit can't be 0" autocomplete="off" required>
           </div>
           <div class="col-6 d-flex align-items-center mb-20">
               <button type="submit" class="btn-don-req">Search</button>

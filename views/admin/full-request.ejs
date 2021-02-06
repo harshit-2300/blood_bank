@@ -51,7 +51,7 @@
 								<div class="col-lg-12">
 									<!-- Section Tittle -->
 									<div class="section-tittle mb-50">
-										<h2>Request</h2>
+										<h2>Request <%= request[0].REID %></h2>
 										<p>Verify request and take appropriate step.</p>
 									</div>
 								</div>
@@ -59,11 +59,10 @@
 							<!-- form -->
 							<form  action="/edit/edit-request" method="post">
 								<table class="table table-striped record">
-								
-									<tr>
-										<td>REID</td>
-										<td><input type="text" style="width:500px;" name="REID" value="<%=request[0].REID%>" class="editable" disabled  ></td>
-									</tr>
+
+									
+										<input type="hidden" style="width:500px;" name="REID" value="<%=request[0].REID%>"   >
+									
 
 
 									<tr>
@@ -88,7 +87,7 @@
 									</tr>
 									<tr>
 										<td>Account Requested</td>
-										<td><a href="#" target="_self">link to profile</a></td>
+										<td><a href="/admin/full-people.html/20" target="_self">link to profile</a></td>
 									</tr>
 									<tr>
 										<td>Purpose</td>
@@ -127,7 +126,7 @@
 			</div>
 		</section>
 	</main>
-    
+
 
 	<footer>
 	</footer>
