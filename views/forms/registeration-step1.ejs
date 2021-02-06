@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Transportation HTML-5 Template </title>
+	<title>Registration-Step-1</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
@@ -135,25 +135,25 @@
                             </div>
                         </div>
                         <!-- form -->
-                        <form action="/donate/registeration-step1" method="post" class="login-form">
+                        <form autocomplete="off" action="/donate/registeration-step1" method="post" class="login-form">
                             <div class="row ">
                                 <div class="col-lg-12">
                                     <div class="input-form">
-                                        <input type="text" name="name" value="<%=full_name%>" placeholder="Full Name (required)" required>
+                                        <input type="text" name="name" value="<%=full_name%>" placeholder="Full Name (required)" pattern="^[a-zA-Z]+(\s[a-zA-Z]+)?$" title="Name only contains Alphabets and blank space" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row ">
                                 <div class="col-lg-12">
                                     <div class="input-form">
-                                        <input type="text" name="phone" value="<%=phone_number%>" placeholder="Phone Number (required)" required>
+                                        <input type="text" name="phone" value="<%=phone_number%>" placeholder="Phone Number (required)"  pattern="[1-9]{1}[0-9]{9}" title="Must contain 10 digits 0-9 , first digit can't be 0" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="input-form">
-                                        <input type="text" name="email" value="<%=email%>" placeholder="Email ID">
+                                        <input type="email" name="email" value="<%=email%>" placeholder="Email ID">
                                     </div>
                                 </div>
                             </div>
@@ -211,8 +211,11 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="input-form">
-																			<%var tdob = new Date(dob);%>
-																			<input type="date" name="dob" value="<%=tdob.getFullYear()%>-<%=('0'+(tdob.getMonth()+1)).slice(-2)%>-<%=('0'+(tdob.getDate())).slice(-2)%>">
+										<% let max_date = new Date();
+										   max_date = (max_date.getFullYear()-12)+'-'+('0'+(max_date.getMonth()+1)).slice(-2)+'-'+('0'+(max_date.getDate())).slice(-2);
+										%>
+										<%var tdob = new Date(dob);%>
+										<input type="date" name="dob" value="<%=tdob.getFullYear()%>-<%=('0'+(tdob.getMonth()+1)).slice(-2)%>-<%=('0'+(tdob.getDate())).slice(-2)%>" max="<%=max_date%>">
                                     </div>
                                 </div>
                             </div>
@@ -220,12 +223,12 @@
                                 <!-- Password -->
                                 <div class="col-12">
                                     <div class="input-form">
-                                        <input type="text" name="height"placeholder="Height ( in cms )" required>
+                                        <input type="text" name="height"placeholder="Height ( in cms )"  pattern="[1-9]{1}[0-9]" title="Must digits 0-9 , first digit can't be 0" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="input-form">
-                                        <input type="text" name="weight" placeholder="Weight ( in kgs )" required>
+                                        <input type="text" name="weight" placeholder="Weight ( in kgs )" pattern="[1-9]{1}[0-9]" title="Must digits 0-9 , first digit can't be 0" required>
                                     </div>
                                 </div>
                             </div>
