@@ -202,7 +202,7 @@ app.get(
 
                 await db.query(
                   "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_end < ?",
-                  date,
+                  datetime,
                   async (error, result, field) => {
                     if (error) {
                       console.log(error);
@@ -210,20 +210,20 @@ app.get(
                       req.session.ended = result;
                       await db.query(
                         "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_start > ?",
-                        date,
+                        datetime,
                         async (error, result, fields) => {
                           if (error) {
                             console.log(error);
                           } else {
                             req.session.Upcoming = result;
                             await db.query(
-                              "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_start > ? AND camp_end < ?",
-                              [date, date],
+                              "SELECT COUNT(BDCID) AS reqs FROM blood_donation_camp WHERE camp_start < ? AND camp_end > ?",
+                              [datetime, datetime],
                               async (error, results, fields) => {
                                 if (error) {
                                   console.log(error);
                                 } else {
-                                  req.session.ongoing = result;
+                                  req.session.ongoing = results;
 
                                   res.render("admin/index_admin", {
                                     logged: req.session.admin,
@@ -231,7 +231,7 @@ app.get(
                                     peoplecount: req.session.peoplecount,
                                     ended: req.session.ended,
                                     Upcoming: req.session.Upcoming,
-                                    ongoing: req.session.Upcoming,
+                                    ongoing: req.session.ongoing,
                                   });
                                 }
                               }
@@ -432,14 +432,21 @@ app.get(
   async (req, res) => {
     {
       await db.query(
-        "SELECT  full_name , donation_record.DID , BBID , blood_type , donation_date , blood_test1 , blood_test2, blood_test3 FROM donation_record, people WHERE donation_record.DID = ? AND donation_record.PID = people.PID",
-        req.params.id,
+        "SELECT  * FROM donation_record, people WHERE donation_record.DID = ? AND donation_record.PID = people.PID",
+        req.params["id"],
         function (error, result, fields) {
           if (error) {
             console.log(error);
-          } else {
-            req.session.DID = result[0].DID;
-            res.render("admin/full-donation", { donation: result });
+          } else if(result.length==0)  {
+            res.redirect("/admin/admin-donation.html");
+          }
+          else{
+            
+            console.log(result);
+            res.render("admin/full-donation", {
+              logged:req.session.admin,
+               donation: result,
+            DID:req.params["id"] ,});
           }
         }
       );
