@@ -15,49 +15,83 @@ const router = express.Router();
 const upload = require("./middleware/multerMiddleware");
 
 router.post("/edit-request", async (req, res) => {
-    
-    if(req.body.submit=='update'){
-        await db.query(
-            "UPDATE request SET blood_group=?,quantity=?,accepted=? WHERE REID=? ;",
-            [
-              req.body.blood_group,
-              req.body.quantity,
-              req.body.status,
-              req.body.REID,
-            ],
-            function (error, results, fields) {
-              if (error) {
-                console.log(error);
-                res.send("error");
-              } else {
-                console.log("here at update in request ");
-                console.log("Rows affected:", results.affectedRows);
-                res.redirect("/admin/admin-request.html");
-              }
-            }
-          );
-    }
-    else
-    {
-        await db.query(
-            "DELETE FROM request WHERE REID=?",
-            req.body.REID,
-            function (error, results, fields) {
-              if (error) {
-                console.log(error);
-                res.send("error");
-              } else {
-                console.log("here at delete in request ");
-                console.log("Rows affected:", results.affectedRows);
-                res.redirect("/admin/admin-request.html");
-              }
-            }
-          );
-    }
-    console.log("submit=",req.body.submit);
-    console.log(req.body);
-    
-    
-} ) 
+  if (req.body.submit == "update") {
+    await db.query(
+      "UPDATE request SET blood_group=?,quantity=?,accepted=? WHERE REID=? ;",
+      [req.body.blood_group, req.body.quantity, req.body.status, req.body.REID],
+      function (error, results, fields) {
+        if (error) {
+          console.log(error);
+          res.send("error");
+        } else {
+          console.log("here at update in request ");
+          console.log("Rows affected:", results.affectedRows);
+          res.redirect("/admin/admin-request.html");
+        }
+      }
+    );
+  } else {
+    await db.query(
+      "DELETE FROM request WHERE REID=?",
+      req.body.REID,
+      function (error, results, fields) {
+        if (error) {
+          console.log(error);
+          res.send("error");
+        } else {
+          console.log("here at delete in request ");
+          console.log("Rows affected:", results.affectedRows);
+          res.redirect("/admin/admin-request.html");
+        }
+      }
+    );
+  }
+  console.log("submit=", req.body.submit);
+  console.log(req.body);
+});
+
+router.post("/edit-donation", async (req, res) => {
+  if (req.body.submit == "update") {
+    await db.query(
+      "UPDATE donation_record SET BBID=?,blood_type=?,donation_date=? , blood_test1 = ? , blood_test2=?, blood_test3=? WHERE DID=? ;",
+      [
+        req.body.bbid,
+        req.body.blood_type,
+        req.body.date,
+        req.body.blood_test1,
+        req.body.blood_test2,
+        req.body.blood_test3,
+        req.session.DID,
+      ],
+      function (error, results, fields) {
+        if (error) {
+          console.log(error);
+          res.send("error");
+        } else {
+          console.log("here at update in request ");
+          console.log("Rows affected:", results.affectedRows);
+          res.redirect("/admin/admin-donation.html");
+        }
+      }
+    );
+  } else {
+    await db.query(
+      "DELETE FROM donation_record WHERE DID=?",
+      req.session.DID,
+      function (error, results, fields) {
+        if (error) {
+          console.log(error);
+          res.send("error");
+        } else {
+          console.log("here at delete in request ");
+          console.log("Rows affected:", results.affectedRows);
+          res.redirect("/admin/admin-donation.html");
+        }
+      }
+    );
+  }
+  console.log("submit=", req.body.submit);
+  console.log(req.body);
+});
 
 module.exports = router;

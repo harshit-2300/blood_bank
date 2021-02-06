@@ -49,7 +49,7 @@
 					<div class="container">
 						<div class="row justify-content-start">
 							<p class="col-xs-3 mr-150">&#10227;</p>
-							<p class="col-xs-3 mr-150">Total BloodBanks :5</p>
+							<p class="col-xs-3 mr-150">Total BloodBanks :<%=banks.length%></p>
 							<p class="col-xs-3 mr-150"><a href="/admin/add-bloodbank.html" target="_blank" class="btn-link">Add New Blood bank</a></p>
 						</div>
 					</div>
@@ -57,13 +57,13 @@
 				<div class="scroll-box" id="print-multi">
 					<script src="/assets/js/bloodbank-editor.js"></script>
 					<script>
-					max_bloodbank = 5; //number of records in BloodBank table
-					for(let i=0;i<max_bloodbank;i++){
+					max_bloodbank = <%=banks.length%>; //number of records in BloodBank table
+					for(var i=0;i<max_bloodbank;i++){
 						document.getElementById("print-multi").innerHTML += (`
 							<table class="table blood-bank-table record">
 								<tr>
 									<td class="bold">Blood Bank Name</td>
-									<td colspan="2"><input type="text" size="50" placeholder="Blood Bank Name" value="Name`+i+`" required disabled class="editable`+i+`"></td>
+									<td colspan="2"><input type="text" size="50" placeholder="<%=banks[i].branch_name%>"  required disabled class="editable`+i+`"></td>
 									<td>Contact Number : <input type="text" size="18" placeholder="Contact Number" value="+915161561515" required disabled class="editable`+i+`"></td>
 								</tr>
 								<tr>

@@ -412,7 +412,6 @@ app.get(
 // });
 app.get("/showrequest/:id", [checkIfLogged, checkIfAdmin], async (req, res) => {
   {
-    
     await db.query(
       "SELECT * FROM request WHERE REID = ?",
       req.params.id,
@@ -428,10 +427,30 @@ app.get("/showrequest/:id", [checkIfLogged, checkIfAdmin], async (req, res) => {
 });
 
 app.get(
+  "/showdonation/:id",
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
+    {
+      await db.query(
+        "SELECT  full_name , donation_record.DID , BBID , blood_type , donation_date , blood_test1 , blood_test2, blood_test3 FROM donation_record, people WHERE donation_record.DID = ? AND donation_record.PID = people.PID",
+        req.params.id,
+        function (error, result, fields) {
+          if (error) {
+            console.log(error);
+          } else {
+            req.session.DID = result[0].DID;
+            res.render("admin/full-donation", { donation: result });
+          }
+        }
+      );
+    }
+  }
+);
+
+app.get(
   "/admin/admin-donation.html",
   [checkIfLogged, checkIfAdmin],
   async (req, res) => {
-
     await db.query(
       "SELECT * FROM donation_record,people,blood_donation_camp WHERE donation_record.PID=people.PID AND donation_record.BDCID=blood_donation_camp.BDCID",
       function (error, result, fields) {
@@ -450,8 +469,8 @@ app.get(
 
 app.get(
   "/admin-donation.html/:id",
-  [checkIfLogged,checkIfAdmin],
-  async (req,res) => {
+  [checkIfLogged, checkIfAdmin],
+  async (req, res) => {
     await db.query(
       "SELECT * FROM donation_record,people WHERE donation_record.BDCID=? AND donation_record.PID=people.PID",
       req.params["id"],
@@ -465,10 +484,9 @@ app.get(
           });
         }
       }
-
-    )
+    );
   }
-)
+);
 
 app.get(
   "/admin/admin-bloodbank.html",
@@ -528,7 +546,6 @@ app.use("/donate", require("./routes/donate"));
 app.use("/admin", require("./routes/admin"));
 
 app.use("/edit", require("./routes/edit"));
-
 
 server.listen(3000 || PORT, function (req, res) {
   console.log("Running on Server");
