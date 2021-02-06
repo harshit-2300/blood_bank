@@ -56,21 +56,16 @@
 				</div>
 				<div class="scroll-box" id="print-multi">
 					<script src="/assets/js/bloodbank-editor.js"></script>
-					<script>
-					max_bloodbank = banks.length;
-					bank=banks;
-					 //number of records in BloodBank table
-					for(var i=0;i<bank.length;i++){
-						document.getElementById("print-multi").innerHTML += (`
+					<%for(var i=0;i < banks.length ; i++){%>
 							<table class="table blood-bank-table record">
 								<tr>
 									<td class="bold">Blood Bank Name</td>
-									<td colspan="2"><input type="text" size="50" placeholder="Blood bank name" value="`+bank[i].branch_name+`"  required disabled class="editable`+i+`"></td>
-									<td>Contact Number : <input type="text" size="18" placeholder="Contact Number" value="+915161561515" required disabled class="editable`+i+`"></td>
+									<td colspan="2"><input type="text" size="50" placeholder="Blood bank name" value="<%=banks[i].branch_name%>"  required disabled class="editable<%=i%>"></td>
+									<td>Contact Number : <input type="text" size="18" placeholder="Contact Number" value="+915161561515" required disabled class="editable<%=i%>"></td>
 								</tr>
 								<tr>
 									<td>Location</td>
-									<td colspan="3"><input type="text" size="90" placeholder="location" "value="location" required disabled class="editable`+i+`"></td>
+									<td colspan="3"><input type="text" size="90" placeholder="location" value="location" required disabled class="editable<%=i%>"></td>
 								</tr>
 								<tr>
 									<td>A+ : </td>
@@ -90,19 +85,18 @@
 									<td>Total-Rejected :</td>
 									<td><a href="./admin-bloodbag.html" target="_blank">link to bloodbags</a></td>
 								</tr>
-								<tr id="toggle-record`+i+`">
-									<td colspan="2"><button type="button" onclick="update_btn(`+i+`)" class="genric-btn info btn-update">Update</button></td>
-		              <td><button type="button" onclick="delete_btn(`+i+`)" class="genric-btn danger btn-delete">Delete</button></td>
+								<tr id="toggle-record<%=i%>">
+									<td colspan="2"><button type="button" onclick="update_btn(<%=i%>)" class="genric-btn info btn-update">Update</button></td>
+		              <td><button type="button" onclick="delete_btn(<%=i%>)" class="genric-btn danger btn-delete">Delete</button></td>
 									<td>
-										<button type="button" onclick="edit_btn(`+i+`)" class="genric-btn info circle btn-edit">Edit</button>
-										<button type="button" onclick="cancel_btn(`+i+`)" class="genric-btn info btn-cancel">Cancel</button>
+										<button type="button" onclick="edit_btn(<%=i%>)" class="genric-btn info circle btn-edit">Edit</button>
+										<button type="button" onclick="cancel_btn(<%=i%>)" class="genric-btn info btn-cancel">Cancel</button>
 									</td>
 								</tr>
 							</table>
-						`);
-						hide_all_btn([max_bloodbank,bank]); //initialize
-					}
-					</script>
+
+			 		<%}%>
+				<script>hide_all_btn(<%=banks.length%>); </script>
 				</div>
 			</div>
 		</section>
