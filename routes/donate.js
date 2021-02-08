@@ -88,8 +88,8 @@ router.post("/registeration-step1", getPid, (req, res) => {
   };
 
   db.query(
-    "INSERT INTO donor SET ?",
-    donor_user,
+    "INSERT INTO donor (PID,weight,height,next_donation_date,previous_sms_date) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE  weight=VALUES(weight),height=VALUES(height),next_donation_date=VALUES(next_donation_date),previous_sms_date=VALUES(previous_sms_date)",
+    [p,req.body.weight,req.body.height,next_date,today],
     function (error, results, fields) {
       if (error) {
         console.log(error);
