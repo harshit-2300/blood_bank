@@ -453,7 +453,7 @@ app.get(
           res.render("admin/received-record", {
             logged: req.session.admin,
             record: result,
-            REID:req.params["id"],
+            REID: req.params["id"],
           });
         }
       }
@@ -610,6 +610,57 @@ app.get(
     );
   }
 );
+
+// Birthday wish
+const schedule = require("node-schedule");
+
+const rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [0, new schedule.Range(0, 6)];
+rule.hour = 1;
+
+rule.minute = 1;
+
+var nodemailer = require("nodemailer");
+
+var transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "2019284@iiitdmj.ac.in",
+    pass: "mani284%&",
+  },
+});
+
+const job = schedule.scheduleJob(rule, async () => {
+  var datetime = new Date();
+  var bday = datetime.toISOString().slice(0, 10);
+  console.log(bday);
+  await db.query(
+    "SELECT email FROM people WHERE DOB = ?",
+    bday,
+    async (error, result, fields) => {
+      if (error) {
+        console.log(error);
+      } else {
+        for (var i = 0; i < result.length; i++) {
+          var mailOptions = {
+            from: "2019284@iiitdmj.ac.in",
+            to: result[i].email,
+            subject: "Happy Birthday",
+            text: "Happy Birthday",
+          };
+
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log("Email sent: " + info.response);
+            }
+          });
+        }
+      }
+    }
+  );
+});
 
 /* all links redirected from filter */
 
