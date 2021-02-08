@@ -62,24 +62,8 @@ router.post("/signup", checkIfUserExists, async (req, res) => {
           console.log(error);
           res.redirect("/");
         } else {
-          var otp = Math.floor(100000 + Math.random() * 900000);
-          req.session.otp = otp;
           req.session.email = users.email;
-          var mailOptions = {
-            from: "2019284@iiitdmj.ac.in",
-            to: req.session.email,
-            subject: "OTP",
-            text: otp.toString(),
-          };
-
-          transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-              console.log(error);
-            } else {
-              console.log("Email sent: " + info.response);
-              res.redirect("/user/otp");
-            }
-          });
+          res.redirect("/user/otp");
         }
       }
     );
@@ -87,24 +71,41 @@ router.post("/signup", checkIfUserExists, async (req, res) => {
 });
 
 router.get("/otp", async (req, res) => {
-  res.render("otp");
+  var otp = Math.floor(100000 + Math.random() * 900000);
+  req.session.otp = otp;
+  var mailOptions = {
+    from: "2019284@iiitdmj.ac.in",
+    to: req.session.email,
+    subject: "OTP",
+    text: req.session.otp.toString(),
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+      res.render("otp");
+    }
+  });
 });
 
 router.post("/otp", async (req, res) => {
   if (req.body.otp == req.session.otp) {
-    res.redirect("/user/login");
-  } else {
     await db.query(
-      "DELETE FROM people WHERE email = ?",
-      email,
-      function (err, res, fields) {
-        if (err) {
-          console.log(err);
-        } else {
+      "UPDATE people SET verified = ? WHERE email = ?",
+      [1, req.session.email],
+      async (error, result, fields) => {
+        if (error) {
+          console.log(error);
           res.redirect("/");
+        } else {
+          res.redirect("/user/login");
         }
       }
     );
+  } else {
+    res.redirect("/user/otp");
   }
 });
 var wrong = false;
@@ -113,10 +114,10 @@ router.get("/login", function (req, res) {
 });
 
 router.get("/login-redirect", async (req, res) => {
-  var today=new Date();
+  var today = new Date();
   await db.query(
     "SELECT * FROM Blood_donation_camp WHERE camp_start<= ? AND camp_end >= ?",
-    [today,today],
+    [today, today],
     function (error, result, fields) {
       if (error) {
         console.log(error);
@@ -163,6 +164,7 @@ router.post("/login", async (req, res) => {
         req.session.user_type = result[0].user_type;
         req.session.blood = result[0].blood_group;
         req.session.phone = result[0].phone_number;
+        req.session.otp = result[0].verified;
         wrong = false;
         res.redirect("/user/login-redirect");
       } else {

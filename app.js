@@ -174,7 +174,11 @@ app.get("/contact.html", async (req, res) => {
 });
 
 app.get("/request_now.html", checkIfLogged, async (req, res) => {
-  res.render("request_now", { logged: req.session.admin });
+  if (req.session.otp == 1) {
+    res.render("request_now", { logged: req.session.admin });
+  } else {
+    res.redirect("/user/otp");
+  }
 });
 
 // long code admin/index
