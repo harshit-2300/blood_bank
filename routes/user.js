@@ -7,6 +7,9 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const db = require("../config/db.js");
 
+// Validator
+const { check, validationResult } = require("express-validator");
+
 const PORT = process.env.PORT;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -36,39 +39,60 @@ var transporter = nodemailer.createTransport({
   },
 });
 
-router.post("/signup", checkIfUserExists, async (req, res) => {
-  var users = {
-    full_name: req.body.name,
-    blood_group: req.body.blood_type,
-    DOB: req.body.dob,
-    phone_number: req.body.phone,
-    email: req.body.email,
-    password: req.body.password,
-    verified: 0,
-    gender: req.body.gender,
-    user_type: req.body.user_type,
-  };
-  console.log(users);
+router.post(
+  "/signup",
+  [
+    checkIfUserExists,
+    check("name", "Please Enter Name").not().isEmpty(),
+    check("email", "Please eneter a valid email").isEmail(),
+    // password must be at least 5 chars long
+    check("password", "Enter pass of atleast  length of 6").isLength({
+      min: 6,
+    }),
+    check("gender", "Please Enter gender").not().isEmpty(),
+    check("dob", "Please Enter dob").not().isEmpty(),
+    check("phone", "Please Enter phone").not().isEmpty(),
+    check("blood_type", "Please Enter blood_type").not().isEmpty(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.redirect("/user/signup");
+    } else {
+      var users = {
+        full_name: req.body.name,
+        blood_group: req.body.blood_type,
+        DOB: req.body.dob,
+        phone_number: req.body.phone,
+        email: req.body.email,
+        password: req.body.password,
+        verified: 0,
+        gender: req.body.gender,
+        user_type: req.body.user_type,
+      };
+      console.log(users);
 
-  const salt = await bcrypt.genSalt(10);
-  users.password = await bcrypt.hash(req.body.password, salt);
-  msg = "";
-  {
-    await db.query(
-      "INSERT INTO people SET ?",
-      users,
-      function (error, results, fields) {
-        if (error) {
-          console.log(error);
-          res.redirect("/");
-        } else {
-          req.session.email = users.email;
-          res.redirect("/user/otp");
-        }
+      const salt = await bcrypt.genSalt(10);
+      users.password = await bcrypt.hash(req.body.password, salt);
+      msg = "";
+      {
+        await db.query(
+          "INSERT INTO people SET ?",
+          users,
+          function (error, results, fields) {
+            if (error) {
+              console.log(error);
+              res.redirect("/");
+            } else {
+              req.session.email = users.email;
+              res.redirect("/user/otp");
+            }
+          }
+        );
       }
-    );
+    }
   }
-});
+);
 
 router.get("/otp", async (req, res) => {
   var otp = Math.floor(100000 + Math.random() * 900000);
@@ -145,35 +169,53 @@ router.get("/signup", function (req, res) {
 
 //Handle POST user Login
 
-router.post("/login", async (req, res) => {
-  await db.query(
-    "SELECT * FROM people WHERE email = ?",
-    req.body.email,
-    async (error, result, fields) => {
-      if (result.length == 0) {
-        wrong = true;
-        res.redirect("/user/login");
-      }
-      var isMatch = await bcrypt.compare(req.body.password, result[0].password);
+router.post(
+  "/login",
+  [
+    check("email", "Please eneter a valid email").isEmail(),
+    // password must be at least 5 chars long
+    check("password", "Enter pass of atleast  length of 6").isLength({
+      min: 6,
+    }),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.redirect("/user/signup");
+    } else {
+      await db.query(
+        "SELECT * FROM people WHERE email = ?",
+        req.body.email,
+        async (error, result, fields) => {
+          if (result.length == 0) {
+            wrong = true;
+            res.redirect("/user/login");
+          }
+          var isMatch = await bcrypt.compare(
+            req.body.password,
+            result[0].password
+          );
 
-      if (isMatch) {
-        isLogged = true;
-        req.session.name = result[0].full_name;
-        req.session.user = result[0].PID;
-        req.session.admin = true;
-        req.session.user_type = result[0].user_type;
-        req.session.blood = result[0].blood_group;
-        req.session.phone = result[0].phone_number;
-        req.session.otp = result[0].verified;
-        wrong = false;
-        res.redirect("/user/login-redirect");
-      } else {
-        wrong = true;
-        res.redirect("/user/login");
-      }
+          if (isMatch) {
+            isLogged = true;
+            req.session.name = result[0].full_name;
+            req.session.user = result[0].PID;
+            req.session.admin = true;
+            req.session.user_type = result[0].user_type;
+            req.session.blood = result[0].blood_group;
+            req.session.phone = result[0].phone_number;
+            req.session.otp = result[0].verified;
+            wrong = false;
+            res.redirect("/user/login-redirect");
+          } else {
+            wrong = true;
+            res.redirect("/user/login");
+          }
+        }
+      );
     }
-  );
-});
+  }
+);
 
 router.post("/update/profile", async (req, res) => {
   await db.query(
