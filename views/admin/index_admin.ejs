@@ -123,16 +123,54 @@
 								<h3 class="card-title">Blood Bank</h3>
 								<table class="table record">
 									<tr>
-										<td>A+ : 102</td>
-										<td>AB+ : 235</td>
-										<td>B+ : 233</td>
-										<td>O+ : 312</td>
+										<td>A+ : <%for(var i=0;i<countsbags.length;i++){%>
+											<%if(countsbags[i].blood_type=='A+'){%>
+												<%=countsbags[i].reqs%>
+													<%}%>
+										
+														<%}%></td>
+										<td>AB+ :<%for(var i=0;i<countsbags.length;i++){%>
+											<%if(countsbags[i].blood_type=='AB+'){%>
+												<%=countsbags[i].reqs%>
+													<%}%>
+										
+														<%}%></td>
+										<td>B+ : <%for(var i=0;i<countsbags.length;i++){%>
+											<%if(countsbags[i].blood_type=='B+'){%>
+												<%=countsbags[i].reqs%>
+													<%}%>
+														<%}%></td>
+										<td>O+ : <%for(var i=0;i<countsbags.length;i++){%>
+											<%if(countsbags[i].blood_type=='O+'){%>
+												<%=countsbags[i].reqs%>
+													<%}%>
+														<%}%></td>
 									</tr>
 									<tr>
-											<td>A- : 12</td>
-										<td>AB- : 1</td>
-										<td>B- : 245</td>
-										<td>O- : 13</td>
+											<td>A- : <%for(var i=0;i<countsbags.length;i++){%>
+												<%if(countsbags[i].blood_type=='A-'){%>
+													<%=countsbags[i].reqs%>
+														<%}%>
+											
+															<%}%></td>
+										<td>AB- : <%for(var i=0;i<countsbags.length;i++){%>
+											<%if(countsbags[i].blood_type=='AB-'){%>
+												<%=countsbags[i].reqs%>
+													<%}%>
+										
+														<%}%></td>
+										<td>B- : <%for(var i=0;i<countsbags.length;i++){%>
+											<%if(countsbags[i].blood_type=='B-'){%>
+												<%=countsbags[i].reqs%>
+													<%}%>
+										
+														<%}%></td>
+										<td>O- : <%for(var i=0;i<countsbags.length;i++){%>
+											<%if(countsbags[i].blood_type=='O-'){%>
+												<%=countsbags[i].reqs%>
+													<%}%>
+										
+														<%}%></td>
 									</tr>
 								</table>
 								<a href="admin-bloodbank.html" >Blood Bank</a>

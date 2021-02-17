@@ -174,7 +174,11 @@ app.get("/contact.html", async (req, res) => {
 });
 
 app.get("/request_now.html", checkIfLogged, async (req, res) => {
-  res.render("request_now", { logged: req.session.admin });
+  if (req.session.otp == 1) {
+    res.render("request_now", { logged: req.session.admin });
+  } else {
+    res.redirect("/user/otp");
+  }
 });
 
 // long code admin/index
@@ -224,15 +228,27 @@ app.get(
                                   console.log(error);
                                 } else {
                                   req.session.ongoing = results;
+                                  await db.query(
+                                    "SELECT blood_type ,COUNT(DID) AS reqs FROM donation_record GROUP BY blood_type",
+                                    async (error, result, fields) => {
+                                      if (error) {
+                                        console.log(error);
+                                        res.redirect("/");
+                                      } else {
+                                        req.session.bagscount = result;
 
-                                  res.render("admin/index_admin", {
-                                    logged: req.session.admin,
-                                    reqcount: req.session.reqcount,
-                                    peoplecount: req.session.peoplecount,
-                                    ended: req.session.ended,
-                                    Upcoming: req.session.Upcoming,
-                                    ongoing: req.session.ongoing,
-                                  });
+                                        res.render("admin/index_admin", {
+                                          logged: req.session.admin,
+                                          reqcount: req.session.reqcount,
+                                          peoplecount: req.session.peoplecount,
+                                          ended: req.session.ended,
+                                          Upcoming: req.session.Upcoming,
+                                          ongoing: req.session.ongoing,
+                                          countsbags: req.session.bagscount,
+                                        });
+                                      }
+                                    }
+                                  );
                                 }
                               }
                             );
@@ -441,7 +457,7 @@ app.get(
           res.render("admin/received-record", {
             logged: req.session.admin,
             record: result,
-            REID:req.params["id"],
+            REID: req.params["id"],
           });
         }
       }
@@ -460,16 +476,15 @@ app.get(
         function (error, result, fields) {
           if (error) {
             console.log(error);
-          } else if(result.length==0)  {
+          } else if (result.length == 0) {
             res.redirect("/admin/admin-donation.html");
-          }
-          else{
-            
+          } else {
             console.log(result);
             res.render("admin/full-donation", {
-              logged:req.session.admin,
-               donation: result,
-            DID:req.params["id"] ,});
+              logged: req.session.admin,
+              donation: result,
+              DID: req.params["id"],
+            });
           }
         }
       );
@@ -599,6 +614,57 @@ app.get(
     );
   }
 );
+
+// Birthday wish
+const schedule = require("node-schedule");
+
+const rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [0, new schedule.Range(0, 6)];
+rule.hour = 1;
+
+rule.minute = 1;
+
+var nodemailer = require("nodemailer");
+
+var transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "2019284@iiitdmj.ac.in",
+    pass: "mani284%&",
+  },
+});
+
+const job = schedule.scheduleJob(rule, async () => {
+  var datetime = new Date();
+  var bday = datetime.toISOString().slice(0, 10);
+  console.log(bday);
+  await db.query(
+    "SELECT email FROM people WHERE DOB = ?",
+    bday,
+    async (error, result, fields) => {
+      if (error) {
+        console.log(error);
+      } else {
+        for (var i = 0; i < result.length; i++) {
+          var mailOptions = {
+            from: "2019284@iiitdmj.ac.in",
+            to: result[i].email,
+            subject: "Happy Birthday",
+            text: "Happy Birthday",
+          };
+
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log("Email sent: " + info.response);
+            }
+          });
+        }
+      }
+    }
+  );
+});
 
 /* all links redirected from filter */
 
